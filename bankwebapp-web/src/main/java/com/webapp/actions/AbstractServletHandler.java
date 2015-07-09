@@ -1,0 +1,75 @@
+package com.webapp.actions;
+
+import java.io.IOException;
+import java.io.Serializable;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.webapp.dao.AccountDao;
+import com.webapp.dao.CustomerDao;
+import com.webapp.dao.RoleDao;
+import com.webapp.dao.TransactionDao;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.dao.impl.RoleDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
+import com.webapp.services.DataService;
+import com.webapp.utils.WebappConstants;
+
+public abstract class AbstractServletHandler extends HttpServlet implements WebappConstants, Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private static CustomerDao customerDao;
+	private static AccountDao accountDao;
+	private static TransactionDao transactionDao;
+	private static RoleDao roleDao;
+
+	private static DataService dataService;
+
+	public AbstractServletHandler() {
+
+		this.customerDao = new CustomerDaoImpl();
+		this.accountDao = new AccountDaoImpl();
+		this.transactionDao = new TransactionDaoImpl();
+		this.roleDao = new RoleDaoImpl();
+		this.dataService = new DataService(getCustomerDao(), getRoleDao());
+
+	}
+
+	protected final void gotoToJSP(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.getRequestDispatcher("/recources/JSP/" + page).forward(request, response);
+	}
+
+	protected final void redirectRequest(String path, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect(request.getContextPath() + path);
+	}
+
+	public CustomerDao getCustomerDao() {
+		return customerDao;
+	}
+
+	public AccountDao getAccountDao() {
+		return accountDao;
+	}
+
+	public TransactionDao getTransactionDao() {
+		return transactionDao;
+	}
+
+	public DataService getDataService() {
+		return dataService;
+	}
+
+	public void setDataService(DataService dataService) {
+		this.dataService = dataService;
+	}
+
+	public RoleDao getRoleDao() {
+		return roleDao;
+	}
+
+}
