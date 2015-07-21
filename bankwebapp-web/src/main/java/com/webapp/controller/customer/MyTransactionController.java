@@ -19,11 +19,11 @@ public class MyTransactionController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Customer c = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
-		long idAccount = c.getIdCustomer();
+		long idCustomer = c.getIdCustomer();
 
-		request.setAttribute("accounts", getAccountDao().getAccountByIdCustomer(idAccount));
+		request.setAttribute("transactions", getTransactionService().findByIdCustomer(idCustomer));
 
-		gotoToJSP("customer/myAccounts.jsp", request, response);
+		gotoToJSP("customer/transactionHistory.jsp", request, response);
 
 	}
 }

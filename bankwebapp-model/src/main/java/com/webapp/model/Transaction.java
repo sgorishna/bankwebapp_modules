@@ -2,8 +2,7 @@ package com.webapp.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
 
 public class Transaction implements Serializable {
 
@@ -18,6 +17,12 @@ public class Transaction implements Serializable {
 	private long senderAccountNumber;
 
 	private long receiverAccountNumber;
+
+	private String senderName;
+
+	private String receiverName;
+
+	private String currency;
 
 	private BigDecimal amount;
 
@@ -87,6 +92,30 @@ public class Transaction implements Serializable {
 
 	public void setReceiverAccountNumber(long receiverAccountNumber) {
 		this.receiverAccountNumber = receiverAccountNumber;
+	}
+
+	public String getSenderName() {
+		return senderName;
+	}
+
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+
+	public String getReceiverName() {
+		return receiverName;
+	}
+
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 }

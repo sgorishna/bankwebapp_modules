@@ -34,7 +34,7 @@ public class LoginController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<Role> roles = getRoleDao().findAll();
+		List<Role> roles = getCommonService().findAllRoles();
 
 		request.setAttribute("roles", roles);
 

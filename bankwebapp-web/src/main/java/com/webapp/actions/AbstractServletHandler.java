@@ -8,34 +8,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webapp.dao.AccountDao;
-import com.webapp.dao.CustomerDao;
-import com.webapp.dao.RoleDao;
-import com.webapp.dao.TransactionDao;
-import com.webapp.dao.impl.AccountDaoImpl;
-import com.webapp.dao.impl.CustomerDaoImpl;
-import com.webapp.dao.impl.RoleDaoImpl;
-import com.webapp.dao.impl.TransactionDaoImpl;
+import com.webapp.services.AdminService;
+import com.webapp.services.CommonService;
+import com.webapp.services.CustomerService;
 import com.webapp.services.DataService;
+import com.webapp.services.TransactionService;
+import com.webapp.services.Impl.AdminServiceImpl;
+import com.webapp.services.Impl.CommonServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
+import com.webapp.services.Impl.DataServiceImpl;
+import com.webapp.services.Impl.TransactionServiceImpl;
 import com.webapp.utils.WebappConstants;
 
 public abstract class AbstractServletHandler extends HttpServlet implements WebappConstants, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static CustomerDao customerDao;
-	private static AccountDao accountDao;
-	private static TransactionDao transactionDao;
-	private static RoleDao roleDao;
+
+	private static AdminService adminService;
+	private static CommonService commonService;
+	private static CustomerService customerService;
+
+	private static TransactionService transactionService;
 
 	private static DataService dataService;
 
 	public AbstractServletHandler() {
 
-		this.customerDao = new CustomerDaoImpl();
-		this.accountDao = new AccountDaoImpl();
-		this.transactionDao = new TransactionDaoImpl();
-		this.roleDao = new RoleDaoImpl();
-		this.dataService = new DataService(getCustomerDao(), getRoleDao());
+		AbstractServletHandler.setAdminService(new AdminServiceImpl());
+		AbstractServletHandler.setCommonService(new CommonServiceImpl());
+		AbstractServletHandler.setCustomerService(new CustomerServiceImpl());
+		AbstractServletHandler.setTransactionService(new TransactionServiceImpl());
+		AbstractServletHandler.setDataService(new DataServiceImpl());
 
 	}
 
@@ -48,28 +51,44 @@ public abstract class AbstractServletHandler extends HttpServlet implements Weba
 		response.sendRedirect(request.getContextPath() + path);
 	}
 
-	public CustomerDao getCustomerDao() {
-		return customerDao;
+	public static AdminService getAdminService() {
+		return adminService;
 	}
 
-	public AccountDao getAccountDao() {
-		return accountDao;
+	public static void setAdminService(AdminService adminService) {
+		AbstractServletHandler.adminService = adminService;
 	}
 
-	public TransactionDao getTransactionDao() {
-		return transactionDao;
+	public static CommonService getCommonService() {
+		return commonService;
 	}
 
-	public DataService getDataService() {
+	public static void setCommonService(CommonService commonService) {
+		AbstractServletHandler.commonService = commonService;
+	}
+
+	public static CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public static void setCustomerService(CustomerService customerService) {
+		AbstractServletHandler.customerService = customerService;
+	}
+
+	public static TransactionService getTransactionService() {
+		return transactionService;
+	}
+
+	public static void setTransactionService(TransactionService transactionService) {
+		AbstractServletHandler.transactionService = transactionService;
+	}
+
+	public static DataService getDataService() {
 		return dataService;
 	}
 
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
-	}
-
-	public RoleDao getRoleDao() {
-		return roleDao;
+	public static void setDataService(DataService dataService) {
+		AbstractServletHandler.dataService = dataService;
 	}
 
 }

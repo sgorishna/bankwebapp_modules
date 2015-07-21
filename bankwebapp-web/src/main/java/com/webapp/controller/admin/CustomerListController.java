@@ -17,7 +17,7 @@ public class CustomerListController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("customers", getCustomerDao().findAll());
+		request.setAttribute("customers", getCustomerService().findAll());
 
 		gotoToJSP("admin/customerList.jsp", request, response);
 	}

@@ -21,7 +21,7 @@ public class AddAccountController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
-		Customer customer = getCustomerDao().findById(IdCustomer);
+		Customer customer = getCommonService().findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
 		gotoToJSP("admin/addAccount.jsp", request, response);
@@ -38,8 +38,8 @@ public class AddAccountController extends AbstractServletHandler {
 		account.setAccountNumber(Long.parseLong(request.getParameter("accountNumber")));
 		account.setBalance(new BigDecimal(request.getParameter("balance")));
 
-		getAccountDao().create(account);
-		request.setAttribute("accounts", getAccountDao().getAccountByIdCustomer(account.getIdCustomer()));
+		getAdminService().create(account);
+		request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(account.getIdCustomer()));
 		redirectRequest("/admin/accountList.php?IdCustomer=" + account.getIdCustomer(), request, response);
 
 	}

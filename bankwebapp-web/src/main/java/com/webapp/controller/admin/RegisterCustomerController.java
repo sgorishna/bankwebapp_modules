@@ -30,7 +30,7 @@ public class RegisterCustomerController extends AbstractServletHandler {
 		customer.setLogin(request.getParameter("login"));
 		customer.setPassword(request.getParameter("password"));
 
-		getCustomerDao().create(customer, selectedRoles);
+		getAdminService().create(customer, selectedRoles);
 
 		redirectRequest("/admin/customerList.php", request, response);
 

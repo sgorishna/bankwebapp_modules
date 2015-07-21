@@ -32,8 +32,8 @@ public class TransferFundsController extends AbstractServletHandler {
 
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
 
-		Account sender = getAccountDao().getAccountByAccountNumber(senderAccountNumber);
-		Account receiver = getAccountDao().getAccountByAccountNumber(receiverAccountNumber);
+		Account sender = getTransactionService().getAccountByAccountNumber(senderAccountNumber);
+		Account receiver = getTransactionService().getAccountByAccountNumber(receiverAccountNumber);
 
 		transaction.setIdAccountSender(sender.getIdAccount());
 		transaction.setIdAccountReceiver(receiver.getIdAccount());
@@ -42,7 +42,7 @@ public class TransferFundsController extends AbstractServletHandler {
 		transaction.setReceiverAccountNumber(receiverAccountNumber);
 		transaction.setAmount(amount);
 
-		getTransactionDao().create(transaction);
+		getTransactionService().create(transaction);
 
 		redirectRequest("/customer/myAccounts.php", request, response);
 	}

@@ -17,7 +17,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
-		Customer customer = getCustomerDao().findById(IdCustomer);
+		Customer customer = getCommonService().findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
 		gotoToJSP("admin/updateCustomer.jsp", request, response);
@@ -34,7 +34,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 		customer.setPassword(request.getParameter("password"));
 
 		customer.setIdCustomer(Long.parseLong(request.getParameter("idCustomer")));
-		getCustomerDao().update(customer, selectedRoles);
+		getAdminService().update(customer, selectedRoles);
 
 		redirectRequest("/admin/home.php", request, response);
 

@@ -130,8 +130,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("delete from customer where idCustomer=" + customer.getIdCustomer());
-
+			PreparedStatement preparedStatement = conn.prepareStatement("delete from customer where idCustomer= ?");
+			preparedStatement.setLong(1, customer.getIdCustomer());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -145,7 +145,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?" + " where idCustomer=?");
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -214,7 +214,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			connection = DBUtill.getConnection();
 			connection.setAutoCommit(false);
 
-			PreparedStatement preparedStatement = connection.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?" + " where idCustomer=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -225,7 +225,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			preparedStatement.setLong(6, customer.getIdCustomer());
 
-			PreparedStatement preparedStatement0 = connection.prepareStatement("select idRole from customer_role where idCustomer=" + customer.getIdCustomer());
+			PreparedStatement preparedStatement0 = connection.prepareStatement("select idRole from customer_role where idCustomer = ?");
+			preparedStatement0.setLong(1, customer.getIdCustomer());
 			rs = preparedStatement0.executeQuery();
 
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -240,7 +241,9 @@ public class CustomerDaoImpl implements CustomerDao {
 			String[] customerRoles = roles.toArray(new String[roles.size()]);
 
 			for (int i = 0; i < customerRoles.length; i++) {
-				PreparedStatement ps = connection.prepareStatement("delete from customer_role where idCustomer=" + customer.getIdCustomer() + " and idRole=" + customerRoles[i]);
+				PreparedStatement ps = connection.prepareStatement("delete from customer_role where idCustomer = ?  and idRole = ? ");
+				ps.setLong(1, customer.getIdCustomer());
+				ps.setString(2, customerRoles[i]);
 				ps.executeUpdate();
 
 			}

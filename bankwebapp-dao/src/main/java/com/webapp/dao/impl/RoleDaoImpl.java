@@ -1,6 +1,7 @@
 package com.webapp.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,14 +55,16 @@ public class RoleDaoImpl implements RoleDao {
 
 		List<Role> roleList = new ArrayList<Role>();
 
-		Statement stmt = null;
 		ResultSet rs = null;
 
 		try {
 
 			connection = DBUtill.getConnection();
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery("SELECT r.idRole, r.role FROM role r join customer_role cr on r.idRole = cr.idRole where cr.idCustomer=" + c.getIdCustomer());
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT r.idRole, r.role FROM role r join customer_role cr on r.idRole = cr.idRole where cr.idCustomer = ? ");
+
+			preparedStatement.setLong(1, c.getIdCustomer());
+			rs = preparedStatement.executeQuery();
+
 			while (rs.next()) {
 				Role role = new Role();
 				role.setIdRole(rs.getInt("idRole"));

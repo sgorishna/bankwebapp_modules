@@ -35,9 +35,9 @@ public class TransactionController extends AbstractServletHandler {
 		transaction.setReceiverAccountNumber(receiverAccountNumber);
 		transaction.setAmount(amount);
 
-		getTransactionDao().create(transaction);
+		getTransactionService().create(transaction);
 
-		Account account = getAccountDao().getAccountByAccountNumber(senderAccountNumber);
+		Account account = getTransactionService().getAccountByAccountNumber(senderAccountNumber);
 
 		redirectRequest("/listAccounts.php?IdCustomer=" + account.getIdCustomer(), request, response);
 	}

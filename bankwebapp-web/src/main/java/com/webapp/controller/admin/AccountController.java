@@ -17,7 +17,7 @@ public class AccountController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("accounts", getAccountDao().getAccountByIdCustomer(Long.parseLong(request.getParameter("IdCustomer"))));
+		request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(Long.parseLong(request.getParameter("IdCustomer"))));
 
 		gotoToJSP("admint/listAccounts.jsp", request, response);
 

@@ -17,9 +17,9 @@ public class DeleteCustomerController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Customer customer = new Customer();
-		customer = getCustomerDao().findById(Long.parseLong(request.getParameter("IdCustomer")));
+		customer = getCommonService().findById(Long.parseLong(request.getParameter("IdCustomer")));
 
-		getCustomerDao().delete(customer);
+		getAdminService().delete(customer);
 
 		redirectRequest("/admin/customerList.php", request, response);
 	}
