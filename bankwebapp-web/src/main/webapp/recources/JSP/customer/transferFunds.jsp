@@ -6,20 +6,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
-<title>Add new customer</title>
+<title><fmt:message key="TRANSFER_FUNDS" /></title>
 </head>
 <body>
  
 
     <form method="POST" action='transferFunds.php' name="formUTransferMoney" >
-        From account : <input type="text"  name="senderAccountNumber"
+        <fmt:message key="FROM_ACCOUNT" /> : <input type="text"  name="senderAccountNumber"
             value="<c:out value="${param.accountNumber}" />" /> <br /> 
-        To account : <input
+        <fmt:message key="TO_ACCOUNT" /> : <input
             type="text" name="receiverAccountNumber" /> <br /> 
-            Amount : <input
+            <fmt:message key="AMOUNT" /> : <input
             type="text" name="amount" /> <br /> 
             
-             Comments : <input
+             <fmt:message key="COMMENTS" /> : <input
             type="text" name="comments" /> <br /> 
        
           <input

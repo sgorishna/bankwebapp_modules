@@ -6,21 +6,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Show All Customers</title>
+<title><fmt:message key="SHOW_ALL_CUSTOMERS" /></title>
 </head>
 <body>
     <table border=1>
         <thead>
             <tr>
-                <th>Customer Id</th>
-                <th>Login</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>Gender</th>
+                <th><fmt:message key="ID_CUSTOMER" /></th>
+                <th><fmt:message key="LOGIN" /></th>
+                <th><fmt:message key="PASSWORD" /></th>
+                <th><fmt:message key="NAME" /></th>
+                <th><fmt:message key="GENDER" /></th>
                
-                <th>Created</th>
-                <th>Updated</th>
-                <th colspan=3>Action</th>
+                <th><fmt:message key="CREATED" /></th>
+                <th><fmt:message key="UPDATED" /></th>
+                <th colspan=3><fmt:message key="ACTION" /></th>
             </tr>
         </thead>
         <tbody>
@@ -34,27 +34,27 @@
                     
                     <td><c:out value="${customer.created}" /></td>
                     <td><c:out value="${customer.updated}" /></td>
-                    <td><a href="updateCustomer.php?IdCustomer=${customer.idCustomer}">Update</a></td>
+                    <td><a href="updateCustomer.php?IdCustomer=${customer.idCustomer}"><fmt:message key="UPDATE" /></a></td>
                     
                     <td><c:choose>
                     
                     <c:when test="${customer.idCustomer==sessionScope.CURRENT_SESSION_ACCOUNT.idCustomer}">
-                    Current Account
+                  <fmt:message key="CURRENT_ACCOUNT" />
                     </c:when>
                     <c:otherwise>
-                    <a href="deleteCustomer.php?IdCustomer=${customer.idCustomer}" >   Delete </a>
+                    <a href="deleteCustomer.php?IdCustomer=${customer.idCustomer}" > <fmt:message key="DELETE" /> </a>
                     </c:otherwise>
                     </c:choose>
                     </td>
                      
                   
-                     <td><a href="addAccount.php?IdCustomer=${customer.idCustomer}">Add Account</a></td>
+                     <td><a href="addAccount.php?IdCustomer=${customer.idCustomer}"><fmt:message key="ADD_ACCOUNT" /></a></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <p><a href="registerCustomer.php">Register new customer</a></p>
-    <p><a href="home.php">Home</a></p>
+    <p><a href="registerCustomer.php"><fmt:message key="REGISTER_NEW_CUSTOMER" /></a></p>
+    <p><a href="home.php"><fmt:message key="HOME" /></a></p>
     
     <script type="text/javascript"> </script>
 </body>

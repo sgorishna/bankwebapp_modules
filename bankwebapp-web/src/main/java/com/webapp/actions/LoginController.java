@@ -34,11 +34,17 @@ public class LoginController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// ResourceBundle resourceBundle =
+		// ResourceBundle.getBundle("resources/ResourceBundle",
+		// request.getLocale());
+
 		List<Role> roles = getCommonService().findAllRoles();
 
 		request.setAttribute("roles", roles);
 
 		gotoToJSP("login.jsp", request, response);
+
+		// request.getSession().setAttribute("locale", resourceBundle);
 	}
 
 	@Override

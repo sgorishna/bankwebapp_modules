@@ -6,16 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
-<title>Home</title>
+<title><fmt:message key="HOME" /></title>
 </head>
 <body>
-  <p > Hello, Admin</p>
+  <p ><fmt:message key="HELLO_ADMIN" /></p>
   
-  <p><a href="customerList.php">Customers</a></p>
+  <p><a href="customerList.php"><fmt:message key="CUSTOMERS" /></a></p>
   
-  <p><a href="accountList.php">Accounts</a></p>
+  <p><a href="accountList.php"><fmt:message key="ACCOUNTS" /></a></p>
   
-  <p><a href="registerCustomer.php">Register new customer</a></p>
+  <p><a href="registerCustomer.php"><fmt:message key="REGISTER_NEW_CUSTOMER" /></a></p>
+  
+  
   
   
 </body>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Accounts</title>
+<title><fmt:message key="ACCOUNTS" /></title>
 </head>
 <body>
 
@@ -19,15 +19,15 @@
     <table border=1>
         <thead>
             <tr>
-                <th> Id Account</th>
-                <th>Customer</th>
-                <th>Account number</th>
-                <th>Account type</th>
-                <th>Currency</th>
-                <th>Balance</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Action</th>
+                <th> <fmt:message key="ID_ACCOUNT" /></th>
+                <th><fmt:message key="CUSTOMER" /></th>
+                <th><fmt:message key="ACCOUNT_NUMBER" /></th>
+                <th><fmt:message key="ACCOUNT_TYPE" /></th>
+                <th><fmt:message key="CURRENCY" /></th>
+                <th><fmt:message key="BALANCE" /></th>
+                <th><fmt:message key="CREATED" /></th>
+                <th><fmt:message key="UPDATED" /></th>
+                
             </tr>
         </thead>
         <tbody>
@@ -52,7 +52,7 @@
                     
                     <td><%=account.getCreated()%></td>
                     <td><%=account.getUpdated()%></td>
-                    <td><a href="transaction.php?IdCustomer=<%=account.getIdAccount()%>&account_number=<%=account.getAccountNumber()%>">Transfer money</a></td>
+                    
                     
                 </tr>
            
@@ -61,7 +61,7 @@
         </tbody>
          <%}%>
     </table>
-    <p><a href="add_account.php?IdCustomer=<c:out value="${param.IdCustomer}"/>">Add Account</a></p>
-    <p><a href="home.php">Home</a></p>
+    
+    <p><a href="home.php"><fmt:message key="HOME" /></a></p>
 </body>
 </html>

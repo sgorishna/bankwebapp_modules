@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>My accounts</title>
+<title><fmt:message key="TRANSACTION_HISTORY" /></title>
 </head>
 <body>
 
@@ -35,14 +35,14 @@
 	<table border=1>
 		<thead>
 			<tr>
-				<th>Sender account number</th>
-				<th>Sender name</th>
-				<th>Receiver account number</th>
-				<th>Receiver name</th>
-				<th>Amount</th>
-				<th>Currency</th>
-				<th>Comments</th>
-				<th>Created</th>
+				<th><fmt:message key="SENDER_ACCOUNT_NUMBER" /></th>
+				<th><fmt:message key="SENDER_NAME" /></th>
+				<th><fmt:message key="RECEIVER_ACCOUNT_NUMBER" /></th>
+				<th><fmt:message key="RECEIVER_NAME" /></th>
+				<th><fmt:message key="AMOUNT" /></th>
+				<th><fmt:message key="CURRENCY" /></th>
+				<th><fmt:message key="COMMENTS" /></th>
+				<th><fmt:message key="CREATED" /></th>
 			</tr>
 		</thead>
 		<tbody>

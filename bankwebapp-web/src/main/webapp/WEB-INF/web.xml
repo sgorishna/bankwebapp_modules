@@ -6,6 +6,11 @@
     version="2.5">
 
 
+<context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>ResourceBundle</param-value>
+</context-param>
+
   <display-name>Archetype Created Web Application</display-name>
  
  <servlet>

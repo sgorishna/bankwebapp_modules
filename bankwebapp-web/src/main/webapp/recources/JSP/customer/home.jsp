@@ -6,17 +6,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
-<title>Home</title>
+<title><fmt:message key="HOME" /></title>
 </head>
 <body>
-  <p > Hello, ${sessionScope.CURRENT_SESSION_ACCOUNT.name}</p>
+  <p > <fmt:message key="HELLO" />, ${sessionScope.CURRENT_SESSION_ACCOUNT.name}</p>
   
-  <p><a href="myAccounts.php">My accounts</a></p>
+  <p><a href="myAccounts.php"><fmt:message key="MY_ACCOUNTS" /></a></p>
   
-  <p><a href="transferFunds.php">Transfer funds</a></p>
+  <p><a href="transferFunds.php"><fmt:message key="TRANSFER_FUNDS" /></a></p>
   
-  <p><a href="myTransactions.php">MyTransactions</a></p>
+  <p><a href="myTransactions.php"><fmt:message key="MY_TRANSACTIONS" /></a></p>
   
+  
+
+
   
 </body>
 </html>
