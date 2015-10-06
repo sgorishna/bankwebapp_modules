@@ -9,11 +9,35 @@
 
 <title><fmt:message key="UPDATE_CUSTOMER_INFO" /></title>
 </head>
-<body>
 
+
+<body onload=" myFunction()">
+
+	<c:choose>
+		<c:when test="${sessionScope.uploadPhotoStatus == false}">
+			<script type="text/javascript">
+				function myFunction() {
+					alert("The File Is In The Wrong Format! Please, choose .JPG or .PNG file");
+				}
+			</script>
+		</c:when>
+	</c:choose>
+
+<%-- <c:choose>
+<c:when test="${sessionScope.photoStatus == false}">
+<img alt="" src="${requestScope.path}">
+</c:when>
+</c:choose> --%>
+
+ <img alt="" src="showImage.php?IdCustomer=${customer.idCustomer} " height="250" width="190">
+
+<img alt="" src="<c:url value = "C:\Users\Sunny\Documents\workspace-sts-3.4.0.RELEASE\bankwebapp-parent\bankwebapp-web\src\main\webapp\recources\photos\1.JPG" > </c:url>" height="250" width="190">
+		
+
+<p>
 
 	<form method="POST" action='updateCustomer.php'
-		name="formUpdateCustomer">
+		name="formUpdateCustomer" enctype="multipart/form-data">
 		<fmt:message key="ID_CUSTOMER" />
 		: <input type="text" readonly="readonly" name="idCustomer"
 			value="<c:out value="${customer.idCustomer}" />" /> <br />
@@ -38,7 +62,11 @@
 		<fmt:message key="ADMIN" />
 		<br> <INPUT TYPE="checkbox" NAME="role" VALUE="2">
 		<fmt:message key="CUSTOMER" />
-		<br> <br /> <input type="submit" value="Submit" />
+		<br> <br />
+
+		<fmt:message key="PHOTO" />
+		: <input type="file" name="photo" /> <br /> <input type="submit"
+			value="Submit" />
 	</form>
 </body>
 </html>
