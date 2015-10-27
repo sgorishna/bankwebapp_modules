@@ -1,5 +1,9 @@
 package com.webapp.actions;
 
+import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
+import static com.webapp.utils.WebappConstants.ROLE_ADMIN;
+import static com.webapp.utils.WebappConstants.ROLE_CUSTOMER;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

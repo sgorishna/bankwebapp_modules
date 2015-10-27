@@ -1,5 +1,8 @@
 package com.webapp.controller.admin;
 
+import static com.webapp.utils.WebappConstants.MAX_PHOTO_SIZE;
+import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +17,7 @@ import javax.servlet.http.Part;
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
 import com.webapp.utils.CacheImitation;
-import com.webapp.utils.WebappUtils;
+import com.webapp.utils.ImageLoadHelper;
 
 @MultipartConfig
 public class UpdateCustomerController extends AbstractServletHandler {
@@ -44,7 +47,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 
 		Part filePart = request.getPart("photo");
 
-		String photoName = WebappUtils.getFileName(filePart);
+		String photoName = ImageLoadHelper.getFileName(filePart);
 
 		if (filePart != null) {
 

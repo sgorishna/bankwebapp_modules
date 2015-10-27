@@ -1,11 +1,10 @@
 package com.webapp.controller.admin;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
+import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
+
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
 import com.webapp.utils.CacheImitation;
-import com.webapp.utils.WebappUtils;
+import com.webapp.utils.ImageLoadHelper;
 
 @WebServlet("/admin/showImage.php")
 public class ShowImageController extends AbstractServletHandler {
@@ -29,8 +28,8 @@ public class ShowImageController extends AbstractServletHandler {
 		req.setAttribute("customer", customer);
 
 		File img = null;
-		BufferedImage imgInFile = null;
-		byte[] imageInByte = null;
+
+		byte[] imageInByte;
 
 		String applicationPath = req.getServletContext().getRealPath("");
 		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
@@ -38,42 +37,21 @@ public class ShowImageController extends AbstractServletHandler {
 		img = new File(uploadPhotoPath + File.separator + customer.getIdCustomer() + ".JPG");
 
 		if (img.isFile()) {
-			imgInFile = ImageIO.read(img);
-		}
+			ImageLoadHelper.loadImageFromFile(img, resp);
+		} else if (CacheImitation.findInCache(IdCustomer) != null) {
 
-		if (imgInFile != null) {
+			CacheImitation.findInCache(IdCustomer);
+		} else if ((imageInByte = customer.getPhoto()) != null) {
 
-			WebappUtils.loadImageFromFile(imageInByte, new ByteArrayOutputStream(), resp.getOutputStream(), imgInFile, resp);
+			CacheImitation.putInCache(IdCustomer, imageInByte);
+
+			ImageLoadHelper.showImage(imageInByte, resp.getOutputStream(), resp);
 
 		} else {
 
-			imageInByte = CacheImitation.findInCache(IdCustomer);
+			img = new File(uploadPhotoPath + File.separator + "default.JPG");
 
-			if (imageInByte != null) {
-
-				WebappUtils.showImage(imageInByte, resp.getOutputStream(), resp);
-
-			} else {
-
-				imageInByte = customer.getPhoto();
-
-				if (imageInByte != null) {
-
-					CacheImitation.putInCache(IdCustomer, imageInByte);
-
-					WebappUtils.showImage(imageInByte, resp.getOutputStream(), resp);
-				} else {
-
-					img = new File(uploadPhotoPath + File.separator + "default.JPG");
-
-					if (img.isFile()) {
-						imgInFile = ImageIO.read(img);
-					}
-
-					WebappUtils.loadImageFromFile(imageInByte, new ByteArrayOutputStream(), resp.getOutputStream(), imgInFile, resp);
-
-				}
-			}
+			ImageLoadHelper.loadImageFromFile(img, resp);
 
 		}
 

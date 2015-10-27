@@ -18,9 +18,8 @@ import com.webapp.services.Impl.CommonServiceImpl;
 import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.services.Impl.DataServiceImpl;
 import com.webapp.services.Impl.TransactionServiceImpl;
-import com.webapp.utils.WebappConstants;
 
-public abstract class AbstractServletHandler extends HttpServlet implements WebappConstants, Serializable {
+public abstract class AbstractServletHandler extends HttpServlet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
