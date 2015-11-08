@@ -65,6 +65,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 			customer.setGender(request.getParameter("gender"));
 			customer.setLogin(request.getParameter("login"));
 			customer.setPassword(request.getParameter("password"));
+			customer.setEmail(request.getParameter("email"));
 
 			if (inputStream != null) {
 

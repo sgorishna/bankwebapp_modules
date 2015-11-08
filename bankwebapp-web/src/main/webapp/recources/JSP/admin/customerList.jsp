@@ -15,6 +15,7 @@
                 <th><fmt:message key="ID_CUSTOMER" /></th>
                 <th><fmt:message key="LOGIN" /></th>
                 <th><fmt:message key="PASSWORD" /></th>
+                <th><fmt:message key="EMAIL" /></th>
                 <th><fmt:message key="NAME" /></th>
                 <th><fmt:message key="GENDER" /></th>
                
@@ -29,6 +30,7 @@
                     <td><c:out value="${customer.idCustomer}" /></td>
                     <td><c:out value="${customer.login}" /></td>
                      <td><c:out value="${customer.password}" /></td>
+                     <td><c:out value="${customer.email}" /></td>
                     <td><a href="accountList.php?IdCustomer=<c:out value="${customer.idCustomer}"/>"><c:out value="${customer.name}" /></a></td>
                     <td><c:out value="${customer.gender}" /></td>
                     

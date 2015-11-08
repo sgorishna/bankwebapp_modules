@@ -2,6 +2,7 @@ package com.webapp.services;
 
 import java.util.List;
 
+import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
 
@@ -17,7 +18,7 @@ public interface AdminService {
 
 	void delete(Customer customer);
 
-	void create(Customer customer, String[] roles);
+	void create(Customer customer, String[] roles) throws InvalidDataException;
 
 	void update(Customer customer, String[] selectedRoles);
 

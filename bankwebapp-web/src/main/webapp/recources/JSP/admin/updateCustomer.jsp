@@ -47,6 +47,10 @@
 		<fmt:message key="PASSWORD" />
 		: <input type="password" name="password"
 			value="<c:out value="${customer.password}" />" /> <br />
+			<fmt:message key="EMAIL" />
+		: <input type="text" name="email" readonly="readonly"
+			value="<c:out value="${customer.email}" />" /> <br />
+			
 		<fmt:message key="NAME" />
 		: <input type="text" name="name"
 			value="<c:out value="${customer.name}" />" /> <br />

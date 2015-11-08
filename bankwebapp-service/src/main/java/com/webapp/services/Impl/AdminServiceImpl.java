@@ -6,6 +6,7 @@ import com.webapp.dao.AccountDao;
 import com.webapp.dao.CustomerDao;
 import com.webapp.dao.impl.AccountDaoImpl;
 import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
 import com.webapp.services.AdminService;
@@ -47,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	public void create(Customer customer, String[] roles) {
+	public void create(Customer customer, String[] roles) throws InvalidDataException {
 		customerDao.create(customer, roles);
 
 	}

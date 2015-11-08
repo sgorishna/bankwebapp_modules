@@ -19,6 +19,9 @@
 		: <input type="text" name="login" /> <br />
 		<fmt:message key="PASSWORD" />
 		: <input type="password" name="password" /> <br />
+		<fmt:message key="EMAIL" />
+		: <input type="text" name="email" /> <br />
+
 		<fmt:message key="NAME" />
 		: <input type="text" name="name" /> <br />
 		<fmt:message key="GENDER" />
