@@ -13,6 +13,10 @@ public class Customer implements Serializable {
 	private Timestamp updated;
 	private String login;
 	private String password;
+	private String email;
+
+	private byte[] photo;
+	private String photoPath;
 
 	public long getIdCustomer() {
 		return idCustomer;
@@ -68,6 +72,30 @@ public class Customer implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+
+	public String getPhotoPath() {
+		return photoPath;
+	}
+
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

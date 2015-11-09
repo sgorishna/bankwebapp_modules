@@ -29,13 +29,14 @@ public class CustomerDaoImpl implements CustomerDao {
 			connection = DBUtill.getConnection();
 			connection.setAutoCommit(false);
 
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password) values (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email) values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			PreparedStatement preparedStatement2 = connection.prepareStatement("insert into customer_role(idCustomer,idRole) values (?, ?)");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
 			preparedStatement.setString(3, customer.getLogin());
 			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setString(5, customer.getEmail());
 			preparedStatement.executeUpdate();
 
 			ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -86,6 +87,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setUpdated(rs.getTimestamp("updated"));
 				customer.setLogin(rs.getString("login"));
 				customer.setPassword(rs.getString("password"));
+				customer.setEmail(rs.getString("email"));
 				customerList.add(customer);
 			}
 
@@ -116,6 +118,9 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setUpdated(rs.getTimestamp("updated"));
 				customer.setLogin(rs.getString("login"));
 				customer.setPassword(rs.getString("password"));
+				customer.setPhoto(rs.getBytes("photo"));
+				customer.setPhotoPath(rs.getString("photoPath"));
+				customer.setEmail(rs.getString("email"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -145,7 +150,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?  where idCustomer=?");
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, email=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -153,8 +158,9 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			preparedStatement.setString(4, customer.getLogin());
 			preparedStatement.setString(5, customer.getPassword());
+			preparedStatement.setString(6, customer.getEmail());
 
-			preparedStatement.setLong(6, customer.getIdCustomer());
+			preparedStatement.setLong(7, customer.getIdCustomer());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -180,6 +186,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setPassword(rs.getString("password"));
 				customer.setName(rs.getString("name"));
 				customer.setGender(rs.getString("gender"));
+				customer.setGender(rs.getString("email"));
 				customer.setCreated(rs.getTimestamp("created"));
 				customer.setUpdated(rs.getTimestamp("updated"));
 			}
@@ -214,7 +221,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			connection = DBUtill.getConnection();
 			connection.setAutoCommit(false);
 
-			PreparedStatement preparedStatement = connection.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?  where idCustomer=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, photo =?, photoPath =?, email=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -222,8 +229,12 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			preparedStatement.setString(4, customer.getLogin());
 			preparedStatement.setString(5, customer.getPassword());
+			preparedStatement.setBytes(6, customer.getPhoto());
+			preparedStatement.setString(7, customer.getPhotoPath());
+			preparedStatement.setString(8, customer.getEmail());
+			preparedStatement.setLong(9, customer.getIdCustomer());
 
-			preparedStatement.setLong(6, customer.getIdCustomer());
+			preparedStatement.executeUpdate();
 
 			PreparedStatement preparedStatement0 = connection.prepareStatement("select idRole from customer_role where idCustomer = ?");
 			preparedStatement0.setLong(1, customer.getIdCustomer());
@@ -260,7 +271,9 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			connection.commit();
 
-		} catch (SQLException e) {
+		}
+
+		catch (SQLException e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
