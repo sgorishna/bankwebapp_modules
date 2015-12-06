@@ -33,7 +33,7 @@ public class SendRegistrationMail {
 
 		Transport transport = getMailSession.getTransport("smtp");
 
-		transport.connect("smtp.gmail.com", "s.gorishna@gmail.com", "password");
+		transport.connect("smtp.gmail.com", "mybankjava@gmail.com", "java123456");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
 	}

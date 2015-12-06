@@ -30,29 +30,37 @@ public class RegisterCustomerController extends AbstractServletHandler {
 
 		Customer customer = new Customer();
 
-		String selectedRoles[] = request.getParameterValues("role");
 		customer.setName(request.getParameter("name"));
 		customer.setGender(request.getParameter("gender"));
 		customer.setLogin(request.getParameter("login"));
 		customer.setPassword(request.getParameter("password"));
 		customer.setEmail(request.getParameter("email"));
+		customer.setIdRole(Integer.parseInt(request.getParameter("role")));
+		customer.setActive(Integer.parseInt(request.getParameter("active")));
 
 		try {
-			getAdminService().create(customer, selectedRoles);
+			getAdminService().create(customer);
 			SendRegistrationMail.generateAndSendEmail(request.getParameter("email"), request.getParameter("login"), request.getParameter("password"));
+			gotoToJSP("admin/registrationResult.jsp", request, response);
 		} catch (InvalidDataException e) {
 
 			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+			// request.setAttribute("error", e.getMessage().toString());
 		} catch (AddressException e) {
 			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			e.printStackTrace();
+			// request.setAttribute("error", e.getMessage().toString());
 		} catch (MessagingException e) {
+			Customer c = getAdminService().findByLogin(request.getParameter("login"));
+			getAdminService().delete(c);
 			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			e.printStackTrace();
+			request.setAttribute("error", "Invalid email addess");
+			gotoToJSP("admin/registrationResult.jsp", request, response);
+		} catch (Exception e) {
+			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+			request.setAttribute("error", "Something wrong, please try again");
+			gotoToJSP("admin/registrationResult.jsp", request, response);
+
 		}
 
-		redirectRequest("/admin/customerList.php", request, response);
-
 	}
-
 }

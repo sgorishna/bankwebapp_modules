@@ -6,7 +6,6 @@ import static com.webapp.utils.WebappConstants.ROLE_CUSTOMER;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ import org.apache.log4j.Logger;
 
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
-import com.webapp.model.Role;
 
 @WebServlet("/login.php")
 public class LoginController extends AbstractServletHandler {
@@ -38,41 +36,38 @@ public class LoginController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// ResourceBundle resourceBundle =
-		// ResourceBundle.getBundle("resources/ResourceBundle",
-		// request.getLocale());
+		// List<Role> roles = getCommonService().findAllRoles();
 
-		List<Role> roles = getCommonService().findAllRoles();
-
-		request.setAttribute("roles", roles);
+		// request.setAttribute("roles", roles);
 
 		gotoToJSP("login.jsp", request, response);
 
-		// request.getSession().setAttribute("locale", resourceBundle);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		Integer role = Integer.parseInt(request.getParameter("role"));
+		// Integer role = Integer.parseInt(request.getParameter("role"));
+
 		try {
 
-			Customer customer = getDataService().login(login, password, role);
+			Customer customer = getDataService().login(login, password);
 
-			String homePage = homePages.get(role);
+			String homePage = homePages.get(customer.getIdRole());
 
 			if (homePage != null) {
 
 				request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);
-				request.getSession().setAttribute("CURRENT_ROLE_ACCOUNT", role);
+				request.getSession().setAttribute("CURRENT_ROLE_ACCOUNT", customer.getIdRole());
 
 				redirectRequest(homePage, request, response);
 
-			} else {
-
-				throw new InvalidDataException("Unsupported role id " + role);
-			}
+			} /*
+			 * else {
+			 * 
+			 * throw new InvalidDataException("Unsupported role id " + role); }
+			 */
 
 		} catch (InvalidDataException e) {
 			log.info("Invalid credentials", e);

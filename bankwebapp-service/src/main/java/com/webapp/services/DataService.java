@@ -6,4 +6,6 @@ import com.webapp.model.Customer;
 public interface DataService {
 
 	Customer login(String login, String password, Integer role) throws InvalidDataException;
+
+	Customer login(String login, String password) throws InvalidDataException;
 }

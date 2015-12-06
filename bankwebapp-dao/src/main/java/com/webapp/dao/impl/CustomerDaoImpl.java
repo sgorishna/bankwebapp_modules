@@ -77,7 +77,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			connection = DBUtill.getConnection();
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery("select * from customer order by name");
+			rs = stmt.executeQuery("select c.idCustomer, c.name, c.gender, c.created, c.updated, c.login, c.password, c.email, c.idRole, c.active, r.role as role from customer c left join role r on c.idRole=r.idRole  order by name");
 			while (rs.next()) {
 				Customer customer = new Customer();
 				customer.setIdCustomer(rs.getLong("idCustomer"));
@@ -88,6 +88,9 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setLogin(rs.getString("login"));
 				customer.setPassword(rs.getString("password"));
 				customer.setEmail(rs.getString("email"));
+				customer.setIdRole(rs.getInt("idRole"));
+				customer.setRole(rs.getString("role"));
+				customer.setActive(rs.getInt("active"));
 				customerList.add(customer);
 			}
 
@@ -121,6 +124,9 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setPhoto(rs.getBytes("photo"));
 				customer.setPhotoPath(rs.getString("photoPath"));
 				customer.setEmail(rs.getString("email"));
+
+				customer.setIdRole(rs.getInt("idRole"));
+				customer.setActive(rs.getInt("active"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -150,7 +156,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, email=?  where idCustomer=?");
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, photo =?, photoPath =?, email=?, idRole=?, active=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -158,9 +164,14 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			preparedStatement.setString(4, customer.getLogin());
 			preparedStatement.setString(5, customer.getPassword());
-			preparedStatement.setString(6, customer.getEmail());
+			preparedStatement.setBytes(6, customer.getPhoto());
+			preparedStatement.setString(7, customer.getPhotoPath());
+			preparedStatement.setString(8, customer.getEmail());
+			preparedStatement.setInt(9, customer.getIdRole());
+			preparedStatement.setInt(10, customer.getActive());
 
-			preparedStatement.setLong(7, customer.getIdCustomer());
+			preparedStatement.setLong(11, customer.getIdCustomer());
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -189,6 +200,11 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setGender(rs.getString("email"));
 				customer.setCreated(rs.getTimestamp("created"));
 				customer.setUpdated(rs.getTimestamp("updated"));
+				customer.setPhoto(rs.getBytes("photo"));
+				customer.setPhotoPath(rs.getString("photoPath"));
+
+				customer.setIdRole(rs.getInt("idRole"));
+				customer.setActive(rs.getInt("active"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -200,13 +216,29 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	}
 
-	public void create(Customer object) throws UnsupportedOperationException {
+	public void create(Customer customer) throws UnsupportedOperationException {
+
+		Connection connection = null;
 
 		try {
-			throw new UnsupportedOperationException("Not implemented yet");
-		} catch (java.lang.UnsupportedOperationException e) {
-			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email,photo,photoPath,idRole,active) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+			preparedStatement.setString(1, customer.getName());
+			preparedStatement.setString(2, customer.getGender());
+			preparedStatement.setString(3, customer.getLogin());
+			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setString(5, customer.getEmail());
+			preparedStatement.setBytes(6, customer.getPhoto());
+			preparedStatement.setString(7, customer.getPhotoPath());
+			preparedStatement.setInt(8, customer.getIdRole());
+			preparedStatement.setInt(9, customer.getActive());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtill.closeConnection(connection);
 		}
 
 	}

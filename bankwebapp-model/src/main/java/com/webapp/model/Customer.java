@@ -18,6 +18,10 @@ public class Customer implements Serializable {
 	private byte[] photo;
 	private String photoPath;
 
+	private String role;
+	private Integer idRole;
+	private Integer active;
+
 	public long getIdCustomer() {
 		return idCustomer;
 	}
@@ -96,6 +100,30 @@ public class Customer implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getIdRole() {
+		return idRole;
+	}
+
+	public void setIdRole(Integer idRole) {
+		this.idRole = idRole;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

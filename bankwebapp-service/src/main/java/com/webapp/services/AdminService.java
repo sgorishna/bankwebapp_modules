@@ -22,4 +22,8 @@ public interface AdminService {
 
 	void update(Customer customer, String[] selectedRoles);
 
+	void create(Customer customer) throws InvalidDataException;
+
+	public Customer findByLogin(String login);
+
 }

@@ -41,6 +41,9 @@ public class UpdateCustomerController extends AbstractServletHandler {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String applicationPath = request.getServletContext().getRealPath("");
+		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
+
 		boolean uploadPhotoStatus = false;
 
 		InputStream inputStream = null;
@@ -71,8 +74,12 @@ public class UpdateCustomerController extends AbstractServletHandler {
 
 				if (bytes.length > MAX_PHOTO_SIZE) {
 
-					String applicationPath = request.getServletContext().getRealPath("");
-					String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
+					/*
+					 * String applicationPath =
+					 * request.getServletContext().getRealPath(""); String
+					 * uploadPhotoPath = applicationPath + File.separator +
+					 * "recources" + File.separator + UPLOAD_DIR;
+					 */
 
 					File photoSaveDir = new File(uploadPhotoPath);
 					if (!photoSaveDir.exists()) {

@@ -26,13 +26,13 @@
                 <input type="text" class="form-control" id="login" name="login" placeholder="Login" required autofocus>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                 
-                
+             <%--    
 				<fmt:message key="SELECT_ROLE" />
 				
 					<select name="role" id="role">
 						<option value="1"><fmt:message key="ADMINISTRATOR" /></option>
 						<option value="2"><fmt:message key="USER" /></option>
-					</select>
+					</select> --%>
 				
 			
                 
@@ -45,7 +45,7 @@
                <!--  <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span> -->
                 </form>
             </div>
-            <a href="#" class="text-center new-account">Create an account </a> 
+            <a href="signUp.php" class="text-center new-account">Create an account </a> 
         </div>
     </div>
 </div>

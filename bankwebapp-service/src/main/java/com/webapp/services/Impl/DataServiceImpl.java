@@ -47,4 +47,25 @@ public class DataServiceImpl implements DataService {
 		}
 
 	}
+
+	public Customer login(String login, String password) throws InvalidDataException {
+
+		Customer customer = customerDao.findByLogin(login);
+
+		if (customer == null) {
+			throw new InvalidDataException("Account not found");
+		} else {
+			if (password.equals(customer.getPassword())) {
+				if (customer.getActive() == 1) {
+					return customer;
+				} else {
+					throw new InvalidDataException("Account is not active");
+				}
+
+			} else {
+				throw new InvalidDataException("Invalid password");
+			}
+
+		}
+	}
 }

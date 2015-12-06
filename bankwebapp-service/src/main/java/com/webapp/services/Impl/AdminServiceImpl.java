@@ -58,4 +58,14 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	public void create(Customer customer) throws InvalidDataException {
+		customerDao.create(customer);
+
+	}
+
+	public Customer findByLogin(String login) {
+
+		return customerDao.findByLogin(login);
+	}
+
 }
