@@ -48,4 +48,9 @@ public class CommonServiceImpl implements CommonService {
 		return roleDao.findAll();
 	}
 
+	public Customer findByEmail(String email) {
+
+		return customerDao.findByEmail(email);
+	}
+
 }

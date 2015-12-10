@@ -1,9 +1,9 @@
-function checkLogin()
+function checkEmail()
 {
 var xmlhttp;
-var k=document.getElementById("login").value;
+var k=document.getElementById("email").value;
 
-var urls="checkLogin?login="+k;
+var urls="checkEmail?email="+k;
  
 if (window.XMLHttpRequest)
   {
@@ -18,7 +18,7 @@ xmlhttp.onreadystatechange=function()
   if (xmlhttp.readyState==4)
     {
       
-        document.getElementById("checkLogin").innerHTML=xmlhttp.responseText;
+        document.getElementById("checkEmail").innerHTML=xmlhttp.responseText;
  
     }
   };

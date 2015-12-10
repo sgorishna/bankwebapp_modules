@@ -8,6 +8,8 @@ public interface CustomerDao extends IEntityDao<Customer>, Serializable {
 
 	Customer findByLogin(String login);
 
+	Customer findByEmail(String email);
+
 	void create(Customer customer, String[] roles);
 
 	void update(Customer customer, String[] selectedRoles);

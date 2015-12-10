@@ -38,29 +38,39 @@ public class RegisterCustomerController extends AbstractServletHandler {
 		customer.setIdRole(Integer.parseInt(request.getParameter("role")));
 		customer.setActive(Integer.parseInt(request.getParameter("active")));
 
-		try {
-			getAdminService().create(customer);
-			SendRegistrationMail.generateAndSendEmail(request.getParameter("email"), request.getParameter("login"), request.getParameter("password"));
-			gotoToJSP("admin/registrationResult.jsp", request, response);
-		} catch (InvalidDataException e) {
+		Customer d = getCommonService().findByEmail(request.getParameter("email"));
 
-			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			// request.setAttribute("error", e.getMessage().toString());
-		} catch (AddressException e) {
-			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			// request.setAttribute("error", e.getMessage().toString());
-		} catch (MessagingException e) {
-			Customer c = getAdminService().findByLogin(request.getParameter("login"));
-			getAdminService().delete(c);
-			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			request.setAttribute("error", "Invalid email addess");
+		if (getAdminService().findByLogin(request.getParameter("login")).getLogin() != null) {
+
+			request.setAttribute("error", "Account with such login  exist already in system");
 			gotoToJSP("admin/registrationResult.jsp", request, response);
-		} catch (Exception e) {
-			Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
-			request.setAttribute("error", "Something wrong, please try again");
+		} else if (d.getEmail() != null) {
+
+			request.setAttribute("error", "Account with such email  exist already in system");
 			gotoToJSP("admin/registrationResult.jsp", request, response);
 
+		} else {
+
+			try {
+
+				getAdminService().create(customer);
+				SendRegistrationMail.generateAndSendEmail(request.getParameter("email"), request.getParameter("login"), request.getParameter("password"));
+				gotoToJSP("admin/registrationResult.jsp", request, response);
+			} catch (InvalidDataException e) {
+
+				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+
+			} catch (AddressException e) {
+				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+
+			} catch (MessagingException e) {
+
+				getAdminService().delete(getAdminService().findByLogin(request.getParameter("login")));
+
+				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+				request.setAttribute("error", "Invalid email addess");
+				gotoToJSP("admin/registrationResult.jsp", request, response);
+			}
 		}
-
 	}
 }

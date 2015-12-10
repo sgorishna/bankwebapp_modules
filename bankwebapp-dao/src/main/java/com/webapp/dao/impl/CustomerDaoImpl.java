@@ -197,7 +197,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				customer.setPassword(rs.getString("password"));
 				customer.setName(rs.getString("name"));
 				customer.setGender(rs.getString("gender"));
-				customer.setGender(rs.getString("email"));
+				customer.setEmail(rs.getString("email"));
 				customer.setCreated(rs.getTimestamp("created"));
 				customer.setUpdated(rs.getTimestamp("updated"));
 				customer.setPhoto(rs.getBytes("photo"));
@@ -317,6 +317,40 @@ public class CustomerDaoImpl implements CustomerDao {
 			DBUtill.closeConnection(connection);
 		}
 
+	}
+
+	public Customer findByEmail(String email) {
+
+		Connection connection = null;
+		Customer customer = new Customer();
+		try {
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from customer where email=?");
+			preparedStatement.setString(1, email);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				customer.setIdCustomer(rs.getLong("idCustomer"));
+				customer.setLogin(rs.getString("login"));
+				customer.setPassword(rs.getString("password"));
+				customer.setName(rs.getString("name"));
+				customer.setGender(rs.getString("gender"));
+				customer.setEmail(rs.getString("email"));
+				customer.setCreated(rs.getTimestamp("created"));
+				customer.setUpdated(rs.getTimestamp("updated"));
+				customer.setPhoto(rs.getBytes("photo"));
+				customer.setPhotoPath(rs.getString("photoPath"));
+
+				customer.setIdRole(rs.getInt("idRole"));
+				customer.setActive(rs.getInt("active"));
+			}
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(connection);
+		}
+
+		return customer;
 	}
 
 }

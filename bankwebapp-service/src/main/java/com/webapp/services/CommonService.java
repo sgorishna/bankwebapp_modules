@@ -14,6 +14,8 @@ public interface CommonService {
 
 	Customer findById(long IdCustomer);
 
+	Customer findByEmail(String email);
+
 	List<Role> findAllRoles();
 
 }

@@ -3,9 +3,42 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<table >
+  <tr>
+    <td colspan = "2"></td>
+    <td ></td>
+    
+  </tr>
+  <tr>
+    <td>
+    
+    <form action="">
+    
+    <div class="form-group">
+    
+    <img alt="" src="showImage.php?IdCustomer=${customer.idCustomer} " height="250" width="190">
 
+<img alt="" src="<c:url value = "C:\Users\Sunny\Documents\workspace-sts-3.4.0.RELEASE\bankwebapp-parent\bankwebapp-web\src\main\webapp\recources\photos\1.JPG" > </c:url>" height="250" width="190">
 
-<form role="form" method="POST" action='registerCustomer.php'> 
+</div>
+
+<div class="form-group"> 
+    <label class="control-label" for="exampleInputFile">Change photo</label>     
+
+    <input type="file" id="exampleInputFile"> 
+    <p class="help-block">Only *jpg, *png, *jpeg files allowed</p> 
+</div>
+
+<button type="submit" class="btn  btn-primary" value="Submit">Submit</button>
+</form>
+
+</td>
+    
+    
+    <td >  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp</td>
+    <td> 
+    
+    <form role="form" method="POST" action='registerCustomer.php'> 
 <div class="form-group">
 
 <div class="form-group">
@@ -66,3 +99,9 @@
 
 <button type="submit" class="btn  btn-primary" value="Submit">Submit</button>
 </form>
+    
+    
+    </td>
+  
+  </tr>
+</table>

@@ -75,8 +75,9 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="REGISTER_NEW_CUSTOMER" /></h2>
-                 <jsp:include page="../modules/moduleRegisterCustomer.jsp"></jsp:include>
+                    <h2 class="sub-header" ><fmt:message key="UPDATE_CUSTOMER_INFO" /></h2>
+               
+               <jsp:include page="../modules/moduleUpdateCustomer.jsp"></jsp:include>
                 </div>
                 
                

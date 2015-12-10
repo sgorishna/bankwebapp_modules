@@ -35,7 +35,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
 		request.setAttribute("path", uploadPhotoPath + File.separator + customer.getIdCustomer() + ".JPG");
 
-		gotoToJSP("admin/updateCustomer.jsp", request, response);
+		gotoToJSP("admin/updateCustomer3.jsp", request, response);
 	}
 
 	@Override
