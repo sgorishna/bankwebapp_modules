@@ -353,4 +353,28 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customer;
 	}
 
+	public void updateImage(Customer customer) {
+
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set  updated=?,  photo =?, photoPath =?  where idCustomer=?");
+
+			preparedStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
+
+			preparedStatement.setBytes(2, customer.getPhoto());
+			preparedStatement.setString(3, customer.getPhotoPath());
+
+			preparedStatement.setLong(4, customer.getIdCustomer());
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+
+	}
+
 }

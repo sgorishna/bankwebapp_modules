@@ -18,4 +18,5 @@ public interface CommonService {
 
 	List<Role> findAllRoles();
 
+	void updateImage(Customer customer);
 }

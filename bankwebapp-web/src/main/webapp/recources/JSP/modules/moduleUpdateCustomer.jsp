@@ -12,7 +12,7 @@
   <tr>
     <td>
     
-    <form action="">
+    <form action="updateImage?IdCustomer=${customer.idCustomer}" method="POST" enctype="multipart/form-data">
     
     <div class="form-group">
     
@@ -25,7 +25,7 @@
 <div class="form-group"> 
     <label class="control-label" for="exampleInputFile">Change photo</label>     
 
-    <input type="file" id="exampleInputFile"> 
+    <input type="file" name="photo"> 
     <p class="help-block">Only *jpg, *png, *jpeg files allowed</p> 
 </div>
 

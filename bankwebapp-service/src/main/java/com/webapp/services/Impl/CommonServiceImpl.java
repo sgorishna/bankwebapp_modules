@@ -53,4 +53,10 @@ public class CommonServiceImpl implements CommonService {
 		return customerDao.findByEmail(email);
 	}
 
+	public void updateImage(Customer customer) {
+
+		customerDao.updateImage(customer);
+
+	}
+
 }
