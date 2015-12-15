@@ -55,9 +55,9 @@
 		: <input type="text" name="name"
 			value="<c:out value="${customer.name}" />" /> <br />
 		<fmt:message key="GENDER" />
-		: <input TYPE="radio" NAME="gender" VALUE="male" CHECKED>
+		: <input TYPE="radio" NAME="gender" VALUE="male"  >
 		<fmt:message key="MALE" />
-		<br> <INPUT TYPE="radio" NAME="gender" VALUE="female">
+		<br> <INPUT TYPE="radio" NAME="gender" VALUE="female" >
 		<fmt:message key="FEMALE" />
 		<br>
 

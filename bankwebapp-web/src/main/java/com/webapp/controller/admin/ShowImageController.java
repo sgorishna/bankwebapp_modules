@@ -40,7 +40,9 @@ public class ShowImageController extends AbstractServletHandler {
 			ImageLoadHelper.loadImageFromFile(img, resp);
 		} else if (CacheImitation.findInCache(IdCustomer) != null) {
 
-			CacheImitation.findInCache(IdCustomer);
+			byte[] a = CacheImitation.findInCache(IdCustomer);
+
+			ImageLoadHelper.showImage(a, resp.getOutputStream(), resp);
 		} else if ((imageInByte = customer.getPhoto()) != null) {
 
 			CacheImitation.putInCache(IdCustomer, imageInByte);
