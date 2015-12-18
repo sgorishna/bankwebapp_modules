@@ -20,12 +20,6 @@
       </style>
       
       
-      <script type="text/javascript" >
-
-      <%@include file="/recources/js/checkLoginAvailability.js" %>
-      <%@include file="/recources/js/checkEmailAvailability.js" %>
-
-</script>  
        
     </head>
     <body>
@@ -75,9 +69,19 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="UPDATE_CUSTOMER_INFO" /></h2>
+                    <h2 class="sub-header" ><fmt:message key="CUSTOMER_ACCOUNTS" /></h2>
+                    
+                      <ol class="breadcrumb">
+    <li><a href="profile.php?IdCustomer=${idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
+    </li>
+    <li><a href="#"><fmt:message key="VIEW_TRANSACTIONS" /></a>
+    </li>
+    <li><a href="addAccount.php?IdCustomer=${idCustomer}"><fmt:message key="ADD_ACCOUNT" /></a>
+    </li>
+    
+</ol>
                
-               <jsp:include page="../modules/moduleUpdateCustomer.jsp"></jsp:include>
+              <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include>   
                 </div>
                 
                

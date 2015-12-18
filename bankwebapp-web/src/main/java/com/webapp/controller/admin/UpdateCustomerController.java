@@ -19,33 +19,44 @@ public class UpdateCustomerController extends AbstractServletHandler {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
 		Customer customer = getCommonService().findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
 		String applicationPath = request.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
-		request.setAttribute("path", uploadPhotoPath + File.separator + customer.getIdCustomer() + ".JPG");
+		String uploadPhotoPath = applicationPath + File.separator + "recources"
+				+ File.separator + UPLOAD_DIR;
+		request.setAttribute("path", uploadPhotoPath + File.separator
+				+ customer.getIdCustomer() + ".JPG");
 
-		gotoToJSP("admin/updateCustomer3.jsp", request, response);
+		gotoToJSP("admin/updateCustomer.jsp", request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		Customer customer = new Customer();
-		// customer = request.getParameter("role");
+
 		customer.setName(request.getParameter("name"));
 		customer.setGender(request.getParameter("gender"));
 		customer.setLogin(request.getParameter("login"));
 		customer.setPassword(request.getParameter("password"));
 		customer.setEmail(request.getParameter("email"));
+		customer.setActive(Integer.parseInt(request.getParameter("active")));
 
-		// getAdminService().update(customer, selectedRoles);
+		customer.setIdCustomer(Long.parseLong(request
+				.getParameter("IdCustomer")));
 
-		redirectRequest("/admin/updateCustomer.php?IdCustomer=" + Long.parseLong(request.getParameter("idCustomer")), request, response);
+		getCommonService().update(customer);
+
+		redirectRequest(
+				"/admin/updateCustomer.php?IdCustomer="
+						+ customer.getIdCustomer(),
+				request, response);
 
 	}
 }

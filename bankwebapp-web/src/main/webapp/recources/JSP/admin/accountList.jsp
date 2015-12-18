@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h2 class="sub-header" ><fmt:message key="ACCOUNTS" /></h2>
-                 <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include>
+                 <%-- <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include> --%>
                 </div>
                 
                

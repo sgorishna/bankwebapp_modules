@@ -17,5 +17,7 @@ public interface CustomerDao extends IEntityDao<Customer>, Serializable {
 	void updateImage(Customer customer);
 
 	void delete(Customer customer);
+	
+	
 
 }

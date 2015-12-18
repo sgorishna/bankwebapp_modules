@@ -1,9 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@page import="com.webapp.model.Account"%>
+
 <div class="table-responsive">
-<jsp:useBean id="accountList" class="com.webapp.dao.impl.AccountDaoImpl" scope="page"/>
+
+<c:choose>
+
+
+<c:when test="${empty requestScope.accounts}">
+
+<big><fmt:message key="NO_ACCOUNTS" /></big>
+
+
+</c:when>
+
+<c:otherwise>
+
+
+
+
 <table class="table table-bordered">
 
 <thead>
@@ -16,36 +31,32 @@
                 <th><fmt:message key="BALANCE" /></th>
                 <th><fmt:message key="CREATED" /></th>
                 <th><fmt:message key="UPDATED" /></th>
-                
             </tr>
         </thead>
         <tbody>
-
-            <%
-
-            for (Account account : accountList.findAll()) {
-
-        %>
-            
+            <c:forEach items="${requestScope.accounts}" var="account">
                 <tr>
                    
-                    
-                    <td><%=account.getCustomerName()%></td>
-                    
-                    <td><%=account.getAccountNumber()%></td>
-                    <td><%=account.getAccountType()%></td>
-                     
-                    <td><%=account.getCurrency()%></td>
-                    
-                    <td><%=account.getBalance()%></td>
-                    
-                    <td><%=account.getCreated()%></td>
-                    <td><%=account.getUpdated()%></td>
-                    
-                    
+                    <td><c:out value="${account.customerName}" /></td>
+                     <td><c:out value="${account.accountNumber}" /></td>
+                     <td><c:out value="${account.accountType}" /></td>
+                    <td><c:out value="${account.currency}" /></td>
+                    <td><c:out value="${account.balance}" /></td>
+                
+                    <td><c:out value="${account.created}" /></td>
+                     <td><c:out value="${account.updated}" /></td>
+                   
                 </tr>
-    <%}%>
-
+            </c:forEach>
+            
+            
+        </tbody>
+ 
 </table>
 
+</c:otherwise>
+
+</c:choose>
+
 </div>
+

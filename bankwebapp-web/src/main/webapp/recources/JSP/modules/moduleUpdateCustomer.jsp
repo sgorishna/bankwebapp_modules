@@ -18,9 +18,7 @@
 				<div class="form-group">
 
 					<img alt="" src="showImage.php?IdCustomer=${customer.idCustomer} "
-						height="250" width="190"> <img alt=""
-						src="<c:url value = "C:\Users\Sunny\Documents\workspace-sts-3.4.0.RELEASE\bankwebapp-parent\bankwebapp-web\src\main\webapp\recources\photos\1.JPG" > </c:url>"
-						height="250" width="190">
+						height="250" width="190"> 
 
 				</div>
 
@@ -39,7 +37,7 @@
 		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
 		<td>
 
-			<form role="form" method="POST" action='registerCustomer.php'>
+			<form role="form" method="POST" action='updateCustomer.php?IdCustomer=${customer.idCustomer}'>
 				<div class="form-group">
 
 					<div class="form-group">
@@ -113,20 +111,17 @@
 					
 					<c:when test="${customer.idRole == '1'}">
 					
-					<input type="radio" name="role" VALUE="1" CHECKED disabled="true">
+					<input type="radio" name="idRole" value="1" CHECKED >
 					<fmt:message key="ADMIN" />
 
-					<input type="radio" name="role" VALUE="2" disabled="true">
-					<fmt:message key="CUSTOMER" />
 					
 					</c:when>
 					
 					<c:otherwise>
 					
-					<input type="radio" name="role" VALUE="1"  disabled="true">
-					<fmt:message key="ADMIN" />
+					
 
-					<input type="radio" name="role" VALUE="2" CHECKED disabled="true">
+					<input type="radio" name="idRole" value="2" CHECKED >
 					<fmt:message key="CUSTOMER" />
 					</c:otherwise>
 					
@@ -143,26 +138,13 @@
 						
 						<c:when  test="${customer.idCustomer==sessionScope.CURRENT_SESSION_ACCOUNT.idCustomer}">
 						
-						<c:choose>
-						 <c:when test="${customer.active == '1'}"> 
 						
-						<input type="radio" name="active" VALUE="1" CHECKED disabled="true">
+						
+						<input type="radio" name="active" VALUE="1" CHECKED >
 					<fmt:message key="YES" />
 
-					<input type="radio" name="active" VALUE="0" disabled="true">
-					<fmt:message key="NO" />
-						 </c:when> 
-						
-						<c:otherwise>
-						
-						<input type="radio" name="active" VALUE="1" disabled="true">
-					<fmt:message key="YES" />
-
-					<input type="radio" name="active" VALUE="0" CHECKED disabled="true">
-					<fmt:message key="NO" />
-						
-						</c:otherwise>
-						</c:choose>
+					
+			
 						</c:when>
 						
 						

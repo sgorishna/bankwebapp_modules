@@ -24,7 +24,7 @@ public class AddAccountController extends AbstractServletHandler {
 		Customer customer = getCommonService().findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
-		gotoToJSP("admin/addAccount.jsp", request, response);
+		gotoToJSP("admin/addAccount3.jsp", request, response);
 	}
 
 	@Override

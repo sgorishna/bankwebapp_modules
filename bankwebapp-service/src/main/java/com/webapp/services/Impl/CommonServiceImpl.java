@@ -59,4 +59,9 @@ public class CommonServiceImpl implements CommonService {
 
 	}
 
+	public void update(Customer customer) {
+		customerDao.update(customer);
+		
+	}
+
 }

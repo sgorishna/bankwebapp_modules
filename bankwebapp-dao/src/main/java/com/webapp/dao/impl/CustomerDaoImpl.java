@@ -156,7 +156,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, photo =?, photoPath =?, email=?, idRole=?, active=?  where idCustomer=?");
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set name=?, gender=?, updated=?, login=?, password=?, email=?,  active=?  where idCustomer=?");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -164,13 +164,12 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			preparedStatement.setString(4, customer.getLogin());
 			preparedStatement.setString(5, customer.getPassword());
-			preparedStatement.setBytes(6, customer.getPhoto());
-			preparedStatement.setString(7, customer.getPhotoPath());
-			preparedStatement.setString(8, customer.getEmail());
-			preparedStatement.setInt(9, customer.getIdRole());
-			preparedStatement.setInt(10, customer.getActive());
+			
+			preparedStatement.setString(6, customer.getEmail());
+			
+			preparedStatement.setInt(7, customer.getActive());
 
-			preparedStatement.setLong(11, customer.getIdCustomer());
+			preparedStatement.setLong(8, customer.getIdCustomer());
 
 			preparedStatement.executeUpdate();
 

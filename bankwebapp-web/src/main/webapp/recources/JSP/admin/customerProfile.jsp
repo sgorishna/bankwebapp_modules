@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Register new customer</title>
+        <title>Client profile</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -20,13 +20,7 @@
       </style>
       
       
-      <script type="text/javascript" >
-
-      <%@include file="/recources/js/checkLoginAvailability.js" %>
-      <%@include file="/recources/js/checkEmailAvailability.js" %>
-
-</script>  
-       
+   
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -75,17 +69,22 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="UPDATE_CUSTOMER_INFO" /></h2>
+                    <h2 class="sub-header" ><fmt:message key="CUSTOMER_PROFILE" />
                     
-                      <ol class="breadcrumb">
-    <li><a href="profile.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
+      
+                    
+                    
+                     </h2>
+                     
+                     <ol class="breadcrumb">
+    <li><a href="updateCustomer.php?IdCustomer=${customer.idCustomer}"><fmt:message key="EDIT_PROFILE" /></a>
     </li>
-    <li><a href="#"><fmt:message key="VIEW_ACCOUNTS" /></a>
+    <li><a href="accountList.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
     </li>
     
 </ol>
                
-               <jsp:include page="../modules/moduleUpdateCustomer.jsp"></jsp:include>
+                <jsp:include page="../modules/moduleCustomerProfile.jsp"></jsp:include> 
                 </div>
                 
                

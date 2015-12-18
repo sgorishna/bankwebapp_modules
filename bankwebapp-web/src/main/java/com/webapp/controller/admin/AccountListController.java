@@ -20,7 +20,8 @@ public class AccountListController extends AbstractServletHandler {
 		if (request.getParameter("IdCustomer") != null) {
 			long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
 			request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(IdCustomer));
-			gotoToJSP("admin/accountListByIdCustomer.jsp", request, response);
+			request.setAttribute("idCustomer", IdCustomer);
+			gotoToJSP("admin/customerAccountList.jsp", request, response);
 		} else {
 			request.setAttribute("accounts", getAdminService().findAllAccounts());
 			gotoToJSP("admin/accountList.jsp", request, response);

@@ -66,7 +66,7 @@ public class RegisterCustomerController extends AbstractServletHandler {
 			} catch (MessagingException e) {
 
 				getAdminService().delete(getAdminService().findByLogin(request.getParameter("login")));
-
+e.printStackTrace();
 				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
 				request.setAttribute("error", "Invalid email addess");
 				gotoToJSP("admin/registrationResult.jsp", request, response);

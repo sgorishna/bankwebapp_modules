@@ -8,18 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.model.Customer;
 
-@WebServlet("/admin/listAccounts.php")
-public class AccountController extends AbstractServletHandler {
+@WebServlet("/admin/profile.php")
+public class CustomerProfileController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(Long.parseLong(request.getParameter("IdCustomer"))));
+		Long idCustomer  =  Long.parseLong(request.getParameter("IdCustomer"));
+		
+		Customer customer = getCommonService().findById(idCustomer);
+		
+		request.setAttribute("customer", customer);
 
-		gotoToJSP("admint/listAccounts.jsp", request, response);
-
+		gotoToJSP("admin/customerProfile.jsp", request, response);
 	}
+
 }
