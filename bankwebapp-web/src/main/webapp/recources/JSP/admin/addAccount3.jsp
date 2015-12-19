@@ -81,7 +81,7 @@
     
 </ol>
                
-             <%-- <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include> --%>   
+             <jsp:include page="../modules/moduleAddAccount.jsp"></jsp:include>  
                 </div>
                 
                

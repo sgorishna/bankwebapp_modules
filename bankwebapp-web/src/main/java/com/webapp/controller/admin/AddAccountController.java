@@ -32,11 +32,12 @@ public class AddAccountController extends AbstractServletHandler {
 
 		Account account = new Account();
 
-		account.setIdCustomer(Long.parseLong(request.getParameter("idCustomer")));
+		account.setIdCustomer(Long.parseLong(request.getParameter("IdCustomer")));
+		
 		account.setIdAccountType(Long.parseLong(request.getParameter("accountType")));
 		account.setIdCurrency(Long.parseLong(request.getParameter("currency")));
 		account.setAccountNumber(Long.parseLong(request.getParameter("accountNumber")));
-		account.setBalance(new BigDecimal(request.getParameter("balance")));
+		account.setBalance(new BigDecimal(0.0));
 
 		getAdminService().create(account);
 		request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(account.getIdCustomer()));

@@ -26,9 +26,11 @@
                
                 <th><fmt:message key="CUSTOMER" /></th>
                 <th><fmt:message key="ACCOUNT_NUMBER" /></th>
-                <th><fmt:message key="ACCOUNT_TYPE" /></th>
-                <th><fmt:message key="CURRENCY" /></th>
                 <th><fmt:message key="BALANCE" /></th>
+                 <th><fmt:message key="CURRENCY" /></th>
+                <th><fmt:message key="ACCOUNT_TYPE" /></th>
+               
+                
                 <th><fmt:message key="CREATED" /></th>
                 <th><fmt:message key="UPDATED" /></th>
             </tr>
@@ -39,9 +41,11 @@
                    
                     <td><c:out value="${account.customerName}" /></td>
                      <td><c:out value="${account.accountNumber}" /></td>
+                     <td><c:out value="${account.balance}" /></td>
+                     <td><c:out value="${account.currency}" /></td>
                      <td><c:out value="${account.accountType}" /></td>
-                    <td><c:out value="${account.currency}" /></td>
-                    <td><c:out value="${account.balance}" /></td>
+                    
+                    
                 
                     <td><c:out value="${account.created}" /></td>
                      <td><c:out value="${account.updated}" /></td>
