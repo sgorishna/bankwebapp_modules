@@ -25,5 +25,7 @@ public interface AdminService {
 	void create(Customer customer) throws InvalidDataException;
 
 	public Customer findByLogin(String login);
+	
+	Account getAccountByAccountNumber(long accountNumber);
 
 }

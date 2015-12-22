@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Register new customer</title>
+        <title>Top up account</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -20,7 +20,7 @@
       </style>
       
       
-       
+   
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -69,11 +69,19 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="ADD_NEW_ACCONT" /></h2>
+                    <h2 class="sub-header" ><fmt:message key="TOP_UP_ACCOUNT" />
                     
-                      <ol class="breadcrumb">
+      
+                    
+                    
+                     </h2>
+                     
+                    <ol class="breadcrumb">
     <li><a href="profile.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
     </li>
+    <li><a href="accountList.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
+    </li>
+    
     <li><a href="#"><fmt:message key="VIEW_TRANSACTIONS" /></a>
     </li>
     
@@ -81,7 +89,7 @@
     
 </ol>
                
-             <jsp:include page="../modules/moduleAddAccount.jsp"></jsp:include>  
+                <jsp:include page="../modules/moduleTopUp.jsp"></jsp:include> 
                 </div>
                 
                

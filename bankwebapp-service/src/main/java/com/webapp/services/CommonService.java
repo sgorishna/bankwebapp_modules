@@ -21,4 +21,6 @@ public interface CommonService {
 	void updateImage(Customer customer);
 	
 	void update(Customer customer);
+	
+	
 }

@@ -68,4 +68,9 @@ public class AdminServiceImpl implements AdminService {
 		return customerDao.findByLogin(login);
 	}
 
+	public Account getAccountByAccountNumber(long accountNumber) {
+		
+		return accountDao.getAccountByAccountNumber(accountNumber);
+	}
+
 }

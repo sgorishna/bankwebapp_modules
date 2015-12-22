@@ -27,7 +27,7 @@ public class AccountDaoImpl implements AccountDao {
 
 		try {
 			connection = DBUtill.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into account(idCustomer,idAccount_type,idCurrency,account_number,balance,created) values (?, ?, ?, ?, ?, ?)");
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into account(idCustomer,idAccount_type,idCurrency,account_number,balance,created, active) values (?, ?, ?, ?, ?, ?, ?)");
 
 			preparedStatement.setLong(1, account.getIdCustomer());
 			preparedStatement.setLong(2, account.getIdAccountType());
@@ -35,6 +35,7 @@ public class AccountDaoImpl implements AccountDao {
 			preparedStatement.setLong(4, account.getAccountNumber());
 			preparedStatement.setBigDecimal(5, account.getBalance());
 			preparedStatement.setTimestamp(6, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setInt(7, 1);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -59,7 +60,7 @@ public class AccountDaoImpl implements AccountDao {
 			connection = DBUtill.getConnection();
 			stmt = connection.createStatement();
 			rs = stmt
-					.executeQuery("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
+					.executeQuery("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated,a.active, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
 							+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency where c.idCustomer="
 							+ idCustomer);
 			while (rs.next()) {
@@ -74,6 +75,7 @@ public class AccountDaoImpl implements AccountDao {
 				account.setBalance(rs.getBigDecimal("balance"));
 				account.setCreated(rs.getTimestamp("created"));
 				account.setUpdated(rs.getTimestamp("updated"));
+				account.setActive(rs.getInt("active"));
 				accountList.add(account);
 			}
 
@@ -91,11 +93,14 @@ public class AccountDaoImpl implements AccountDao {
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
-			PreparedStatement preparedStatement = conn.prepareStatement("update account set balance=balance+" + amount + " where account_number=?");
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update account set balance=balance+" + amount + ", updated =?  where account_number=?");
 
 			preparedStatement.setBigDecimal(1, account.getBalance());
-
-			preparedStatement.setLong(2, account.getAccountNumber());
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, account.getAccountNumber());
+			
+			
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -111,20 +116,23 @@ public class AccountDaoImpl implements AccountDao {
 		Account account = new Account();
 		try {
 			connection = DBUtill.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from account where account_number=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated,a.active, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
+							+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency where a.idAccount=?");
+							
 			preparedStatement.setLong(1, accountNumber);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				account.setIdAccount(rs.getLong("idAccount"));
 				account.setIdCustomer(rs.getLong("idCustomer"));
-
+				account.setCustomerName(rs.getString("customer"));
 				account.setAccountNumber(rs.getLong("account_number"));
-				account.setIdAccountType(rs.getLong("idAccount_type"));
-				account.setIdCurrency(rs.getLong("idCurrency"));
+				account.setAccountType(rs.getString("account_type"));
+				account.setCurrency(rs.getString("account_currency"));
 				account.setBalance(rs.getBigDecimal("balance"));
 				account.setCreated(rs.getTimestamp("created"));
 				account.setUpdated(rs.getTimestamp("updated"));
+				account.setActive(rs.getInt("active"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(AccountDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -170,7 +178,7 @@ public class AccountDaoImpl implements AccountDao {
 
 			connection = DBUtill.getConnection();
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
+			rs = stmt.executeQuery("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated,a.active, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
 					+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency ");
 			while (rs.next()) {
 				Account account = new Account();
@@ -184,6 +192,7 @@ public class AccountDaoImpl implements AccountDao {
 				account.setBalance(rs.getBigDecimal("balance"));
 				account.setCreated(rs.getTimestamp("created"));
 				account.setUpdated(rs.getTimestamp("updated"));
+				account.setActive(rs.getInt("active"));
 				accountList.add(account);
 			}
 

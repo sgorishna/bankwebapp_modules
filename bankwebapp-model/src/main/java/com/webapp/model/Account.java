@@ -18,6 +18,8 @@ public class Account implements Serializable {
 	private BigDecimal balance;
 	private Timestamp created;
 	private Timestamp updated;
+	
+	private Integer active;
 
 	public long getIdAccount() {
 		return idAccount;
@@ -105,6 +107,14 @@ public class Account implements Serializable {
 
 	public void setCurrency(String currency) {
 		this.сurrency = currency;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
 	}
 
 }

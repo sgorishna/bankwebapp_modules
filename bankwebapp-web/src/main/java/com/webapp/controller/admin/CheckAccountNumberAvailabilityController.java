@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.model.Account;
 import com.webapp.model.Customer;
 
 @WebServlet("/admin/checkAccountNumber")
@@ -18,15 +19,23 @@ public class CheckAccountNumberAvailabilityController extends AbstractServletHan
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String accountNumber = request.getParameter("accountNumber");
+		String an = request.getParameter("accountNumber");
+		
+		if(an == ""){
+			
+			request.setAttribute("available", "Available");
+		} else{
+		
+		Long accountNumber = Long.parseLong(an);
 
-		Customer с = getCommonService().findByEmail(accountNumber);
+		Account a = getAdminService().getAccountByAccountNumber(accountNumber);
 
-		if (с.getLogin() != null) {
+		if (a.getCreated() != null ) {
 
-			request.setAttribute("taken", "Email already exists in system");
+			request.setAttribute("taken", "Account number already exists in system");
 		} else {
 			request.setAttribute("available", "Available");
+		}
 		}
 
 		gotoToJSP("admin/check.jsp", request, response);
