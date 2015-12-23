@@ -17,7 +17,7 @@
 
 
  <label class="control-label" for="account_number"><fmt:message key="ACCOUNT_NUMBER" /></label>
- &nbsp<span id="checkAccountNumber"> </span>
+  <div class="col-xs-12" "></div><span id="checkAccountNumber"> </span>
  <input type="text" class="form-control" name="accountNumber" value="<c:out value="${account.accountNumber}" />" id = "accountNumber" onkeyup="checkAccountNumber()" required> 
 </div>
  

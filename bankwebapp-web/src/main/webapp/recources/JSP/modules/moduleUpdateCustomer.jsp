@@ -34,7 +34,7 @@
 		</td>
 
 
-		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
+		<td ></td>
 		<td>
 
 			<form role="form" method="POST" action='updateCustomer.php?IdCustomer=${customer.idCustomer}'>

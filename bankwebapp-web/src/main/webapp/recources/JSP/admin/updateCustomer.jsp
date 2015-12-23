@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Register new customer</title>
+        <title>Update customer profile</title>
         <style>
         <!-- Bootstrap core CSS -->
          

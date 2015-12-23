@@ -6,10 +6,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.Part;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+
+import com.webapp.model.Customer;
+import com.webapp.services.CommonService;
 
 public class ImageLoadHelper {
 
@@ -86,4 +90,59 @@ public class ImageLoadHelper {
 
 	}
 
+	public static boolean checkImgType(String photoName){
+		
+		if (photoName.endsWith(".JPG") || photoName.endsWith(".PNG") || photoName.endsWith(".jpg") || photoName.endsWith(".png")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public static File makeDir(String pathToDir ){
+		
+		File photoSaveDir = new File(pathToDir);
+		if (!photoSaveDir.exists()) {
+			photoSaveDir.mkdirs();
+		}
+		
+		return photoSaveDir;
+	}
+	
+	public static void saveImgOnDisk( Customer customer, Long IdCustomer, String photoName , Part filePart, String uploadPhotoPath, CommonService service) throws IOException{
+		
+		customer.setIdCustomer(IdCustomer);
+
+		photoName = "" + customer.getIdCustomer() + ".JPG";
+
+		filePart.write(uploadPhotoPath + File.separator + photoName);
+
+		customer.setPhotoPath(uploadPhotoPath + File.separator + photoName);
+
+		service.updateImage(customer);
+
+		CacheImitation.removeFromCache(IdCustomer);
+		
+		
+	}
+	
+	public static void saveImgInDatabase(CommonService service, Long IdCustomer , Customer customer, byte[] imgbytes){
+		
+		Customer c = service.findById(IdCustomer);
+
+		String path = c.getPhotoPath();
+
+		if (path != null) {
+
+			File file = new File(path);
+			file.delete();
+		}
+
+		customer.setPhoto(imgbytes);
+
+		customer.setIdCustomer(IdCustomer);
+		service.updateImage(customer);
+
+		CacheImitation.removeFromCache(IdCustomer);
+	}
 }

@@ -18,30 +18,38 @@
 
 				<img alt="" src="showImage.php?IdCustomer=${customer.idCustomer} "
 					height="250" width="190">
+					
+					
 
 			</div>
+			
+			
 
 		</td>
 
 
-		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
+		<td >
+		<div class="col-xs-12" "></div>
+		</td>
 		<td>
 
 
 
 			<div class="form-group">
+			
+			
 
 				<div class="form-group">
 
 					<label class="control-label"><fmt:message key="NAME" /></label>
-					:&nbsp
+					: <div class="col-xs-12" "></div>
 					<c:out value="${customer.name}" />
 
 				</div>
 
 				<div class="form-group">
 					<label class="control-label"><fmt:message key="LOGIN" /></label>
-					:&nbsp
+					: <div class="col-xs-12" "></div>
 					<c:out value="${customer.login}" />
 				</div>
 
@@ -49,14 +57,14 @@
 				<div class="form-group">
 
 					<label class="control-label"><fmt:message key="PASSWORD" /></label>
-					:&nbsp
+					: <div class="col-xs-12" "></div>
 					<c:out value="${customer.password}" />
 				</div>
 
 				<div class="form-group">
 
 					<label class="control-label"><fmt:message key="EMAIL" /></label>
-					:&nbsp
+					: <div class="col-xs-12" "></div>
 					<c:out value="${customer.email}" />
 				</div>
 
