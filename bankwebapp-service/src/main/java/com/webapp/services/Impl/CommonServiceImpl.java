@@ -28,10 +28,7 @@ public class CommonServiceImpl implements CommonService {
 
 	}
 
-	public Account getAccountByAccountNumber(long accountNumber) {
-
-		return accountDao.getAccountByAccountNumber(accountNumber);
-	}
+	
 
 	public Customer findById(long IdCustomer) {
 

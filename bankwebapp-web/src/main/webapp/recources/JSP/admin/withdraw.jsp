@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Top up account</title>
+        <title>Withdraw funds from account</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -69,7 +69,7 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="TOP_UP_ACCOUNT" />
+                    <h2 class="sub-header" ><fmt:message key="WITHDRAW_FUNDS_FROM_ACCOUNT" />
                     
       
                     
@@ -94,9 +94,8 @@
     </li>
     
 </ol>
-              
-              <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
-                <jsp:include page="../modules/moduleTopUp.jsp"></jsp:include> 
+                <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
+                <jsp:include page="../modules/moduleWithdraw.jsp"></jsp:include> 
                 </div>
                 
                

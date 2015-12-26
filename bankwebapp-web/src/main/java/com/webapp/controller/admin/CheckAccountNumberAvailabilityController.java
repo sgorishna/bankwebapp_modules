@@ -19,16 +19,16 @@ public class CheckAccountNumberAvailabilityController extends AbstractServletHan
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String an = request.getParameter("accountNumber");
+		String accountNumber = request.getParameter("accountNumber");
 		
-		if(an == ""){
+		if(accountNumber == ""){
 			
 			request.setAttribute("available", "Available");
 		} else{
 		
-		Long accountNumber = Long.parseLong(an);
+		
 
-		Account a = getAdminService().getAccountByAccountNumber(accountNumber);
+		Account a = getAdminService().findByAccountNumber(accountNumber);
 
 		if (a.getCreated() != null ) {
 

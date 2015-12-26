@@ -14,9 +14,9 @@ public class Transaction implements Serializable {
 
 	private long idAccountReceiver;
 
-	private long senderAccountNumber;
+	private String senderAccountNumber;
 
-	private long receiverAccountNumber;
+	private String receiverAccountNumber;
 
 	private String senderName;
 
@@ -78,19 +78,19 @@ public class Transaction implements Serializable {
 		this.created = created;
 	}
 
-	public long getSenderAccountNumber() {
+	public String getSenderAccountNumber() {
 		return senderAccountNumber;
 	}
 
-	public void setSenderAccountNumber(long senderAccountNumber) {
+	public void setSenderAccountNumber(String senderAccountNumber) {
 		this.senderAccountNumber = senderAccountNumber;
 	}
 
-	public long getReceiverAccountNumber() {
+	public String getReceiverAccountNumber() {
 		return receiverAccountNumber;
 	}
 
-	public void setReceiverAccountNumber(long receiverAccountNumber) {
+	public void setReceiverAccountNumber(String receiverAccountNumber) {
 		this.receiverAccountNumber = receiverAccountNumber;
 	}
 

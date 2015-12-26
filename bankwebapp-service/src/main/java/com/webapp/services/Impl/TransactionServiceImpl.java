@@ -25,14 +25,30 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionDao.findByIdCustomer(idCustomer);
 	}
 
-	public Account getAccountByAccountNumber(long accountNumber) {
-
-		return accountDao.getAccountByAccountNumber(accountNumber);
-	}
+	
 
 	public void create(Transaction transaction) {
 		transactionDao.create(transaction);
 
 	}
+
+	public void topUpBalance(Transaction transaction) {
+		 
+		transactionDao.topUpBalance(transaction);
+		
+	}
+
+	public Account findByAccountNumber(String accountNumber) {
+		
+		return accountDao.findByAccountNumber(accountNumber);
+	}
+
+	public void withdrawBalance(Transaction transaction) {
+		
+		transactionDao.withdrawBalance(transaction);
+	}
+
+	
+
 
 }

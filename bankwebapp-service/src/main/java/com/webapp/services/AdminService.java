@@ -5,6 +5,7 @@ import java.util.List;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
+import com.webapp.model.Transaction;
 
 public interface AdminService {
 
@@ -26,6 +27,10 @@ public interface AdminService {
 
 	public Customer findByLogin(String login);
 	
-	Account getAccountByAccountNumber(long accountNumber);
+	Account findByAccountNumber(String accountNumber);
+	
+	Account findById(long idAccount);
+	
+   
 
 }

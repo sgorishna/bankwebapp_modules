@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.webapp.dao.AccountDao;
 import com.webapp.dao.CustomerDao;
+import com.webapp.dao.TransactionDao;
 import com.webapp.dao.impl.AccountDaoImpl;
 import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
+import com.webapp.model.Transaction;
 import com.webapp.services.AdminService;
 
 public class AdminServiceImpl implements AdminService {
@@ -16,11 +19,15 @@ public class AdminServiceImpl implements AdminService {
 	private static AccountDao accountDao;
 
 	private static CustomerDao customerDao;
+	
+	
 
 	public AdminServiceImpl() {
 
 		this.accountDao = new AccountDaoImpl();
 		this.customerDao = new CustomerDaoImpl();
+		
+		
 
 	}
 
@@ -68,9 +75,15 @@ public class AdminServiceImpl implements AdminService {
 		return customerDao.findByLogin(login);
 	}
 
-	public Account getAccountByAccountNumber(long accountNumber) {
+	public Account findByAccountNumber(String accountNumber) {
 		
-		return accountDao.getAccountByAccountNumber(accountNumber);
+		return accountDao.findByAccountNumber(accountNumber);
 	}
+
+	public Account findById(long idAccount) {
+		
+		return  accountDao.findById(idAccount);
+	}
+
 
 }

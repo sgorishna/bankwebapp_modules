@@ -9,8 +9,11 @@ public interface TransactionService {
 
 	List<Transaction> findByIdCustomer(long idCustomer);
 
-	Account getAccountByAccountNumber(long accountNumber);
+	Account findByAccountNumber(String accountNumber);
 
 	void create(Transaction transaction);
 
+	 void topUpBalance(Transaction transaction);
+	 
+	 void withdrawBalance(Transaction transaction);
 }

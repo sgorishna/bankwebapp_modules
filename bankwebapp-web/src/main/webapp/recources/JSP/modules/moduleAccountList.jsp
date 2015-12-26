@@ -55,7 +55,7 @@
                     </c:otherwise>
                     </c:choose></td>
                     <td><a href="topUp.php?IdAccount=${account.idAccount}"><fmt:message key="TOP_UP" /></a></td>
-                    <td><a href=""><fmt:message key="WITHDRAW" /></a></td>
+                    <td><a href="withdraw.php?IdAccount=${account.idAccount}"><fmt:message key="WITHDRAW" /></a></td>
                     <td><c:choose>
                      <c:when test="${account.active==1}">
                      <a href="" > <fmt:message key="BLOCK" /> </a>

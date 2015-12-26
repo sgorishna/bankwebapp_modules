@@ -47,6 +47,7 @@
 
 				</div>
 				
+				
 				<div class="form-group">
 
 					<label class="control-label"><fmt:message key="ACCOUNT_TYPE" /></label>
@@ -54,7 +55,6 @@
 					<c:out value="${account.accountType}" />
 
 				</div>
-				
 				
 				<div class="form-group">
 
@@ -99,7 +99,7 @@
 
 
 
-			<form role="form" method="POST" action='topUp.php?IdAccount=${account.idAccount}'>
+			<form role="form" method="POST" action='withdraw.php?IdAccount=${account.idAccount}'>
 				<div class="form-group">
 
 					<div class="form-group">

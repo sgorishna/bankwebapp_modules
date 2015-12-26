@@ -17,6 +17,7 @@ import com.webapp.dao.AccountDao;
 import com.webapp.db.DBUtill;
 import com.webapp.model.Account;
 
+
 public class AccountDaoImpl implements AccountDao {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +33,7 @@ public class AccountDaoImpl implements AccountDao {
 			preparedStatement.setLong(1, account.getIdCustomer());
 			preparedStatement.setLong(2, account.getIdAccountType());
 			preparedStatement.setLong(3, account.getIdCurrency());
-			preparedStatement.setLong(4, account.getAccountNumber());
+			preparedStatement.setString(4, account.getAccountNumber());
 			preparedStatement.setBigDecimal(5, account.getBalance());
 			preparedStatement.setTimestamp(6, new Timestamp(new java.util.Date().getTime()));
 			preparedStatement.setInt(7, 1);
@@ -69,7 +70,7 @@ public class AccountDaoImpl implements AccountDao {
 				account.setIdAccount(rs.getLong("idAccount"));
 				account.setIdCustomer(rs.getLong("idCustomer"));
 				account.setCustomerName(rs.getString("customer"));
-				account.setAccountNumber(rs.getLong("account_number"));
+				account.setAccountNumber(rs.getString("account_number"));
 				account.setAccountType(rs.getString("account_type"));
 				account.setCurrency(rs.getString("account_currency"));
 				account.setBalance(rs.getBigDecimal("balance"));
@@ -98,7 +99,7 @@ public class AccountDaoImpl implements AccountDao {
 
 			preparedStatement.setBigDecimal(1, account.getBalance());
 			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
-			preparedStatement.setLong(3, account.getAccountNumber());
+			preparedStatement.setString(3, account.getAccountNumber());
 			
 			
 			preparedStatement.executeUpdate();
@@ -110,23 +111,23 @@ public class AccountDaoImpl implements AccountDao {
 		}
 	}
 
-	public Account getAccountByAccountNumber(long accountNumber) {
+	public Account findByAccountNumber(String accountNumber) {
 
 		Connection connection = null;
 		Account account = new Account();
 		try {
 			connection = DBUtill.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated,a.active, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
-							+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency where a.idAccount=?");
+							+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency where a.account_number=?");
 							
-			preparedStatement.setLong(1, accountNumber);
+			preparedStatement.setString(1, accountNumber);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				account.setIdAccount(rs.getLong("idAccount"));
 				account.setIdCustomer(rs.getLong("idCustomer"));
 				account.setCustomerName(rs.getString("customer"));
-				account.setAccountNumber(rs.getLong("account_number"));
+				account.setAccountNumber(rs.getString("account_number"));
 				account.setAccountType(rs.getString("account_type"));
 				account.setCurrency(rs.getString("account_currency"));
 				account.setBalance(rs.getBigDecimal("balance"));
@@ -186,7 +187,7 @@ public class AccountDaoImpl implements AccountDao {
 				account.setIdAccount(rs.getLong("idAccount"));
 				account.setIdCustomer(rs.getLong("idCustomer"));
 				account.setCustomerName(rs.getString("customer"));
-				account.setAccountNumber(rs.getLong("account_number"));
+				account.setAccountNumber(rs.getString("account_number"));
 				account.setAccountType(rs.getString("account_type"));
 				account.setCurrency(rs.getString("account_currency"));
 				account.setBalance(rs.getBigDecimal("balance"));
@@ -206,15 +207,38 @@ public class AccountDaoImpl implements AccountDao {
 
 	}
 
-	public Account findById(long id) throws UnsupportedOperationException {
+	public Account findById(long id)  {
+		
+		Connection connection = null;
+		Account account = new Account();
 		try {
-			throw new UnsupportedOperationException("Not implemented yet");
-		} catch (java.lang.UnsupportedOperationException e) {
-			Logger.getLogger(AccountDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("select a.idAccount, a.idCustomer, a.account_number,a.balance,a.created,a.updated,a.active, c.name as customer,actp.account_type as account_type, accr.currency as account_currency from account a "
+					+ "inner join customer c on a.idCustomer=c.idCustomer inner join account_type actp on a.idAccount_type=actp.idAccount_type inner join account_currency accr on a.idCurrency=accr.idAccount_currency where a.idAccount=?");
+			preparedStatement.setLong(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
 
+			if (rs.next()) {
+				account.setIdAccount(rs.getLong("idAccount"));
+				account.setIdCustomer(rs.getLong("idCustomer"));
+				account.setCustomerName(rs.getString("customer"));
+				account.setAccountNumber(rs.getString("account_number"));
+				account.setAccountType(rs.getString("account_type"));
+				account.setCurrency(rs.getString("account_currency"));
+				account.setBalance(rs.getBigDecimal("balance"));
+				account.setCreated(rs.getTimestamp("created"));
+				account.setUpdated(rs.getTimestamp("updated"));
+				account.setActive(rs.getInt("active"));
+				
+			}
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(connection);
 		}
 
-		return null;
+		return account;
+
 	}
 
 }

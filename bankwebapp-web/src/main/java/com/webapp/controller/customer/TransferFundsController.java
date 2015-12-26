@@ -27,13 +27,13 @@ public class TransferFundsController extends AbstractServletHandler {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Transaction transaction = new Transaction();
-		long senderAccountNumber = Long.parseLong(request.getParameter("senderAccountNumber"));
-		long receiverAccountNumber = Long.parseLong(request.getParameter("receiverAccountNumber"));
+		String senderAccountNumber = request.getParameter("senderAccountNumber");
+		String receiverAccountNumber =request.getParameter("receiverAccountNumber");
 
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
 
-		Account sender = getTransactionService().getAccountByAccountNumber(senderAccountNumber);
-		Account receiver = getTransactionService().getAccountByAccountNumber(receiverAccountNumber);
+		Account sender = getTransactionService().findByAccountNumber(senderAccountNumber);
+		Account receiver = getTransactionService().findByAccountNumber(receiverAccountNumber);
 
 		transaction.setIdAccountSender(sender.getIdAccount());
 		transaction.setIdAccountReceiver(receiver.getIdAccount());

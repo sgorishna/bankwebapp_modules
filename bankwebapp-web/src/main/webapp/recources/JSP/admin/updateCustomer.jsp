@@ -80,7 +80,7 @@
                       <ol class="breadcrumb">
     <li><a href="profile.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
     </li>
-    <li><a href="#"><fmt:message key="VIEW_ACCOUNTS" /></a>
+    <li><a href="accountList.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
     </li>
     
 </ol>

@@ -14,7 +14,7 @@ public class Account implements Serializable {
 	private String accountType;
 	private long idCurrency;
 	private String сurrency;
-	private long accountNumber;
+	private String accountNumber;
 	private BigDecimal balance;
 	private Timestamp created;
 	private Timestamp updated;
@@ -53,11 +53,11 @@ public class Account implements Serializable {
 		this.idCurrency = idCurrency;
 	}
 
-	public long getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(long accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
