@@ -45,7 +45,11 @@ public class TopUpController extends AbstractServletHandler {
 		transaction.setAmount(amount);
 		transaction.setIdAccountReceiver(idAccount);
 		transaction.setReceiverAccountNumber(a.getAccountNumber());
-		transaction.setSenderAccountNumber("MyBank top up service");
+		transaction.setReceiverName(a.getCustomerName());
+		transaction.setSenderAccountNumber("MyBank");
+		transaction.setCurrency(a.getCurrency());
+		transaction.setSenderName("Top up service");
+		
 		transaction.setComments(comments);
 		
 		getTransactionService().topUpBalance(transaction);

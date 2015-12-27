@@ -11,9 +11,9 @@ public interface AdminService {
 
 	public void create(Account account);
 
-	public void delete(Account object) throws UnsupportedOperationException;
+	public void delete(Account object) ;
 
-	public void update(Account object) throws UnsupportedOperationException;
+	public void update(Account object) ;
 
 	List<Account> findAllAccounts();
 
@@ -30,6 +30,12 @@ public interface AdminService {
 	Account findByAccountNumber(String accountNumber);
 	
 	Account findById(long idAccount);
+	
+	void activateAccount(long idAccount);
+	
+	void deactivateAccount(long idAccount);
+	
+	
 	
    
 

@@ -9,8 +9,12 @@ public interface TransactionDao extends IEntityDao<Transaction>, Serializable {
 
 	List<Transaction> findByIdCustomer(long idCustomer);
 	
+	List<Transaction> findByIdAccount(long idAccount);
+	
 	void topUpBalance(Transaction transaction);
 	
 	void withdrawBalance(Transaction transaction);
+	
+
 
 }

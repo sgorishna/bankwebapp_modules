@@ -48,6 +48,11 @@ public class TransactionServiceImpl implements TransactionService {
 		transactionDao.withdrawBalance(transaction);
 	}
 
+	public List<Transaction> findByIdAccount(long idAccount) {
+		
+		return transactionDao.findByIdAccount(idAccount);
+	}
+
 	
 
 

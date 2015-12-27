@@ -155,13 +155,19 @@ public class AccountDaoImpl implements AccountDao {
 
 	}
 
-	public void delete(Account object) throws UnsupportedOperationException {
+	public void delete(Account account) throws UnsupportedOperationException {
 
+		Connection conn = null;
 		try {
-			throw new UnsupportedOperationException("Not implemented yet");
-		} catch (java.lang.UnsupportedOperationException e) {
-			Logger.getLogger(AccountDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			conn = DBUtill.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement("delete from account where idAccount= ?");
+			preparedStatement.setLong(1, account.getIdAccount());
+			preparedStatement.executeUpdate();
 
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
 		}
 
 	}
@@ -240,5 +246,52 @@ public class AccountDaoImpl implements AccountDao {
 		return account;
 
 	}
+
+	public void activateAccount(long idAccount) {
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update account set active =?, updated =?  where idAccount=?");
+
+			preparedStatement.setInt(1, 1);
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, idAccount);
+			
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(AccountDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+
+	public void deactivateAccount(long idAccount) {
+		
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update account set active =?, updated =?  where idAccount=?");
+
+			preparedStatement.setInt(1, 0);
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, idAccount);
+			
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(AccountDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+	
+	
 
 }

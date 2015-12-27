@@ -22,7 +22,7 @@
 <table class="table table-bordered">
 
 <thead>
-            <tr>
+            <tr class = "info">
                
                 <th><fmt:message key="CUSTOMER" /></th>
                 <th><fmt:message key="ACCOUNT_NUMBER" /></th>
@@ -54,18 +54,34 @@
                     
                     </c:otherwise>
                     </c:choose></td>
-                    <td><a href="topUp.php?IdAccount=${account.idAccount}"><fmt:message key="TOP_UP" /></a></td>
+                    
+                   
+                    <c:choose>
+                    <c:when test="${account.active==0}">
+                    
+                    <td>
+                    <fmt:message key="TOP_UP" /></td>
+                    <td><fmt:message key="WITHDRAW" /></td>
+                    </c:when>
+                    <c:otherwise>
+                    
+                    <td>
+                    <a href="topUp.php?IdAccount=${account.idAccount}"><fmt:message key="TOP_UP" /></a></td>
                     <td><a href="withdraw.php?IdAccount=${account.idAccount}"><fmt:message key="WITHDRAW" /></a></td>
+                    
+                    </c:otherwise>
+                    </c:choose>
+                     
                     <td><c:choose>
                      <c:when test="${account.active==1}">
-                     <a href="" > <fmt:message key="BLOCK" /> </a>
+                     <a href="deactivateAccount?idAccount=${account.idAccount}"  onclick="return confirm('Are you sure you want to block account?')"> <fmt:message key="BLOCK" /> </a>
                      </c:when>
                     <c:otherwise>
-                  <a href="" > <fmt:message key="UNBLOCK" /> </a>
+                  <a href="activateAccount?idAccount=${account.idAccount}" onclick="return confirm('Are you sure you want to unblock account?')"> <fmt:message key="UNBLOCK" /> </a>
                     
                     </c:otherwise>
                     </c:choose></td>
-                    <td><a href="" > <fmt:message key="DELETE" /> </a></td>
+                    <td><a href="deleteAccount?idAccount=${account.idAccount}" onclick="return confirm('Are you sure you want to delete account?')"> <fmt:message key="DELETE" /> </a></td>
                 
                     <td><c:out value="${account.created}" /></td>
                      <td><c:out value="${account.updated}" /></td>

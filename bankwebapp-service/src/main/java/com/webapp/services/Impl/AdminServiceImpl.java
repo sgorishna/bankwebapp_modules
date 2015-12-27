@@ -36,12 +36,12 @@ public class AdminServiceImpl implements AdminService {
 		accountDao.create(account);
 	}
 
-	public void delete(Account object) throws UnsupportedOperationException {
+	public void delete(Account object) {
 		accountDao.delete(object);
 
 	}
 
-	public void update(Account object) throws UnsupportedOperationException {
+	public void update(Account object)  {
 		accountDao.update(object);
 	}
 
@@ -83,6 +83,16 @@ public class AdminServiceImpl implements AdminService {
 	public Account findById(long idAccount) {
 		
 		return  accountDao.findById(idAccount);
+	}
+
+	public void activateAccount(long idAccount) {
+		accountDao.activateAccount(idAccount);
+		
+	}
+
+	public void deactivateAccount(long idAccount) {
+		accountDao.deactivateAccount(idAccount);
+		
 	}
 
 

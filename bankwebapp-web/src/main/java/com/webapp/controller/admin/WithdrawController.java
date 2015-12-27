@@ -64,7 +64,10 @@ public class WithdrawController extends AbstractServletHandler {
 		transaction.setAmount(amount.multiply(new BigDecimal(-1)));
 		transaction.setIdAccountReceiver(idAccount);
 		transaction.setReceiverAccountNumber(a.getAccountNumber());
-		transaction.setSenderAccountNumber("MyBank withdraw service");
+		transaction.setReceiverName(a.getCustomerName());
+		transaction.setSenderAccountNumber("MyBank");
+		transaction.setSenderName("Withdraw service");
+		transaction.setCurrency(a.getCurrency());
 		transaction.setComments(comments);
 		
 		getTransactionService().withdrawBalance(transaction);

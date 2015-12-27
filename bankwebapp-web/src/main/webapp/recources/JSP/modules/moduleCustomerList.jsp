@@ -7,7 +7,7 @@
 <table class="table table-bordered">
 
 <thead>
-            <tr>
+            <tr class = "info">
                
                 <th><fmt:message key="LOGIN" /></th>
                 <th><fmt:message key="PASSWORD" /></th>

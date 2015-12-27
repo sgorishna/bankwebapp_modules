@@ -13,5 +13,11 @@ public interface AccountDao extends IEntityDao<Account>, Serializable {
 	void topUpBalance(Account account, BigDecimal amount);
 
 	Account findByAccountNumber(String accountNumber);
+	
+	void activateAccount(long idAccount);
+	
+	void deactivateAccount(long idAccount);
+	
+	
 
 }

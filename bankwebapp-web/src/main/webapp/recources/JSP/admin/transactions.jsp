@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Register new customer</title>
+        <title>Accounts</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -17,9 +17,7 @@
         <!-- Custom styles for this template -->
          <%@include file="/recources/css/dashboard.css" %>
          
-      </style>
-      
-      
+      </style>  
        
     </head>
     <body>
@@ -53,12 +51,6 @@
                         <li >
                             <a href="customerList.php"><fmt:message key="CUSTOMERS" /></a>
                         </li>
-                        <li></li>
-                        <li></li>
-                         <li >
-                            <a href="accountList.php"><fmt:message key="ACCOUNTS" /></a>
-                        </li>
-                        
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li >
@@ -69,9 +61,9 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="CUSTOMER_ACCOUNTS" /></h2>
+                    <h2 class="sub-header" ><fmt:message key="TRANSACTIONS" /></h2>
                     
-                      <ol class="breadcrumb">
+                    <ol class="breadcrumb">
     <li><a href="profile.php?IdCustomer=${idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
     </li>
     <li><a href="transactions.php?IdCustomer=${idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
@@ -80,8 +72,19 @@
     </li>
     
 </ol>
-               
-              <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include>   
+                   <c:choose>
+                   <c:when test="${not empty requestScope.all}">
+                   
+                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                   
+                   </c:when>
+                   
+                   <c:otherwise>
+                     <jsp:include page="../modules/moduleTransactions.jsp"></jsp:include> 
+                   </c:otherwise>
+                   </c:choose>
+                    
+                
                 </div>
                 
                

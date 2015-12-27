@@ -8,6 +8,7 @@ import com.webapp.model.Transaction;
 public interface TransactionService {
 
 	List<Transaction> findByIdCustomer(long idCustomer);
+	List<Transaction> findByIdAccount(long idAccount);
 
 	Account findByAccountNumber(String accountNumber);
 

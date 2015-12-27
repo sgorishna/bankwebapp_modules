@@ -26,20 +26,26 @@ public class TransactionDaoImpl implements TransactionDao {
 		try {
 			conn = DBUtill.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement preparedStatement1 = conn.prepareStatement("update account set balance=balance - ?  where account_number = ?");
+			PreparedStatement preparedStatement1 = conn
+					.prepareStatement("update account set balance=balance - ?  where account_number = ?");
 			preparedStatement1.setBigDecimal(1, transaction.getAmount());
-			preparedStatement1.setString(2, transaction.getSenderAccountNumber());
+			preparedStatement1.setString(2,
+					transaction.getSenderAccountNumber());
 
-			PreparedStatement preparedStatement2 = conn.prepareStatement("update account set balance=balance+ ?   where account_number = ?");
+			PreparedStatement preparedStatement2 = conn
+					.prepareStatement("update account set balance=balance+ ?   where account_number = ?");
 			preparedStatement2.setBigDecimal(1, transaction.getAmount());
-			preparedStatement1.setString(2, transaction.getReceiverAccountNumber());
+			preparedStatement1.setString(2,
+					transaction.getReceiverAccountNumber());
 
-			PreparedStatement preparedStatement3 = conn.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount,comments,created) values (?, ?, ?, ?, ?)");
+			PreparedStatement preparedStatement3 = conn
+					.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount,comments,created) values (?, ?, ?, ?, ?)");
 			preparedStatement3.setLong(1, transaction.getIdAccountSender());
 			preparedStatement3.setLong(2, transaction.getIdAccountReceiver());
 			preparedStatement3.setBigDecimal(3, transaction.getAmount());
 			preparedStatement3.setString(4, transaction.getComments());
-			preparedStatement3.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement3.setTimestamp(5, new Timestamp(
+					new java.util.Date().getTime()));
 
 			preparedStatement1.executeUpdate();
 			preparedStatement2.executeUpdate();
@@ -51,9 +57,11 @@ public class TransactionDaoImpl implements TransactionDao {
 			try {
 				conn.rollback();
 			} catch (SQLException ex) {
-				Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, ex);
+				Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+						Level.DEBUG, null, ex);
 			}
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 		} finally {
 			DBUtill.closeConnection(conn);
 		}
@@ -66,7 +74,8 @@ public class TransactionDaoImpl implements TransactionDao {
 			throw new UnsupportedOperationException("Not implemented yet");
 		} catch (java.lang.UnsupportedOperationException e) {
 
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 		}
 
 	}
@@ -76,7 +85,8 @@ public class TransactionDaoImpl implements TransactionDao {
 			throw new UnsupportedOperationException("Not implemented yet");
 		} catch (java.lang.UnsupportedOperationException e) {
 
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 		}
 
 	}
@@ -85,7 +95,8 @@ public class TransactionDaoImpl implements TransactionDao {
 		try {
 			throw new UnsupportedOperationException("Not implemented yet");
 		} catch (java.lang.UnsupportedOperationException e) {
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 			return null;
 		}
 	}
@@ -94,7 +105,8 @@ public class TransactionDaoImpl implements TransactionDao {
 		try {
 			throw new UnsupportedOperationException("Not implemented yet");
 		} catch (java.lang.UnsupportedOperationException e) {
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 			return Collections.emptyList();
 		}
 	}
@@ -106,18 +118,11 @@ public class TransactionDaoImpl implements TransactionDao {
 
 		try {
 
-			String sql = "select t.idTransaction, a.account_number as sender_acc_num, c.name as sender_name, b.account_number as receiver_acc_num,"
-					+ " d.name as receiver_name, t.amount, cur.currency, t.comments, t.created from transaction t join account a on t.idAccount_sender=a.idAccount"
-					+ " join account b on t.idAccount_receiver= b.idAccount join customer  c on c.idCustomer = a.idCustomer join customer d on d.idCustomer =  b.idCustomer"
-					+ " join account_currency cur on a.idCurrency = cur.idAccount_currency where a.idCustomer =? " +
-
-					" union select t.idTransaction, a.account_number as sender_acc_num, c.name as sender_name, b.account_number as receiver_acc_num,"
-					+ " d.name as receiver_name, t.amount, cur.currency, t.comments, t.created from transaction t join account a on t.idAccount_sender=a.idAccount"
-					+ " join account b on t.idAccount_receiver= b.idAccount join customer  c on c.idCustomer = a.idCustomer join customer d on d.idCustomer =  b.idCustomer"
-					+ " join account_currency cur on a.idCurrency = cur.idAccount_currency where b.idCustomer =?  ";
+			String sql = "select idTransaction, senderName,senderAccNum, receiverName, receiverAccNum, amount, currency, comments, t.created from transaction t left join account a on a.idAccount = t.idAccount_sender left join account b on b.idAccount = t.idAccount_receiver where a.idCustomer =? or b.idCustomer =?";
 
 			connection = DBUtill.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
 			preparedStatement.setLong(1, idCustomer);
 			preparedStatement.setLong(2, idCustomer);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -128,13 +133,15 @@ public class TransactionDaoImpl implements TransactionDao {
 
 				transaction.setIdTransaction(rs.getLong("idTransaction"));
 
-				transaction.setSenderAccountNumber(rs.getString("sender_acc_num"));
+				transaction.setSenderAccountNumber(rs
+						.getString("senderAccNum"));
 
-				transaction.setSenderName(rs.getString("sender_name"));
+				transaction.setSenderName(rs.getString("senderName"));
 
-				transaction.setReceiverAccountNumber(rs.getString("receiver_acc_num"));
+				transaction.setReceiverAccountNumber(rs
+						.getString("receiverAccNum"));
 
-				transaction.setReceiverName(rs.getString("receiver_name"));
+				transaction.setReceiverName(rs.getString("receiverName"));
 
 				transaction.setAmount(rs.getBigDecimal("amount"));
 
@@ -148,7 +155,8 @@ public class TransactionDaoImpl implements TransactionDao {
 			}
 
 		} catch (SQLException ex) {
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, ex);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, ex);
 		} finally {
 			DBUtill.closeConnection(connection);
 		}
@@ -157,26 +165,36 @@ public class TransactionDaoImpl implements TransactionDao {
 	}
 
 	public void topUpBalance(Transaction transaction) {
-		
+
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
 			conn.setAutoCommit(false);
-			
-			PreparedStatement preparedStatement = conn.prepareStatement("update account set balance=balance+ ?   where account_number = ?");
-			preparedStatement.setBigDecimal(1, transaction.getAmount());
-			preparedStatement.setString(2, transaction.getReceiverAccountNumber());
 
-			PreparedStatement preparedStatement2 = conn.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount,comments,created) values (?, ?, ?, ?, ?)");
+			PreparedStatement preparedStatement = conn
+					.prepareStatement("update account set balance=balance+ ?   where account_number = ?");
+			preparedStatement.setBigDecimal(1, transaction.getAmount());
+			preparedStatement.setString(2,
+					transaction.getReceiverAccountNumber());
+
+			PreparedStatement preparedStatement2 = conn
+					.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount, senderAccNum, receiverAccNum, senderName, receiverName, currency,comments,created) values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 			preparedStatement2.setLong(1, transaction.getIdAccountSender());
 			preparedStatement2.setLong(2, transaction.getIdAccountReceiver());
 			preparedStatement2.setBigDecimal(3, transaction.getAmount());
-			preparedStatement2.setString(4, transaction.getComments());
-			preparedStatement2.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement2.setString(4,
+					transaction.getSenderAccountNumber());
+			preparedStatement2.setString(5,
+					transaction.getReceiverAccountNumber());
+			preparedStatement2.setString(6, transaction.getSenderName());
+			preparedStatement2.setString(7, transaction.getReceiverName());
+			preparedStatement2.setString(8, transaction.getCurrency());
+			preparedStatement2.setString(9, transaction.getComments());
+			preparedStatement2.setTimestamp(10, new Timestamp(
+					new java.util.Date().getTime()));
 
 			preparedStatement.executeUpdate();
 			preparedStatement2.executeUpdate();
-			
 
 			conn.commit();
 
@@ -184,37 +202,48 @@ public class TransactionDaoImpl implements TransactionDao {
 			try {
 				conn.rollback();
 			} catch (SQLException ex) {
-				Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, ex);
+				Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+						Level.DEBUG, null, ex);
 			}
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 		} finally {
 			DBUtill.closeConnection(conn);
 		}
 
-		
 	}
 
 	public void withdrawBalance(Transaction transaction) {
-		
+
 		Connection conn = null;
 		try {
 			conn = DBUtill.getConnection();
 			conn.setAutoCommit(false);
-			
-			PreparedStatement preparedStatement = conn.prepareStatement("update account set balance=balance+?   where account_number = ?");
-			preparedStatement.setBigDecimal(1, transaction.getAmount());
-			preparedStatement.setString(2, transaction.getReceiverAccountNumber());
 
-			PreparedStatement preparedStatement2 = conn.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount,comments,created) values (?, ?, ?, ?, ?)");
+			PreparedStatement preparedStatement = conn
+					.prepareStatement("update account set balance=balance+?   where account_number = ?");
+			preparedStatement.setBigDecimal(1, transaction.getAmount());
+			preparedStatement.setString(2,
+					transaction.getReceiverAccountNumber());
+
+			PreparedStatement preparedStatement2 = conn
+					.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount, senderAccNum, receiverAccNum, senderName, receiverName, currency,comments,created) values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 			preparedStatement2.setLong(1, transaction.getIdAccountSender());
 			preparedStatement2.setLong(2, transaction.getIdAccountReceiver());
 			preparedStatement2.setBigDecimal(3, transaction.getAmount());
-			preparedStatement2.setString(4, transaction.getComments());
-			preparedStatement2.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement2.setString(4,
+					transaction.getSenderAccountNumber());
+			preparedStatement2.setString(5,
+					transaction.getReceiverAccountNumber());
+			preparedStatement2.setString(6, transaction.getSenderName());
+			preparedStatement2.setString(7, transaction.getReceiverName());
+			preparedStatement2.setString(8, transaction.getCurrency());
+			preparedStatement2.setString(9, transaction.getComments());
+			preparedStatement2.setTimestamp(10, new Timestamp(
+					new java.util.Date().getTime()));
 
 			preparedStatement.executeUpdate();
 			preparedStatement2.executeUpdate();
-			
 
 			conn.commit();
 
@@ -222,14 +251,69 @@ public class TransactionDaoImpl implements TransactionDao {
 			try {
 				conn.rollback();
 			} catch (SQLException ex) {
-				Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, ex);
+				Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+						Level.DEBUG, null, ex);
 			}
-			Logger.getLogger(TransactionDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
 		} finally {
 			DBUtill.closeConnection(conn);
 		}
 
-		
+	}
+
+	public List<Transaction> findByIdAccount(long idAccount) {
+
+		Connection connection = null;
+
+		List<Transaction> transactionList = new ArrayList<Transaction>();
+
+		try {
+
+			String sql = "select idTransaction, senderName,senderAccNum, receiverName, receiverAccNum, amount, currency, comments, t.created from transaction t where idAccount_sender = ? or idAccount_receiver =?";
+
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.setLong(1, idAccount);
+			preparedStatement.setLong(2, idAccount);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				Transaction transaction = new Transaction();
+
+				transaction.setIdTransaction(rs.getLong("idTransaction"));
+
+				transaction.setSenderAccountNumber(rs
+						.getString("senderAccNum"));
+
+				transaction.setSenderName(rs.getString("senderName"));
+
+				transaction.setReceiverAccountNumber(rs
+						.getString("receiverAccNum"));
+
+				transaction.setReceiverName(rs.getString("receiverName"));
+
+				transaction.setAmount(rs.getBigDecimal("amount"));
+
+				transaction.setCurrency(rs.getString("currency"));
+
+				transaction.setComments(rs.getString("comments"));
+
+				transaction.setCreated(rs.getTimestamp("created"));
+
+				transactionList.add(transaction);
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, ex);
+		} finally {
+			DBUtill.closeConnection(connection);
+		}
+
+		return transactionList;
 	}
 
 }
