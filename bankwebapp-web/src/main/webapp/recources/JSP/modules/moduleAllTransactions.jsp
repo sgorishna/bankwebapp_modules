@@ -15,15 +15,52 @@
 
 		</c:when>
 
+
+
 		<c:otherwise>
 
+			<c:choose>
 
+				<c:when test="${not empty requestScope.all}">
+					<div class="form-group">
+						<big><fmt:message key="VIEW_ALL_TRANSACTIONS" /></big>
+					</div>
+
+				</c:when>
+
+
+				<c:when test="${not empty requestScope.AllByIdAcc}">
+
+					<div class="form-group">
+						<big><fmt:message key="ALL_TRANSACTIONS_BY_ACCOUNT" /></big>
+					</div>
+
+				</c:when>
+
+				<c:when test="${not empty requestScope.Received}">
+
+					<div class="form-group">
+
+						<big><fmt:message key="RECEIVED_FUNDS" /></big>
+
+					</div>
+				</c:when>
+
+				<c:when test="${not empty requestScope.Transferred}">
+
+					<div class="form-group">
+						<big><fmt:message key="TRANSFERRED_FUNDS" /></big>
+
+					</div>
+				</c:when>
+
+			</c:choose>
 
 
 			<table class="table table-bordered">
 
 				<thead>
-					<tr class = "info">
+					<tr class="info">
 
 						<th><fmt:message key="SENDER_ACCOUNT_NUMBER" /></th>
 						<th><fmt:message key="SENDER_NAME" /></th>

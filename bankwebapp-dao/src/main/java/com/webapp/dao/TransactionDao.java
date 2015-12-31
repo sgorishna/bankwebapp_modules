@@ -15,6 +15,8 @@ public interface TransactionDao extends IEntityDao<Transaction>, Serializable {
 	
 	void withdrawBalance(Transaction transaction);
 	
-
+	List<Transaction> transferredFundsByIdAccount(long idAccount);
+	List<Transaction> receivedFundsByIdAccount(long idAccount);
+	
 
 }

@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Withdraw funds from account</title>
+        <title>Client profile</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -23,7 +23,7 @@
    
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse-blue navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                   
@@ -48,54 +48,36 @@
                         <li >
                             <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
                         </li>
-                        <li></li>
-                        <li></li>
-                        <li >
-                            <a href="customerList.php"><fmt:message key="CUSTOMERS" /></a>
-                        </li>
-                        <li></li>
-                        <li></li>
                          <li >
-                            <a href="accountList.php"><fmt:message key="ACCOUNTS" /></a>
+                         
+                            <a href="MyProfile.php"><fmt:message key="MY_PROFILE" /> <span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                        <li >
+                            <a href=""><fmt:message key="MY_ACCOUNTS" /></a>
                         </li>
                         
                     </ul>
-                    <ul class="nav nav-sidebar">
-                        <li >
-                            <a href="registerCustomer.php"><fmt:message key="REGISTER_NEW_CUSTOMER" /></a>
-                      </li>   
-                        
-                    </ul>
+                   
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="WITHDRAW_FUNDS_FROM_ACCOUNT" />
+                    <h2 class="sub-header" ><fmt:message key="MY_PROFILE" />
                     
       
                     
                     
                      </h2>
                      
-                    <ol class="breadcrumb">
-    <li><a href="profile.php?IdCustomer=${account.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
+                     <ol class="breadcrumb">
+    <li><a href="editProfile.php"><fmt:message key="EDIT_PROFILE" /></a>
     </li>
-    <li><a href="accountList.php?IdCustomer=${account.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
-    </li>
-    
-    <li><a href="topUp.php?IdAccount=${account.idAccount}"><fmt:message key="TOP_UP" /></a>
-    </li>
-    
-    <li><a href="withdraw.php?IdAccount=${account.idAccount}"><fmt:message key="WITHDRAW" /></a>
-    </li>
-    
-    <li><a href="transactions.php?IdCustomer=${account.idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
-    </li>
-    
+    <li><a href="myAccounts.php"><fmt:message key="VIEW_ACCOUNTS" /></a>
     </li>
     
 </ol>
-                <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
-                <jsp:include page="../modules/moduleWithdraw.jsp"></jsp:include> 
+               
+                <jsp:include page="../modules/moduleMyProfile.jsp"></jsp:include> 
                 </div>
                 
                

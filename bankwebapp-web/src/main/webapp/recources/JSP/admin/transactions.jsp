@@ -64,16 +64,34 @@
                     <h2 class="sub-header" ><fmt:message key="TRANSACTIONS" /></h2>
                     
                     <ol class="breadcrumb">
-    <li><a href="profile.php?IdCustomer=${idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
+    <li><a href="profile.php?IdCustomer=${requestScope.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
     </li>
-    <li><a href="transactions.php?IdCustomer=${idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
+    <li><a href="transactions.php?IdCustomer=${requestScope.idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
     </li>
-    <li><a href="addAccount.php?IdCustomer=${idCustomer}"><fmt:message key="ADD_ACCOUNT" /></a>
+    <li><a href="accountList.php?IdCustomer=${requestScope.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
     </li>
     
 </ol>
                    <c:choose>
                    <c:when test="${not empty requestScope.all}">
+                   
+                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                   
+                   </c:when>
+                   
+                   <c:when test="${not empty requestScope.AllByIdAcc}">
+                   
+                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                   
+                   </c:when>
+                   
+                    <c:when test="${not empty requestScope.Received}">
+                   
+                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                   
+                   </c:when>
+                   
+                     <c:when test="${not empty requestScope.Transferred}">
                    
                     <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
                    

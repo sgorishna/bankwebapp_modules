@@ -63,9 +63,9 @@
                     
                    
                 
-                    <td><a href="transactions.php?IdAccount=${account.idAccount}" > <fmt:message key="VIEW_ALL" /></a></td>
-                    <td><a href="" > <fmt:message key="VIEW_RECEIVED" /></a></td>
-                     <td><a href="" > <fmt:message key="VIEW_TRANSFERRED" /></a></td>
+                    <td><a href="transactionsForAccount.php?IdAccount=${account.idAccount}" > <fmt:message key="VIEW_ALL" /></a></td>
+                    <td><a href="receivedFunds.php?IdAccount=${account.idAccount}" > <fmt:message key="VIEW_RECEIVED" /></a></td>
+                     <td><a href="transferredFunds.php?IdAccount=${account.idAccount}" > <fmt:message key="VIEW_TRANSFERRED" /></a></td>
                      
                    
                 </tr>

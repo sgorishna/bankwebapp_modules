@@ -82,7 +82,7 @@
     <li><a href="accountList.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
     </li>
     
-    <li><a href="#"><fmt:message key="VIEW_TRANSACTIONS" /></a>
+    <li><a href="transactions.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
     </li>
     
     </li>

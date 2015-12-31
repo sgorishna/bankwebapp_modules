@@ -17,4 +17,8 @@ public interface TransactionService {
 	 void topUpBalance(Transaction transaction);
 	 
 	 void withdrawBalance(Transaction transaction);
+	 
+	 List<Transaction> transferredFundsByIdAccount(long idAccount);
+	
+	 List<Transaction> receivedFundsByIdAccount(long idAccount);
 }

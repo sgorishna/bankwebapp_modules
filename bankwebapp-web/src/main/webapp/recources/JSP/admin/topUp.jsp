@@ -88,7 +88,7 @@
     <li><a href="withdraw.php?IdAccount=${account.idAccount}"><fmt:message key="WITHDRAW" /></a>
     </li>
     
-    <li><a href="#"><fmt:message key="VIEW_TRANSACTIONS" /></a>
+    <li><a href="transactions.php?IdCustomer=${account.idCustomer}"><fmt:message key="VIEW_TRANSACTIONS" /></a>
     </li>
     
     </li>

@@ -172,9 +172,11 @@ public class TransactionDaoImpl implements TransactionDao {
 			conn.setAutoCommit(false);
 
 			PreparedStatement preparedStatement = conn
-					.prepareStatement("update account set balance=balance+ ?   where account_number = ?");
+					.prepareStatement("update account set balance=balance+ ?, updated =?   where account_number = ?");
 			preparedStatement.setBigDecimal(1, transaction.getAmount());
-			preparedStatement.setString(2,
+			preparedStatement.setTimestamp(2, new Timestamp(
+					new java.util.Date().getTime()));
+			preparedStatement.setString(3,
 					transaction.getReceiverAccountNumber());
 
 			PreparedStatement preparedStatement2 = conn
@@ -192,6 +194,7 @@ public class TransactionDaoImpl implements TransactionDao {
 			preparedStatement2.setString(9, transaction.getComments());
 			preparedStatement2.setTimestamp(10, new Timestamp(
 					new java.util.Date().getTime()));
+			
 
 			preparedStatement.executeUpdate();
 			preparedStatement2.executeUpdate();
@@ -221,9 +224,11 @@ public class TransactionDaoImpl implements TransactionDao {
 			conn.setAutoCommit(false);
 
 			PreparedStatement preparedStatement = conn
-					.prepareStatement("update account set balance=balance+?   where account_number = ?");
+					.prepareStatement("update account set balance=balance+?, updated =?   where account_number = ?");
 			preparedStatement.setBigDecimal(1, transaction.getAmount());
-			preparedStatement.setString(2,
+			preparedStatement.setTimestamp(2, new Timestamp(
+					new java.util.Date().getTime()));
+			preparedStatement.setString(3,
 					transaction.getReceiverAccountNumber());
 
 			PreparedStatement preparedStatement2 = conn
@@ -314,6 +319,118 @@ public class TransactionDaoImpl implements TransactionDao {
 		}
 
 		return transactionList;
+	}
+
+	public List<Transaction> transferredFundsByIdAccount(long idAccount) {
+		
+		Connection connection = null;
+
+		List<Transaction> transactionList = new ArrayList<Transaction>();
+
+		try {
+
+			String sql = " select idTransaction, senderName,senderAccNum, receiverName, receiverAccNum, amount, currency, comments, t.created from transaction t where idAccount_sender = ?";
+
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.setLong(1, idAccount);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				Transaction transaction = new Transaction();
+
+				transaction.setIdTransaction(rs.getLong("idTransaction"));
+
+				transaction.setSenderAccountNumber(rs
+						.getString("senderAccNum"));
+
+				transaction.setSenderName(rs.getString("senderName"));
+
+				transaction.setReceiverAccountNumber(rs
+						.getString("receiverAccNum"));
+
+				transaction.setReceiverName(rs.getString("receiverName"));
+
+				transaction.setAmount(rs.getBigDecimal("amount"));
+
+				transaction.setCurrency(rs.getString("currency"));
+
+				transaction.setComments(rs.getString("comments"));
+
+				transaction.setCreated(rs.getTimestamp("created"));
+
+				transactionList.add(transaction);
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, ex);
+		} finally {
+			DBUtill.closeConnection(connection);
+		}
+
+		return transactionList;	
+		
+	}
+
+	public List<Transaction> receivedFundsByIdAccount(long idAccount) {
+		
+		
+		Connection connection = null;
+
+		List<Transaction> transactionList = new ArrayList<Transaction>();
+
+		try {
+
+			String sql = " select idTransaction, senderName,senderAccNum, receiverName, receiverAccNum, amount, currency, comments, t.created from transaction t where idAccount_receiver = ?";
+
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.setLong(1, idAccount);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				Transaction transaction = new Transaction();
+
+				transaction.setIdTransaction(rs.getLong("idTransaction"));
+
+				transaction.setSenderAccountNumber(rs
+						.getString("senderAccNum"));
+
+				transaction.setSenderName(rs.getString("senderName"));
+
+				transaction.setReceiverAccountNumber(rs
+						.getString("receiverAccNum"));
+
+				transaction.setReceiverName(rs.getString("receiverName"));
+
+				transaction.setAmount(rs.getBigDecimal("amount"));
+
+				transaction.setCurrency(rs.getString("currency"));
+
+				transaction.setComments(rs.getString("comments"));
+
+				transaction.setCreated(rs.getTimestamp("created"));
+
+				transactionList.add(transaction);
+			}
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, ex);
+		} finally {
+			DBUtill.closeConnection(connection);
+		}
+
+		return transactionList;	
+		
+		
 	}
 
 }

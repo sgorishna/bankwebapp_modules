@@ -53,6 +53,16 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionDao.findByIdAccount(idAccount);
 	}
 
+	public List<Transaction> transferredFundsByIdAccount(long idAccount) {
+		
+		return transactionDao.transferredFundsByIdAccount(idAccount);
+	}
+
+	public List<Transaction> receivedFundsByIdAccount(long idAccount) {
+		
+		return transactionDao.receivedFundsByIdAccount(idAccount);
+	}
+
 	
 
 
