@@ -1,7 +1,5 @@
 package com.webapp.controller.customer;
 
-import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,20 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
 
-@WebServlet("/customer/myAccounts.php")
-public class MyAccountsController extends AbstractServletHandler {
+@WebServlet("/customer/checkLogin")
+public class CheckLoginAvailabilityController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Customer c = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
-		long idCustomer = c.getIdCustomer();
+		String login = request.getParameter("login");
 
-		request.setAttribute("accounts", getCommonService().getAccountByIdCustomer(idCustomer));
+		Customer с = getAdminService().findByLogin(login);
 
-		gotoToJSP("customer/myAccounts.jsp", request, response);
+		if (с.getLogin() != null) {
 
+			request.setAttribute("taken", "Login already taken");
+		} else {
+			request.setAttribute("available", "Available");
+		}
+
+		gotoToJSP("customer/check.jsp", request, response);
 	}
+
 }

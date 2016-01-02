@@ -7,5 +7,7 @@ import com.webapp.model.Customer;
 public interface CustomerService {
 
 	List<Customer> findAll();
+	
+	long findIdCustomerByIdAccount(long idAccount);
 
 }

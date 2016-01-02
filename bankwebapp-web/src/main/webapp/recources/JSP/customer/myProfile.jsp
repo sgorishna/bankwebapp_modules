@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -54,7 +54,7 @@
                         </li>
                         
                         <li >
-                            <a href=""><fmt:message key="MY_ACCOUNTS" /></a>
+                            <a href="myAccounts.php"><fmt:message key="MY_ACCOUNTS" /></a>
                         </li>
                         
                     </ul>
@@ -77,7 +77,7 @@
     
 </ol>
                
-                <jsp:include page="../modules/moduleMyProfile.jsp"></jsp:include> 
+                <jsp:include page="../modules/customer/moduleMyProfile.jsp"></jsp:include> 
                 </div>
                 
                

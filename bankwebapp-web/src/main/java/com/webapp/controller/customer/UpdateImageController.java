@@ -43,7 +43,9 @@ public class UpdateImageController extends AbstractServletHandler {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
+		//long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
+		
+		//Customer current = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 
 		InputStream inputStream = null;
 
@@ -61,7 +63,7 @@ public class UpdateImageController extends AbstractServletHandler {
 			final byte[] bytes = new byte[inputStream.available()];
 			inputStream.read(bytes);
 
-			Customer customer = new Customer();
+			Customer customer = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 
 			if (inputStream != null) {
 
@@ -71,21 +73,28 @@ public class UpdateImageController extends AbstractServletHandler {
 
 					if (ImageLoadHelper.checkImgType(photoName) == true) {
 
-						ImageLoadHelper.saveImgOnDisk(customer, IdCustomer, photoName, filePart,
+						ImageLoadHelper.saveImgOnDisk(customer, customer.getIdCustomer(), photoName, filePart,
 								uploadPhotoPath(request), getCommonService());
-						redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
+						
+						request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
+						request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);
+						
+						redirectRequest("/customer/editProfile.php", request, response);
 
 					} else {
 
-						redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
+						redirectRequest("/customer/editProfile.php", request, response);
 
 					}
 
 				} else {
 
-					ImageLoadHelper.saveImgInDatabase(getCommonService(), IdCustomer, customer, bytes);
+					ImageLoadHelper.saveImgInDatabase(getCommonService(), customer.getIdCustomer(), customer, bytes);
 
-					redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
+					request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
+					request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);
+					
+					redirectRequest("/customer/editProfile.php", request, response);
 				}
 
 			}

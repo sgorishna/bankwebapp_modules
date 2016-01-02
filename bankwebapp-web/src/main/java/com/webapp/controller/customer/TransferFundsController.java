@@ -20,7 +20,15 @@ public class TransferFundsController extends AbstractServletHandler {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		gotoToJSP("customer/transferFunds.jsp", request, response);
+		
+		String idAccount = request.getParameter("IdAccount");
+		
+		Account a = getAdminService().findById(Long.parseLong(idAccount));
+		
+		 request.setAttribute("accountNumber", a.getAccountNumber());
+		 
+		 request.setAttribute("account", a);
+		gotoToJSP("customer/transferFunds3.jsp", request, response);
 	}
 
 	@Override

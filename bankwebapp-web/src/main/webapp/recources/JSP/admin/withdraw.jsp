@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -95,7 +95,7 @@
     
 </ol>
                 <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
-                <jsp:include page="../modules/moduleWithdraw.jsp"></jsp:include> 
+                <jsp:include page="../modules/admin/moduleWithdraw.jsp"></jsp:include> 
                 </div>
                 
                

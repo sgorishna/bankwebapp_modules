@@ -18,6 +18,8 @@ public final class WebappConstants {
 
 	public static final int ROLE_CUSTOMER = 2;
 	
+	public static final String DEBIT = "DEBIT";
+	
 	public static final String applicationPath(HttpServletRequest request){
 		
 		return request.getServletContext().getRealPath("");

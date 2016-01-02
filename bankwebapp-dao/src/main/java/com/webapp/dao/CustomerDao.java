@@ -18,6 +18,8 @@ public interface CustomerDao extends IEntityDao<Customer>, Serializable {
 
 	void delete(Customer customer);
 	
+	long findIdCustomerByIdAccount(long idAccount);
+	
 	
 
 }

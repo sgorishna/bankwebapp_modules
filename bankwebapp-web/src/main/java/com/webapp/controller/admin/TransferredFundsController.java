@@ -20,6 +20,7 @@ public class TransferredFundsController extends AbstractServletHandler {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		
+		
 		String idAccount = request.getParameter("IdAccount");
 
 		request.setAttribute("transactions", getTransactionService()

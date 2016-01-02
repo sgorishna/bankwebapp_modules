@@ -31,7 +31,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -43,6 +43,10 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
+                       
+                       <li >
+                            <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
+                        </li>
                        
                         <li >
                          

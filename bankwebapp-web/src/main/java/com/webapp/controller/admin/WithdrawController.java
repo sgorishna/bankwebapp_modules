@@ -12,6 +12,8 @@ import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Account;
 import com.webapp.model.Transaction;
 
+import static com.webapp.utils.WebappConstants.DEBIT;
+
 @WebServlet("/admin/withdraw.php")
 public class WithdrawController extends AbstractServletHandler {
 
@@ -51,7 +53,7 @@ public class WithdrawController extends AbstractServletHandler {
 	
 	if(compare == 1  ){
 		
-		if(actype.equals("DEBIT")){
+		if(actype.equals(DEBIT)){
 		
 		request.setAttribute("error", "Insufficient credit");
 		}	

@@ -31,7 +31,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">

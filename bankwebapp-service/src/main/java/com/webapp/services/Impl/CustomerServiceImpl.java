@@ -20,4 +20,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findAll();
 	}
 
+	public long findIdCustomerByIdAccount(long idAccount) {
+		
+		return customerDao.findIdCustomerByIdAccount(idAccount);
+	}
+
 }

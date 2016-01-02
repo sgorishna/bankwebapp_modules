@@ -37,14 +37,14 @@
 		<td ></td>
 		<td>
 
-			<form role="form" method="POST" action='updateCustomer.php?IdCustomer=${CURRENT_SESSION_ACCOUNT.customer.idCustomer}'>
+			<form role="form" method="POST" action='editProfile.php'>
 				<div class="form-group">
 
 					<div class="form-group">
 
 						<label class="control-label" for="name"><fmt:message
 								key="NAME" /></label> <input type="text" class="form-control"
-							name="name" value="<c:out value="${CURRENT_SESSION_ACCOUNT.customer.name}" />" required>
+							name="name" value="<c:out value="${CURRENT_SESSION_ACCOUNT.name}" />" required>
 
 					</div>
 
@@ -52,7 +52,7 @@
 					<label class="control-label" for="login"><fmt:message
 							key="LOGIN" /></label> &nbsp<span id="checkLogin"> </span> <input
 						type="text" class="form-control" name="login"
-						value="<c:out value="${CURRENT_SESSION_ACCOUNT.customer.login}" />" id="login"
+						value="<c:out value="${CURRENT_SESSION_ACCOUNT.login}" />" id="login"
 						onkeyup="checkLogin()" required>
 				</div>
 
@@ -61,7 +61,7 @@
 
 					<label class="control-label" for="password"><fmt:message
 							key="PASSWORD" /></label> <input type="password" class="form-control"
-						name="password" value="<c:out value="${CURRENT_SESSION_ACCOUNT.customer.password}" />"
+						name="password" value="<c:out value="${CURRENT_SESSION_ACCOUNT.password}" />"
 						required>
 				</div>
 
@@ -70,7 +70,7 @@
 					<label class="control-label" for="email"><fmt:message
 							key="EMAIL" /></label> &nbsp<span id="checkEmail"> </span> <input
 						type="text" class="form-control" name="email" id="email"
-						onkeyup="checkEmail()" value="<c:out value="${CURRENT_SESSION_ACCOUNT.customer.email}" />"
+						onkeyup="checkEmail()" value="<c:out value="${CURRENT_SESSION_ACCOUNT.email}" />"
 						required>
 				</div>
 
@@ -81,7 +81,7 @@
 
 					<c:choose>
 
-						<c:when test="${CURRENT_SESSION_ACCOUNT.customer.gender == 'male'}">
+						<c:when test="${CURRENT_SESSION_ACCOUNT.gender == 'male'}">
 
 							<input type="radio" name="gender" value="male" CHECKED>
 							<fmt:message key="MALE" />
@@ -102,32 +102,7 @@
 
 				</div>
 
-				<div class="radio, form-group">
-
-					<label class="control-label"><fmt:message key="ROLE" /> :
-					</label> 
-					
-					<c:choose>
-					
-					<c:when test="${CURRENT_SESSION_ACCOUNT.customer.idRole == '1'}">
-					
-					<input type="radio" name="idRole" value="1" CHECKED >
-					<fmt:message key="ADMIN" />
-
-					
-					</c:when>
-					
-					<c:otherwise>
-					
-					
-
-					<input type="radio" name="idRole" value="2" CHECKED >
-					<fmt:message key="CUSTOMER" />
-					</c:otherwise>
-					
-					</c:choose>
-					
-				</div>
+				
 
 	
 				<button type="submit" class="btn  btn-primary" value="Submit">Submit</button>

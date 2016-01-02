@@ -31,7 +31,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h2 class="sub-header" ><fmt:message key="SHOW_ALL_CUSTOMERS" /></h2>
-                 <jsp:include page="../modules/moduleCustomerList.jsp"></jsp:include>
+                 <jsp:include page="../modules/admin/moduleCustomerList.jsp"></jsp:include>
                 </div>
                 
                

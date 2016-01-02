@@ -55,6 +55,9 @@ Customer customer = (Customer) request.getSession().getAttribute(CURRENT_SESSION
 		customer.setIdCustomer(current.getIdCustomer());
 
 		getCommonService().update(customer);
+		
+		request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
+		request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);
 
 		doGet(request, response);
 

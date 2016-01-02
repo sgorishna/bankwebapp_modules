@@ -31,7 +31,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         <li>
-                            <a href="#"><fmt:message key="LOGOUT" /></a>
+                            <a href="../logout"><fmt:message key="LOGOUT" /></a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -75,30 +75,30 @@
                    <c:choose>
                    <c:when test="${not empty requestScope.all}">
                    
-                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                    <jsp:include page="../modules/admin/moduleAllTransactions.jsp"></jsp:include> 
                    
                    </c:when>
                    
                    <c:when test="${not empty requestScope.AllByIdAcc}">
                    
-                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                    <jsp:include page="../modules/admin/moduleAllTransactions.jsp"></jsp:include> 
                    
                    </c:when>
                    
                     <c:when test="${not empty requestScope.Received}">
                    
-                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                    <jsp:include page="../modules/admin/moduleAllTransactions.jsp"></jsp:include> 
                    
                    </c:when>
                    
                      <c:when test="${not empty requestScope.Transferred}">
                    
-                    <jsp:include page="../modules/moduleAllTransactions.jsp"></jsp:include> 
+                    <jsp:include page="../modules/admin/moduleAllTransactions.jsp"></jsp:include> 
                    
                    </c:when>
                    
                    <c:otherwise>
-                     <jsp:include page="../modules/moduleTransactions.jsp"></jsp:include> 
+                     <jsp:include page="../modules/admin/moduleTransactions.jsp"></jsp:include> 
                    </c:otherwise>
                    </c:choose>
                     

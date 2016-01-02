@@ -376,4 +376,31 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	}
 
+	public long findIdCustomerByIdAccount(long idAccount) {
+		
+		
+		Connection connection = null;
+		
+		long idCustomer = 0;
+		
+		try {
+			connection = DBUtill.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("select c.idCustomer from customer c join account a on a.idCustomer = c.idCustomer where a.idAccount=?");
+			preparedStatement.setLong(1, idAccount);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				 idCustomer = rs.getLong("idCustomer");
+				
+			}
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(connection);
+		}
+
+		return idCustomer;
+		
+	}
+
 }

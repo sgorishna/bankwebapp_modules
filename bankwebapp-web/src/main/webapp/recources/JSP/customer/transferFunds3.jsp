@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Update customer profile</title>
+        <title>Register new customer</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -20,16 +20,10 @@
       </style>
       
       
-      <script type="text/javascript" >
-
-      <%@include file="/recources/js/checkLoginAvailability.js" %>
-      <%@include file="/recources/js/checkEmailAvailability.js" %>
-
-</script>  
        
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse-blue navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                   
@@ -54,38 +48,37 @@
                         <li >
                             <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
                         </li>
-                        <li></li>
-                        <li></li>
-                        <li >
-                            <a href="customerList.php"><fmt:message key="CUSTOMERS" /></a>
-                        </li>
-                        <li></li>
-                        <li></li>
                          <li >
-                            <a href="accountList.php"><fmt:message key="ACCOUNTS" /></a>
+                         
+                            <a href="MyProfile.php"><fmt:message key="MY_PROFILE" /> <span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                        <li >
+                            <a href="myAccounts.php"><fmt:message key="MY_ACCOUNTS" /></a>
                         </li>
                         
                     </ul>
-                    <ul class="nav nav-sidebar">
-                        <li >
-                            <a href="registerCustomer.php"><fmt:message key="REGISTER_NEW_CUSTOMER" /></a>
-                      </li>   
-                        
-                    </ul>
+                   
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="UPDATE_CUSTOMER_INFO" /></h2>
+                    <h2 class="sub-header" ><fmt:message key="TRANSFER_FUNDS" /></h2>
                     
                       <ol class="breadcrumb">
-    <li><a href="profile.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_PROFILE" /></a>
+    <li><a href="MyProfile.php"><fmt:message key="MY_PROFILE" /></a>
     </li>
-    <li><a href="accountList.php?IdCustomer=${customer.idCustomer}"><fmt:message key="VIEW_ACCOUNTS" /></a>
+    
+    <li><a href="myAccounts.php"><fmt:message key="MY_ACCOUNTS" /></a>
     </li>
+    
+    <li><a href="transactions.php"><fmt:message key="MY_TRANSACTIONS" /></a>
+    </li>
+   
+    
     
 </ol>
                
-               <jsp:include page="../modules/admin/moduleUpdateCustomer.jsp"></jsp:include>
+           <jsp:include page="../modules/customer/moduleTransferFunds.jsp"></jsp:include>   
                 </div>
                 
                
