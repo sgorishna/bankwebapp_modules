@@ -34,24 +34,31 @@ public class TransferFundsController extends AbstractServletHandler {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Transaction transaction = new Transaction();
-		String senderAccountNumber = request.getParameter("senderAccountNumber");
-		String receiverAccountNumber =request.getParameter("receiverAccountNumber");
-
+		Long idAccount = Long.parseLong(request.getParameter("IdAccount"));
+		String comments = request.getParameter("comment");
+		String senderAccountNumber = request.getParameter("sender");
+		String receiverAccountNumber = request.getParameter("receiver");
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
-
-		Account sender = getTransactionService().findByAccountNumber(senderAccountNumber);
-		Account receiver = getTransactionService().findByAccountNumber(receiverAccountNumber);
-
-		transaction.setIdAccountSender(sender.getIdAccount());
-		transaction.setIdAccountReceiver(receiver.getIdAccount());
-		transaction.setComments(request.getParameter("comments"));
-		transaction.setSenderAccountNumber(senderAccountNumber);
-		transaction.setReceiverAccountNumber(receiverAccountNumber);
+		
+		Account senderAcc = getAdminService().findById(idAccount);
+		Account receiverAcc = getAdminService().findByAccountNumber(receiverAccountNumber);
+		
+		
+		Transaction transaction = new Transaction();
+		
 		transaction.setAmount(amount);
-
-		getTransactionService().create(transaction);
-
-		redirectRequest("/customer/myAccounts.php", request, response);
+		transaction.setIdAccountReceiver(receiverAcc.getIdAccount());
+		transaction.setReceiverAccountNumber(receiverAcc.getAccountNumber());
+		transaction.setReceiverName(receiverAcc.getCustomerName());
+		transaction.setSenderAccountNumber(senderAccountNumber);
+		transaction.setCurrency(receiverAcc.getCurrency());
+		transaction.setSenderName(senderAcc.getCustomerName());
+		
+		transaction.setComments(comments);
+		
+		getTransactionService().transferFunds(transaction);;
+		
+		request.setAttribute("success", "Transfer successfull");
+		doGet(request, response);
 	}
 }

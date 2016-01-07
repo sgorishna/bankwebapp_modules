@@ -63,6 +63,12 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionDao.receivedFundsByIdAccount(idAccount);
 	}
 
+	public void transferFunds(Transaction transaction) {
+		
+		transactionDao.transferFunds(transaction);
+		
+	}
+
 	
 
 

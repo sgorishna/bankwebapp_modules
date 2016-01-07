@@ -101,14 +101,14 @@
 		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
 		<td>
 
-			<form role="form" method="POST" action=''>
+			<form role="form" method="POST" action='transferFunds.php'>
 				<div class="form-group">
 
 					<div class="form-group">
 
 						<label class="control-label" for="sender"><fmt:message
 								key="FROM_ACCOUNT" /></label> <input type="text" class="form-control"
-							name="name" value="<c:out value="${accountNumber}" />" disabled="disabled">
+							name="sender" value="<c:out value="${accountNumber}" />" disabled="disabled">
 
 					</div>
 
@@ -124,7 +124,9 @@
 				<div class="form-group">
 
 					<label class="control-label" for="amount"><fmt:message
-							key="AMOUNT" /></label> <input type="text" class="form-control"
+							key="AMOUNT" />  , <c:out value="${account.currency}" />
+							
+							</label> <input type="text" class="form-control"
 						name="amount"  />
 						
 				</div>

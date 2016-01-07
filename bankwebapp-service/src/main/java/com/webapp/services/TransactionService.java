@@ -21,4 +21,6 @@ public interface TransactionService {
 	 List<Transaction> transferredFundsByIdAccount(long idAccount);
 	
 	 List<Transaction> receivedFundsByIdAccount(long idAccount);
+	 
+	 void transferFunds(Transaction transaction);
 }

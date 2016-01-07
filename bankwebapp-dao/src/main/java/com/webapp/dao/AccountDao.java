@@ -9,6 +9,8 @@ import com.webapp.model.Account;
 public interface AccountDao extends IEntityDao<Account>, Serializable {
 
 	List<Account> getAccountByIdCustomer(long idCustomer);
+	
+	
 
 	void topUpBalance(Account account, BigDecimal amount);
 

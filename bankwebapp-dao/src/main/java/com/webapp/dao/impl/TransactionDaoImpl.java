@@ -433,4 +433,66 @@ public class TransactionDaoImpl implements TransactionDao {
 		
 	}
 
+	public void transferFunds(Transaction transaction) {
+		
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			conn.setAutoCommit(false);
+
+			PreparedStatement preparedStatement = conn
+					.prepareStatement("update account set balance=balance+ ?, updated =?   where account_number = ?");
+			preparedStatement.setBigDecimal(1, transaction.getAmount());
+			preparedStatement.setTimestamp(2, new Timestamp(
+					new java.util.Date().getTime()));
+			preparedStatement.setString(3,
+					transaction.getReceiverAccountNumber());
+
+			
+			PreparedStatement preparedStatement3 = conn
+					.prepareStatement("update account set balance=balance- ?, updated =?   where account_number = ?");
+			preparedStatement.setBigDecimal(1, transaction.getAmount());
+			preparedStatement.setTimestamp(2, new Timestamp(
+					new java.util.Date().getTime()));
+			preparedStatement.setString(3,
+					transaction.getSenderAccountNumber());
+			
+			PreparedStatement preparedStatement2 = conn
+					.prepareStatement("insert into transaction(idAccount_sender,idAccount_receiver,amount, senderAccNum, receiverAccNum, senderName, receiverName, currency,comments,created) values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+			preparedStatement2.setLong(1, transaction.getIdAccountSender());
+			preparedStatement2.setLong(2, transaction.getIdAccountReceiver());
+			preparedStatement2.setBigDecimal(3, transaction.getAmount());
+			preparedStatement2.setString(4,
+					transaction.getSenderAccountNumber());
+			preparedStatement2.setString(5,
+					transaction.getReceiverAccountNumber());
+			preparedStatement2.setString(6, transaction.getSenderName());
+			preparedStatement2.setString(7, transaction.getReceiverName());
+			preparedStatement2.setString(8, transaction.getCurrency());
+			preparedStatement2.setString(9, transaction.getComments());
+			preparedStatement2.setTimestamp(10, new Timestamp(
+					new java.util.Date().getTime()));
+			
+
+			preparedStatement.executeUpdate();
+			preparedStatement3.executeUpdate();
+			preparedStatement2.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+						Level.DEBUG, null, ex);
+			}
+			Logger.getLogger(TransactionDaoImpl.class.getName()).log(
+					Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+
 }
