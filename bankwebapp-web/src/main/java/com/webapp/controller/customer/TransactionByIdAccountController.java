@@ -1,6 +1,6 @@
 package com.webapp.controller.customer;
 
-import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
+
 
 import java.io.IOException;
 
@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Account;
-import com.webapp.model.Customer;
+
+import com.webapp.utils.SecurityUtills;
 
 @WebServlet("/customer/transactionsForAccount.php")
 public class TransactionByIdAccountController extends AbstractServletHandler {
@@ -22,15 +23,13 @@ public class TransactionByIdAccountController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		Customer current = (Customer) request.getSession().getAttribute(
-				CURRENT_SESSION_ACCOUNT);
-
+		
 		String idAccount = request.getParameter("IdAccount");
 
-		long idCustomer = getCustomerService().findIdCustomerByIdAccount(
-				Long.parseLong(idAccount));
+	
+		boolean result = SecurityUtills.iskRequestedIdAccEqualCurrentIdCustomer(request, getCustomerService(), idAccount);
 
-		if (idCustomer == current.getIdCustomer()) {
+		if (result == true) {
 
 			request.setAttribute("transactions", getTransactionService()
 					.findByIdAccount(Long.parseLong(idAccount)));

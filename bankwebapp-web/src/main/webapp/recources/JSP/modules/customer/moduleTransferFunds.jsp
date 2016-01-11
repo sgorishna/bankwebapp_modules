@@ -101,7 +101,7 @@
 		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
 		<td>
 
-			<form role="form" method="POST" action='transferFunds.php'>
+			<form role="form" name = "form" method="POST" action='transferFunds.php?IdAccount=${account.idAccount}'>
 				<div class="form-group">
 
 					<div class="form-group">
@@ -115,7 +115,7 @@
 
 					<label class="control-label" for="receiver"><fmt:message
 							key="TO_ACCOUNT" /></label>  </span> <input
-						type="text" class="form-control" name="receiver"
+						type="text" onkeypress="return onlyNumbers(event,this);"  class="form-control" name="receiver"
 						
 						 required>
 				</div>
@@ -126,8 +126,8 @@
 					<label class="control-label" for="amount"><fmt:message
 							key="AMOUNT" />  , <c:out value="${account.currency}" />
 							
-							</label> <input type="text" class="form-control"
-						name="amount"  />
+							</label> <input type="text" onkeypress="return checkAmount(event);" class="form-control"
+						name="amount"  id = "amount"/>
 						
 				</div>
 

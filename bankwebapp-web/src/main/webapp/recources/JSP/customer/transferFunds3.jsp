@@ -20,6 +20,14 @@
       </style>
       
       
+      <script type="text/javascript" >
+
+    
+      <%@include file="/recources/js/checkIsOnlyNumbers.js" %>
+      <%@include file="/recources/js/checkAmount.js" %>
+
+</script>  
+      
        
     </head>
     <body>
@@ -77,7 +85,7 @@
     
     
 </ol>
-               
+             <jsp:include page="../modules/resultMsg.jsp"></jsp:include>    
            <jsp:include page="../modules/customer/moduleTransferFunds.jsp"></jsp:include>   
                 </div>
                 

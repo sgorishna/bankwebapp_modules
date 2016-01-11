@@ -451,10 +451,10 @@ public class TransactionDaoImpl implements TransactionDao {
 			
 			PreparedStatement preparedStatement3 = conn
 					.prepareStatement("update account set balance=balance- ?, updated =?   where account_number = ?");
-			preparedStatement.setBigDecimal(1, transaction.getAmount());
-			preparedStatement.setTimestamp(2, new Timestamp(
+			preparedStatement3.setBigDecimal(1, transaction.getAmount());
+			preparedStatement3.setTimestamp(2, new Timestamp(
 					new java.util.Date().getTime()));
-			preparedStatement.setString(3,
+			preparedStatement3.setString(3,
 					transaction.getSenderAccountNumber());
 			
 			PreparedStatement preparedStatement2 = conn
