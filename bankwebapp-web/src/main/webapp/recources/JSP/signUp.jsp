@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,6 +28,15 @@
             <input type="name" class="form-control" id="name" placeholder="Name">
         </div>
     </div>
+    
+    <div class="form-group">
+
+ <label class="col-md-2" for="email"><fmt:message key="EMAIL" /></label>
+ &nbsp<span id="checkEmail"> </span>
+ 
+ <div class="col-xs-6"><input type="text" class="form-control" name="email" id = "email" onkeyup="checkEmail()" placeholder="Input an email" required> 
+</div></div>
+    
     
     <div class="form-group">
         <label for="login" class="col-md-2">Login</label>
