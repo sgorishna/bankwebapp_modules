@@ -32,7 +32,22 @@ public class SecurityFilter extends AbstractWebappFilter {
 			chain.doFilter(request, response);
 			return;
 		}
+		
+		if (servletPath.equals("/checkLogin")) {
+			chain.doFilter(request, response);
+			return;
+		}
 
+		if (servletPath.equals("/checkEmail")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+
+		if (servletPath.equals("/RemindCredentials")) {
+			chain.doFilter(request, response);
+			return;
+		}
 		Customer currentAccount = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 
 		if (currentAccount != null) {

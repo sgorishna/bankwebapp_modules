@@ -20,6 +20,10 @@ public final class WebappConstants {
 	
 	public static final String DEBIT = "DEBIT";
 	
+	public static final int ACTIVE = 1;
+	
+	public static final int INACTIVE= 2;
+	
 	public static final String applicationPath(HttpServletRequest request){
 		
 		return request.getServletContext().getRealPath("");

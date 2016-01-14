@@ -1,4 +1,4 @@
-package com.webapp.controller.admin;
+package com.webapp.actions;
 
 import java.io.IOException;
 
@@ -7,10 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
 
-@WebServlet("/admin/checkEmail")
+@WebServlet("/checkEmail")
 public class CheckEmailAvailabilityController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;

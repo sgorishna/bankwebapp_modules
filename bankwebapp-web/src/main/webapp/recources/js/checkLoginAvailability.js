@@ -3,8 +3,9 @@ function checkLogin()
 var xmlhttp;
 var k=document.getElementById("login").value;
 
-var urls="checkLogin?login="+k;
- 
+
+var urls = getContextPath()+"/checkLogin?login="+k;
+
 if (window.XMLHttpRequest)
   {
   xmlhttp=new XMLHttpRequest();
@@ -25,3 +26,7 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET",urls,true);
 xmlhttp.send();
 }
+
+function getContextPath() {
+	   return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	}

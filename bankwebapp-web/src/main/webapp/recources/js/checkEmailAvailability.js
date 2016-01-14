@@ -3,7 +3,7 @@ function checkEmail()
 var xmlhttp;
 var k=document.getElementById("email").value;
 
-var urls="checkEmail?email="+k;
+var urls=getContextPath()+"/checkEmail?email="+k;
  
 if (window.XMLHttpRequest)
   {
@@ -25,3 +25,7 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET",urls,true);
 xmlhttp.send();
 }
+
+function getContextPath() {
+	   return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	}

@@ -38,6 +38,7 @@
                 
                 <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
                     <fmt:message key="SIGN_IN" /></button>
+                    
                 <label class="checkbox pull-left">
                     <input type="checkbox" value="remember-me">
                     <fmt:message key="REMEMBER_ME" />
@@ -47,6 +48,10 @@
             </div>
             <a href="signUp.php" class="text-center new-account">Create an account </a> 
         </div>
+        </div>
+            <a href="RemindCredentials" class="text-center new-account">Forgot login or password? </a> 
+        </div>
+        
     </div>
 </div>
   
