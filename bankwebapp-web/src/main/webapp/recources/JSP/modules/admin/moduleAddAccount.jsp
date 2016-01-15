@@ -18,7 +18,7 @@
 
  <label class="control-label" for="account_number"><fmt:message key="ACCOUNT_NUMBER" /></label>
   <div class="col-xs-12" "></div><span id="checkAccountNumber"> </span>
- <input type="text" class="form-control" name="accountNumber" value="<c:out value="${account.accountNumber}" />" id = "accountNumber" onkeyup="checkAccountNumber()" required> 
+ <input type="text" class="form-control" name="accountNumber" value="<c:out value="${account.accountNumber}" />" id = "accountNumber" onkeyup="checkAccountNumber()" onkeypress="return onlyNumbers(event,this);"  required> 
 </div>
  
 

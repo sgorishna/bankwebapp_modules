@@ -50,7 +50,7 @@
                   <fmt:message key="CURRENT_ACCOUNT" />
                     </c:when>
                     <c:otherwise>
-                    <a href="deleteCustomer.php?IdCustomer=${customer.idCustomer}" > <fmt:message key="DELETE" /> </a>
+                    <a href="deleteCustomer.php?IdCustomer=${customer.idCustomer}" onclick=" return deleteCustomerProfile()"> <fmt:message key="DELETE" /> </a>
                     </c:otherwise>
                     </c:choose>
                     </td>

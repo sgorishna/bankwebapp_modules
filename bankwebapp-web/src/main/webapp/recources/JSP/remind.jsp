@@ -25,6 +25,8 @@
                 <div class="navbar-header">
                   
                     <a class="navbar-brand" >MyBank</a>
+                    <img  src="image"
+                   >
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     

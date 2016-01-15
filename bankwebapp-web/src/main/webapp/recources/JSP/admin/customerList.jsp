@@ -18,6 +18,12 @@
          <%@include file="/recources/css/dashboard.css" %>
          
       </style>  
+      
+       <script type="text/javascript" >
+    
+     <%@include file="/recources/js/actions.js" %>  
+      
+     </script> 
        
     </head>
     <body>
@@ -26,6 +32,9 @@
                 <div class="navbar-header">
                   
                     <a class="navbar-brand" >MyBank</a>
+                    
+                      <img class="profile-img" src="../image"
+                   >
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -46,6 +55,11 @@
                         <li >
                             <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
                         </li>
+                        
+                        <li >
+                            <a href="customerList.php"><fmt:message key="CUSTOMERS" /> <span class="sr-only">(current)</span></a>
+                        </li>
+                        
                         <li></li>
                         <li></li>
                         <li >

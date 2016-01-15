@@ -20,8 +20,8 @@
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <h1 class="text-center login-title"><fmt:message key="LOGIN" /></h1>
             <div class="account-wall">
-                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                    alt="">
+                <img class="profile-img" src="image?main"
+                   >
                 <form class="form-signin" action="login.php" method="post" >
                 <input type="text" class="form-control" id="login" name="login" placeholder="Login" required autofocus>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>

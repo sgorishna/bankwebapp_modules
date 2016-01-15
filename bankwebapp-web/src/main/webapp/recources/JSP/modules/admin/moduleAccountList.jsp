@@ -74,14 +74,14 @@
                      
                     <td><c:choose>
                      <c:when test="${account.active==1}">
-                     <a href="deactivateAccount?idAccount=${account.idAccount}"  onclick="return confirm('Are you sure you want to block account?')"> <fmt:message key="BLOCK" /> </a>
+                     <a href="deactivateAccount?idAccount=${account.idAccount}"  onclick="return deactivateAccount()"> <fmt:message key="BLOCK" /> </a>
                      </c:when>
                     <c:otherwise>
-                  <a href="activateAccount?idAccount=${account.idAccount}" onclick="return confirm('Are you sure you want to unblock account?')"> <fmt:message key="UNBLOCK" /> </a>
+                  <a href="activateAccount?idAccount=${account.idAccount}" onclick="return activateAccount()"> <fmt:message key="UNBLOCK" /> </a>
                     
                     </c:otherwise>
                     </c:choose></td>
-                    <td><a href="deleteAccount?idAccount=${account.idAccount}" onclick="return confirm('Are you sure you want to delete account?')"> <fmt:message key="DELETE" /> </a></td>
+                    <td><a href="deleteAccount?idAccount=${account.idAccount}" onclick="return deleteAccount()"> <fmt:message key="DELETE" /> </a></td>
                 
                     <td><c:out value="${account.created}" /></td>
                      <td><c:out value="${account.updated}" /></td>

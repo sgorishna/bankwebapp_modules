@@ -21,72 +21,88 @@ public class TransferFundsController extends AbstractServletHandler {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-		
 		String idAccount = request.getParameter("IdAccount");
-		
-		boolean result = SecurityUtills.iskRequestedIdAccEqualCurrentIdCustomer(request, getCustomerService(), idAccount);
-		
+
+		boolean result = SecurityUtills
+				.iskRequestedIdAccEqualCurrentIdCustomer(request,
+						getCustomerService(), idAccount);
+
 		if (result == true) {
-		
-		Account a = getAdminService().findById(Long.parseLong(idAccount));
-		
-		 request.setAttribute("accountNumber", a.getAccountNumber());
-		 
-		 request.setAttribute("account", a);
-		gotoToJSP("customer/transferFunds3.jsp", request, response);
-		
-		}else{
-			
+
+			Account a = getAdminService().findById(Long.parseLong(idAccount));
+
+			request.setAttribute("accountNumber", a.getAccountNumber());
+
+			request.setAttribute("account", a);
+			gotoToJSP("customer/transferFunds.jsp", request, response);
+
+		} else {
+
 			redirectRequest("/customer/myAccounts.php", request, response);
 		}
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		Long idAccount = Long.parseLong(request.getParameter("IdAccount"));
 		String comments = request.getParameter("comment");
-		//String senderAccountNumber = request.getParameter("sender");
+		// String senderAccountNumber = request.getParameter("sender");
 		String receiverAccountNumber = request.getParameter("receiver");
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
-		
-		
+
 		Account senderAcc = getAdminService().findById(idAccount);
-		Account receiverAcc = getAdminService().findByAccountNumber(receiverAccountNumber);
-		
-		String senderAccountNumber = senderAcc.getAccountNumber();
-		
-		String actype = senderAcc.getAccountType();
-		
-		int compare = amount.compareTo(senderAcc.getBalance());
-		
-		if(compare == 1  ){
-			
-			if(actype.equals(DEBIT)){
-			
-			request.setAttribute("error", "Insufficient credit");
-			}	
+		Account receiverAcc = getAdminService().findByAccountNumber(
+				receiverAccountNumber);
+
+		if (receiverAcc.getAccountNumber() == null) {
+
+			request.setAttribute("error", "Account does not exist in system");
 			doGet(request, response);
-		
-		}	else{
-			Transaction transaction = new Transaction();
-		
-		transaction.setAmount(amount);
-		transaction.setIdAccountReceiver(receiverAcc.getIdAccount());
-		transaction.setReceiverAccountNumber(receiverAcc.getAccountNumber());
-		transaction.setReceiverName(receiverAcc.getCustomerName());
-		transaction.setSenderAccountNumber(senderAccountNumber);
-		transaction.setCurrency(receiverAcc.getCurrency());
-		transaction.setSenderName(senderAcc.getCustomerName());
-		transaction.setIdAccountSender(idAccount);
-		transaction.setComments(comments);
-		
-		getTransactionService().transferFunds(transaction);;
-		
-		request.setAttribute("success", "Transfer successfull");
-		doGet(request, response);
-	}
+
+		} else {
+
+			String senderAccountNumber = senderAcc.getAccountNumber();
+
+			String actype = senderAcc.getAccountType();
+
+			int compare = amount.compareTo(senderAcc.getBalance());
+
+			if (compare == 1) {
+
+				if (actype.equals(DEBIT)) {
+
+					request.setAttribute("error", "Insufficient credit");
+				}
+				doGet(request, response);
+
+			}
+
+			else {
+				Transaction transaction = new Transaction();
+
+				transaction.setAmount(amount);
+				transaction.setIdAccountReceiver(receiverAcc.getIdAccount());
+				transaction.setReceiverAccountNumber(receiverAcc
+						.getAccountNumber());
+				transaction.setReceiverName(receiverAcc.getCustomerName());
+				transaction.setSenderAccountNumber(senderAccountNumber);
+				transaction.setCurrency(receiverAcc.getCurrency());
+				transaction.setSenderName(senderAcc.getCustomerName());
+				transaction.setIdAccountSender(idAccount);
+				transaction.setComments(comments);
+
+				getTransactionService().transferFunds(transaction);
+				;
+
+				request.setAttribute("success", "Transfer successfull");
+				doGet(request, response);
+			}
 		}
+
+	}
 }

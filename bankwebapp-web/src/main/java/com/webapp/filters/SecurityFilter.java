@@ -48,6 +48,11 @@ public class SecurityFilter extends AbstractWebappFilter {
 			chain.doFilter(request, response);
 			return;
 		}
+		
+		if (servletPath.equals("/image")) {
+			chain.doFilter(request, response);
+			return;
+		}
 		Customer currentAccount = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 
 		if (currentAccount != null) {

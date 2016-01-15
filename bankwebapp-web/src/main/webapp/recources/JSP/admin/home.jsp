@@ -25,7 +25,12 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                   
-                    <a class="navbar-brand" >MyBank</a>
+                   <img class="profile-img" src="../image"
+                   >
+                  
+                 <a class = "navbar-brand"> MyBank</a> 
+                    
+                    
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -43,6 +48,11 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
+                       
+                        <li >
+                            <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
+                        </li>
+                       
                         <li >
                             <a href="customerList.php"><fmt:message key="CUSTOMERS" /> <span class="sr-only">(current)</span></a>
                         </li>

@@ -106,7 +106,7 @@
 
 						<label class="control-label" ><fmt:message
 								key="ENTER_AMMOUNT" /></label> <input type="text" class="form-control"
-							name="amount"   required>
+							name="amount" onkeypress="return checkAmount(event);" id = "amount" required>
 
 					</div>
 

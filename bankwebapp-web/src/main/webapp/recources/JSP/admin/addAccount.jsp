@@ -22,6 +22,7 @@
     <script type="text/javascript" >
 
       <%@include file="/recources/js/checkAccountNumberAvailability.js" %>
+      <%@include file="/recources/js/checkIsOnlyNumbers.js" %>
       
 
 </script>    
@@ -33,6 +34,9 @@
                 <div class="navbar-header">
                   
                     <a class="navbar-brand" >MyBank</a>
+                    
+                      <img class="profile-img" src="../recources/images/logo.png"
+                   >
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">

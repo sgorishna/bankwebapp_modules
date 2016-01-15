@@ -18,6 +18,12 @@
          <%@include file="/recources/css/dashboard.css" %>
          
       </style>  
+      
+       <script type="text/javascript" >
+    
+     <%@include file="/recources/js/actions.js" %>  
+      
+     </script> 
        
     </head>
     <body>
@@ -26,6 +32,9 @@
                 <div class="navbar-header">
                   
                     <a class="navbar-brand" >MyBank</a>
+                    
+                      <img class="profile-img" src="../image"
+                   >
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -51,6 +60,11 @@
                         <li >
                             <a href="customerList.php"><fmt:message key="CUSTOMERS" /></a>
                         </li>
+                        
+                        
+                        <li >
+                            <a href="accountList.php"><fmt:message key="ACCOUNTS" /></a>
+                        </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li >
@@ -62,7 +76,7 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h2 class="sub-header" ><fmt:message key="ACCOUNTS" /></h2>
-                 <%-- <jsp:include page="../modules/moduleAccountList.jsp"></jsp:include> --%>
+                  <jsp:include page="../modules/admin/moduleAccountList.jsp"></jsp:include> 
                 </div>
                 
                

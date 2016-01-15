@@ -27,6 +27,7 @@ public class DeactivateAccountController extends AbstractServletHandler {
 		
 		getAdminService().deactivateAccount(idAccount);
 		
+		
 		redirectRequest(
 				"/admin/accountList.php?IdCustomer="
 						+idCustomer ,

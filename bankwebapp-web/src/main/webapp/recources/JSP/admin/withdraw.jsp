@@ -19,7 +19,11 @@
          
       </style>
       
+     <script type="text/javascript" >
+    
+     <%@include file="/recources/js/checkAmount.js" %>  
       
+     </script>   
    
     </head>
     <body>
@@ -28,6 +32,8 @@
                 <div class="navbar-header">
                   
                     <a class="navbar-brand" >MyBank</a>
+                      <img class="profile-img" src="../image"
+                   >
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
