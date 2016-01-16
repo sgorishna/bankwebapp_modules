@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static com.webapp.utils.WebappConstants.ROLE_ADMIN;
+import static com.webapp.utils.WebappConstants.ROLE_CUSTOMER;
 import static com.webapp.utils.WebappConstants.INACTIVE;
 
 import org.apache.log4j.Level;
@@ -41,7 +41,7 @@ public class SignUpController extends AbstractServletHandler {
 		customer.setLogin(request.getParameter("login"));
 		customer.setPassword(request.getParameter("password"));
 		customer.setEmail(request.getParameter("email"));
-		customer.setIdRole(ROLE_ADMIN);
+		customer.setIdRole(ROLE_CUSTOMER);
 		customer.setActive(INACTIVE);
 
 		Customer d = getCommonService().findByEmail(request.getParameter("email"));

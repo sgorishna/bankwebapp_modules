@@ -17,17 +17,17 @@ public class DBUtill {
 	public static Connection getConnection() {
 
 		try {
-			String username = "root";
-			String passwd = "root";
+			/*String username = "root";
+			String passwd = "root";*/
 
-			// String username = "sgorishna";
-			// String passwd = "s19880518";
+			 String username = "sgorishna";
+			 String passwd = "root";
 
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", username, passwd);
-			// conn =
-			// DriverManager.getConnection("jdbc:mysql://aws.cxdt2her6b8h.us-west-2.rds.amazonaws.com:3306/bank",
-			// username, passwd);
+			/*Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", username, passwd);*/
+			 conn =
+		 DriverManager.getConnection("jdbc:mysql://aws.cxdt2her6b8h.us-west-2.rds.amazonaws.com:3306/bank",
+			 username, passwd);
 		} catch (Exception e) {
 			Logger.getLogger(DBUtill.class.getName()).log(Level.DEBUG, null, e);
 		}
