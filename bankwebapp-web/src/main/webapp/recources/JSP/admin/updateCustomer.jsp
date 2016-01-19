@@ -86,7 +86,8 @@
     </li>
     
 </ol>
-               
+         
+               <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
                <jsp:include page="../modules/admin/moduleUpdateCustomer.jsp"></jsp:include>
                 </div>
                 

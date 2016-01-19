@@ -22,6 +22,7 @@ public class Customer implements Serializable {
 	private Integer idRole;
 	private Integer active;
 
+	private String hash;
 	public long getIdCustomer() {
 		return idCustomer;
 	}
@@ -124,6 +125,14 @@ public class Customer implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 }

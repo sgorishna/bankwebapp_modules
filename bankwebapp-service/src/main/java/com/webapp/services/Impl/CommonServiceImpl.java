@@ -61,4 +61,11 @@ public class CommonServiceImpl implements CommonService {
 		
 	}
 
+
+
+	public void clearHash(long idCustomer) {
+		customerDao.clearHash(idCustomer);
+		
+	}
+
 }

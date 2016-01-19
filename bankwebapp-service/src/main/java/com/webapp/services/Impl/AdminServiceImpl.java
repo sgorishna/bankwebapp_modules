@@ -95,5 +95,15 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	public void activateProfile(long idCustomer) {
+		customerDao.activateProfile(idCustomer);
+		
+	}
+
+	public void deactivateProfile(long idCustomer) {
+		customerDao.deactivateProfile(idCustomer);
+		
+	}
+
 
 }

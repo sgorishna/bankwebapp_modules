@@ -55,8 +55,8 @@
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                <c:choose>
                <c:when test="${requestScope.error != null}">
-                    <h2 class="sub-header" >${requestScope.error}</h2> </c:when> 
-                   
+                    <h2 class="sub-header" >${requestScope.error}</h2> 
+                   <h2 class="sub-header" >${requestScope.e}</h2> </c:when> 
                    </c:choose>  
 
 <form class="form-horizontal" action="signUp.php " method="post"> 

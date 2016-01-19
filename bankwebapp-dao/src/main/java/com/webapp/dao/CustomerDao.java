@@ -17,9 +17,13 @@ public interface CustomerDao extends IEntityDao<Customer>, Serializable {
 	void updateImage(Customer customer);
 
 	void delete(Customer customer);
-	
+
 	long findIdCustomerByIdAccount(long idAccount);
+
+	void activateProfile(long idCustomer);
+
+	void deactivateProfile(long idCustomer);
 	
-	
+	void clearHash(long idCustomer);
 
 }

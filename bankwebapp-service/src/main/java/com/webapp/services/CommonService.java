@@ -23,6 +23,8 @@ public interface CommonService {
 	
 	void update(Customer customer);
 	
+	void clearHash(long idCustomer);
+	
 	
 	
 	

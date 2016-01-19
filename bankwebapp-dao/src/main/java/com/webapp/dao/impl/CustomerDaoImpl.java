@@ -29,7 +29,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			connection = DBUtill.getConnection();
 			connection.setAutoCommit(false);
 
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email) values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email,hash) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			PreparedStatement preparedStatement2 = connection.prepareStatement("insert into customer_role(idCustomer,idRole) values (?, ?)");
 
 			preparedStatement.setString(1, customer.getName());
@@ -37,6 +37,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			preparedStatement.setString(3, customer.getLogin());
 			preparedStatement.setString(4, customer.getPassword());
 			preparedStatement.setString(5, customer.getEmail());
+			preparedStatement.setString(6, customer.getHash());
 			preparedStatement.executeUpdate();
 
 			ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -127,6 +128,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 				customer.setIdRole(rs.getInt("idRole"));
 				customer.setActive(rs.getInt("active"));
+				customer.setHash(rs.getString("hash"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -204,6 +206,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 				customer.setIdRole(rs.getInt("idRole"));
 				customer.setActive(rs.getInt("active"));
+				customer.setHash(rs.getString("hash"));
 			}
 		} catch (SQLException e) {
 			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
@@ -221,7 +224,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		try {
 			connection = DBUtill.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email,photo,photoPath,idRole,active) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into customer(name,gender,login,password,email,photo,photoPath,idRole,active, hash) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getGender());
@@ -232,6 +235,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			preparedStatement.setString(7, customer.getPhotoPath());
 			preparedStatement.setInt(8, customer.getIdRole());
 			preparedStatement.setInt(9, customer.getActive());
+			preparedStatement.setString(10, customer.getHash());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -400,6 +404,73 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 
 		return idCustomer;
+		
+	}
+
+	public void activateProfile(long idCustomer) {
+		
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set active =?, updated =?  where idCustomer=?");
+
+			preparedStatement.setInt(1, 1);
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, idCustomer);
+			
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+
+	public void deactivateProfile(long idCustomer) {
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set active =?, updated =?  where idCustomer=?");
+
+			preparedStatement.setInt(1, 0);
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, idCustomer);
+			
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+
+	public void clearHash(long idCustomer) {
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			
+			PreparedStatement preparedStatement = conn.prepareStatement("update customer set hash =?, updated =?  where idCustomer=?");
+
+			preparedStatement.setString(1, null);
+			preparedStatement.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			preparedStatement.setLong(3, idCustomer);
+			
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
 		
 	}
 

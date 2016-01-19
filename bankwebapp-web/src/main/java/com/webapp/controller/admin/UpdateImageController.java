@@ -78,7 +78,8 @@ public class UpdateImageController extends AbstractServletHandler {
 						redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
 
 					} else {
-
+						
+						
 						redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
 
 					}

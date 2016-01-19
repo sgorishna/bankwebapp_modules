@@ -8,8 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import static com.webapp.utils.WebappConstants.ROLE_CUSTOMER;
 import static com.webapp.utils.WebappConstants.INACTIVE;
+
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -18,7 +20,7 @@ import com.webapp.controller.admin.RegisterCustomerController;
 import com.webapp.controller.admin.SendRegistrationMail;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
-
+import com.webapp.utils.SecurityUtills;
 
 @WebServlet("/signUp.php")
 public class SignUpController extends AbstractServletHandler {
@@ -26,55 +28,81 @@ public class SignUpController extends AbstractServletHandler {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
 		gotoToJSP("signUp.jsp", req, resp);
 	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		Customer customer = new Customer();
+
+		String email = request.getParameter("email");
+
+		String login = request.getParameter("login");
 
 		customer.setName(request.getParameter("name"));
 		customer.setGender(request.getParameter("gender"));
-		customer.setLogin(request.getParameter("login"));
+		customer.setLogin(login);
 		customer.setPassword(request.getParameter("password"));
-		customer.setEmail(request.getParameter("email"));
+		customer.setEmail(email);
 		customer.setIdRole(ROLE_CUSTOMER);
 		customer.setActive(INACTIVE);
 
-		Customer d = getCommonService().findByEmail(request.getParameter("email"));
+		Customer d = getCommonService().findByEmail(
+				request.getParameter("email"));
 
-		if (getAdminService().findByLogin(request.getParameter("login")).getLogin() != null) {
+		if (getAdminService().findByLogin(request.getParameter("login"))
+				.getLogin() != null) {
 
-			request.setAttribute("error", "Account with such login  exist already in system");
+			request.setAttribute("error",
+					"Account with such login  exist already in system");
 			doGet(request, response);
 		} else if (d.getEmail() != null) {
 
-			request.setAttribute("error", "Account with such email  exist already in system");
+			request.setAttribute("error",
+					"Account with such email  exist already in system");
 			doGet(request, response);
 
-		} else {
+		}
+
+		else {
 
 			try {
 
+				String hash = SecurityUtills.generateMD5Hash(email, login);
+
+				String link = SecurityUtills.generateVerificationLink(request,
+						login, hash);
+
+				customer.setHash(hash);
+
 				getAdminService().create(customer);
-				SendRegistrationMail.generateAndSendEmail(request.getParameter("email"), request.getParameter("login"), request.getParameter("password"));
+				SendRegistrationMail.generateAndSendVerificationEmail(email,
+						link);
 				gotoToJSP("regSuccess.jsp", request, response);
 			} catch (InvalidDataException e) {
 
-				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+				Logger.getLogger(RegisterCustomerController.class.getName())
+						.log(Level.DEBUG, null, e);
 
 			} catch (AddressException e) {
-				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+				Logger.getLogger(RegisterCustomerController.class.getName())
+						.log(Level.DEBUG, null, e);
 
 			} catch (MessagingException e) {
 
-				getAdminService().delete(getAdminService().findByLogin(request.getParameter("login")));
-e.printStackTrace();
-				Logger.getLogger(RegisterCustomerController.class.getName()).log(Level.DEBUG, null, e);
+				getAdminService().delete(
+						getAdminService().findByLogin(
+								request.getParameter("login")));
+				e.printStackTrace();
+				Logger.getLogger(RegisterCustomerController.class.getName())
+						.log(Level.DEBUG, null, e);
 				request.setAttribute("error", "Invalid email addess");
+				request.setAttribute("e", e.getStackTrace());
 				doGet(request, response);
 			}
 		}

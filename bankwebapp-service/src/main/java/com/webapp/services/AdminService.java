@@ -35,6 +35,10 @@ public interface AdminService {
 	
 	void deactivateAccount(long idAccount);
 	
+	void activateProfile(long idCustomer);
+
+	void deactivateProfile(long idCustomer);
+	
 	
 	
    

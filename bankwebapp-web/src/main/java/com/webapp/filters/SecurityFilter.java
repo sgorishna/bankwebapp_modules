@@ -17,42 +17,23 @@ import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
 @WebFilter(filterName = "securityFilter")
 public class SecurityFilter extends AbstractWebappFilter {
 
+	
+	String [] pages = {"/login.php", "/signUp.php", "/checkLogin", "/checkEmail", "/RemindCredentials", "/image", "/verify" };
+	
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		String servletPath = request.getServletPath();
-
-		if (servletPath.equals("/login.php")) {
-			chain.doFilter(request, response);
-			return;
+		
+		for(int i = 0; i<pages.length; i++){
+			
+			if (servletPath.equals(pages[i])) {
+				chain.doFilter(request, response);
+				return;
+			}
 		}
 		
 
-		if (servletPath.equals("/signUp.php")) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		if (servletPath.equals("/checkLogin")) {
-			chain.doFilter(request, response);
-			return;
-		}
-
-		if (servletPath.equals("/checkEmail")) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-
-		if (servletPath.equals("/RemindCredentials")) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		if (servletPath.equals("/image")) {
-			chain.doFilter(request, response);
-			return;
-		}
 		Customer currentAccount = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 
 		if (currentAccount != null) {

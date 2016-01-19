@@ -37,6 +37,7 @@ public class RegisterCustomerController extends AbstractServletHandler {
 		customer.setEmail(request.getParameter("email"));
 		customer.setIdRole(Integer.parseInt(request.getParameter("role")));
 		customer.setActive(Integer.parseInt(request.getParameter("active")));
+		customer.setHash(null);
 
 		Customer d = getCommonService().findByEmail(request.getParameter("email"));
 

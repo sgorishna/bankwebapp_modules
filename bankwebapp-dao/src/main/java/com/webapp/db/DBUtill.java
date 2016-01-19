@@ -23,8 +23,8 @@ public class DBUtill {
 			 String username = "sgorishna";
 			 String passwd = "root";
 
-			/*Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", username, passwd);*/
+			Class.forName("com.mysql.jdbc.Driver");
+			//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", username, passwd);
 			 conn =
 		 DriverManager.getConnection("jdbc:mysql://aws.cxdt2her6b8h.us-west-2.rds.amazonaws.com:3306/bank",
 			 username, passwd);

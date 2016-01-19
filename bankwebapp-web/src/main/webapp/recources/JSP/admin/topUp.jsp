@@ -99,7 +99,7 @@
     
 </ol>
               
-              <jsp:include page="../modules/resultMsg.jsp"></jsp:include> 
+              
                 <jsp:include page="../modules/admin/moduleTopUp.jsp"></jsp:include> 
                 </div>
                 

@@ -56,7 +56,7 @@
                         </li>
                         
                         <li >
-                            <a href=""><fmt:message key="MY_ACCOUNTS" /></a>
+                            <a href="myAccounts.php"><fmt:message key="MY_ACCOUNTS" /></a>
                         </li>
                     </ul>
                    
