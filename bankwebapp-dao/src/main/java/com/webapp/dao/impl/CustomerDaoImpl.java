@@ -480,7 +480,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			conn = DBUtill.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement preparedStatement2 = conn.prepareStatement("SET SQL_SAFE_UPDATES=0");
-			PreparedStatement preparedStatement = conn.prepareStatement("delete from customer  where DATEDIFF(updated,created) >2 and hash IS NOT NULL");
+			PreparedStatement preparedStatement = conn.prepareStatement("delete from customer  where DATEDIFF(NOW(),created) >2 and hash IS NOT NULL");
 			PreparedStatement preparedStatement3 = conn.prepareStatement("SET SQL_SAFE_UPDATES=1");
 			preparedStatement2.executeUpdate();
 			preparedStatement.executeUpdate();

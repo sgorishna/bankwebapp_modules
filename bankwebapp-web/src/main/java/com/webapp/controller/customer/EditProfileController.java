@@ -1,5 +1,7 @@
 package com.webapp.controller.customer;
 
+import static com.webapp.utils.WebappConstants.applicationPath;
+
 import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
@@ -28,8 +30,8 @@ public class EditProfileController extends AbstractServletHandler {
 Customer customer = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
 		
 		
-		String applicationPath = request.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources"
+		
+		String uploadPhotoPath =  applicationPath(request) + File.separator + "recources"
 				+ File.separator + UPLOAD_DIR;
 		request.setAttribute("path", uploadPhotoPath + File.separator
 				+ customer.getIdCustomer() + ".JPG");

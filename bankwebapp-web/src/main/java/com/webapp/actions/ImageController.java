@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webapp.actions.AbstractServletHandler;
 
 import com.webapp.utils.ImageLoadHelper;
+import static com.webapp.utils.WebappConstants.applicationPath;
 
 @WebServlet("/image")
 public class ImageController extends AbstractServletHandler {
@@ -23,8 +24,8 @@ public class ImageController extends AbstractServletHandler {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
-		String applicationPath = req.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + "images";
+		
+		String uploadPhotoPath = applicationPath(req) + File.separator + "recources" + File.separator + "images";
 		
 		if(req.getParameter("main")!=null){
 		File img = new File(uploadPhotoPath + File.separator + "logo_tr.png");

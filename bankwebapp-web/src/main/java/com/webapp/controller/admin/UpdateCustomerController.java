@@ -1,5 +1,7 @@
 package com.webapp.controller.admin;
 
+import static com.webapp.utils.WebappConstants.applicationPath;
+
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
+import static com.webapp.utils.WebappConstants.applicationPath;
 
 @MultipartConfig
 public class UpdateCustomerController extends AbstractServletHandler {
@@ -26,8 +29,8 @@ public class UpdateCustomerController extends AbstractServletHandler {
 		Customer customer = getCommonService().findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
-		String applicationPath = request.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources"
+		
+		String uploadPhotoPath =  applicationPath(request) + File.separator + "recources"
 				+ File.separator + UPLOAD_DIR;
 		request.setAttribute("path", uploadPhotoPath + File.separator
 				+ customer.getIdCustomer() + ".JPG");

@@ -1,5 +1,7 @@
 package com.webapp.controller.customer;
 
+import static com.webapp.utils.WebappConstants.applicationPath;
+
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
 import java.io.File;
@@ -31,8 +33,8 @@ public class ShowImageController extends AbstractServletHandler {
 
 		byte[] imageInByte;
 
-		String applicationPath = req.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
+		
+		String uploadPhotoPath =  applicationPath(req) + File.separator + "recources" + File.separator + UPLOAD_DIR;
 
 		img = new File(uploadPhotoPath + File.separator + customer.getIdCustomer() + ".JPG");
 

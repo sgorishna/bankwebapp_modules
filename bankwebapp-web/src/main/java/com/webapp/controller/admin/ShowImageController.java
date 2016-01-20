@@ -1,5 +1,7 @@
 package com.webapp.controller.admin;
 
+import static com.webapp.utils.WebappConstants.applicationPath;
+
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
 import java.io.File;
@@ -14,6 +16,7 @@ import com.webapp.actions.AbstractServletHandler;
 import com.webapp.model.Customer;
 import com.webapp.utils.CacheImitation;
 import com.webapp.utils.ImageLoadHelper;
+import static com.webapp.utils.WebappConstants.applicationPath;
 
 @WebServlet("/admin/showImage.php")
 public class ShowImageController extends AbstractServletHandler {
@@ -31,8 +34,8 @@ public class ShowImageController extends AbstractServletHandler {
 
 		byte[] imageInByte;
 
-		String applicationPath = req.getServletContext().getRealPath("");
-		String uploadPhotoPath = applicationPath + File.separator + "recources" + File.separator + UPLOAD_DIR;
+		
+		String uploadPhotoPath = applicationPath(req) + File.separator + "recources" + File.separator + UPLOAD_DIR;
 
 		img = new File(uploadPhotoPath + File.separator + customer.getIdCustomer() + ".JPG");
 
