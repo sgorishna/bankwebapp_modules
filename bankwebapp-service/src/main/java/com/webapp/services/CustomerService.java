@@ -9,5 +9,7 @@ public interface CustomerService {
 	List<Customer> findAll();
 	
 	long findIdCustomerByIdAccount(long idAccount);
+	
+	void deleteUnverifiedProfiles();
 
 }

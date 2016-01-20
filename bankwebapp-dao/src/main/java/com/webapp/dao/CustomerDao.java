@@ -25,5 +25,7 @@ public interface CustomerDao extends IEntityDao<Customer>, Serializable {
 	void deactivateProfile(long idCustomer);
 	
 	void clearHash(long idCustomer);
+	
+	void deleteUnverifiedProfiles();
 
 }

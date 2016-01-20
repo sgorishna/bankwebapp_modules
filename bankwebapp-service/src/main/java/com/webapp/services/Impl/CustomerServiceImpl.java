@@ -25,4 +25,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findIdCustomerByIdAccount(idAccount);
 	}
 
+	public void deleteUnverifiedProfiles() {
+		
+		customerDao.deleteUnverifiedProfiles();
+		
+	}
+
 }

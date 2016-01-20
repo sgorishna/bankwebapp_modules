@@ -474,4 +474,25 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 	}
 
+	public void deleteUnverifiedProfiles() {
+		Connection conn = null;
+		try {
+			conn = DBUtill.getConnection();
+			conn.setAutoCommit(false);
+			PreparedStatement preparedStatement2 = conn.prepareStatement("SET SQL_SAFE_UPDATES=0");
+			PreparedStatement preparedStatement = conn.prepareStatement("delete from customer  where DATEDIFF(updated,created) >2 and hash IS NOT NULL");
+			PreparedStatement preparedStatement3 = conn.prepareStatement("SET SQL_SAFE_UPDATES=1");
+			preparedStatement2.executeUpdate();
+			preparedStatement.executeUpdate();
+			preparedStatement3.executeUpdate();
+
+			conn.commit();
+		} catch (SQLException e) {
+			Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.DEBUG, null, e);
+		} finally {
+			DBUtill.closeConnection(conn);
+		}
+		
+	}
+
 }
