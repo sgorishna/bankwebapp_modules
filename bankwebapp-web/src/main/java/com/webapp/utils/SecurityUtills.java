@@ -14,13 +14,13 @@ import com.webapp.services.CustomerService;
 public class SecurityUtills {
 
 	public static boolean iskRequestedIdAccEqualCurrentIdCustomer(
-			HttpServletRequest request, CustomerService service,
+			HttpServletRequest request, CustomerService customerService,
 			String idAccount) {
 
 		Customer current = (Customer) request.getSession().getAttribute(
 				CURRENT_SESSION_ACCOUNT);
 
-		long idCustomer = service.findIdCustomerByIdAccount(Long
+		long idCustomer = customerService.findIdCustomerByIdAccount(Long
 				.parseLong(idAccount));
 
 		if (idCustomer == current.getIdCustomer()) {

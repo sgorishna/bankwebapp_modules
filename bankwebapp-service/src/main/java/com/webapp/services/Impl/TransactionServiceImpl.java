@@ -13,11 +13,10 @@ import com.webapp.services.TransactionService;
 public class TransactionServiceImpl implements TransactionService {
 
 	private static TransactionDao transactionDao;
-	private static AccountDao accountDao;
 
-	public TransactionServiceImpl() {
+	public TransactionServiceImpl(TransactionDao transactionDao) {
 		this.transactionDao = new TransactionDaoImpl();
-		this.accountDao = new AccountDaoImpl();
+
 	}
 
 	public List<Transaction> findByIdCustomer(long idCustomer) {
@@ -25,51 +24,41 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionDao.findByIdCustomer(idCustomer);
 	}
 
-	
-
 	public void create(Transaction transaction) {
 		transactionDao.create(transaction);
 
 	}
 
 	public void topUpBalance(Transaction transaction) {
-		 
-		transactionDao.topUpBalance(transaction);
-		
-	}
 
-	public Account findByAccountNumber(String accountNumber) {
-		
-		return accountDao.findByAccountNumber(accountNumber);
+		transactionDao.topUpBalance(transaction);
+
 	}
 
 	public void withdrawBalance(Transaction transaction) {
-		
+
 		transactionDao.withdrawBalance(transaction);
 	}
 
 	public List<Transaction> findByIdAccount(long idAccount) {
-		
+
 		return transactionDao.findByIdAccount(idAccount);
 	}
 
 	public List<Transaction> transferredFundsByIdAccount(long idAccount) {
-		
+
 		return transactionDao.transferredFundsByIdAccount(idAccount);
 	}
 
 	public List<Transaction> receivedFundsByIdAccount(long idAccount) {
-		
+
 		return transactionDao.receivedFundsByIdAccount(idAccount);
 	}
 
 	public void transferFunds(Transaction transaction) {
-		
+
 		transactionDao.transferFunds(transaction);
-		
+
 	}
-
-	
-
 
 }

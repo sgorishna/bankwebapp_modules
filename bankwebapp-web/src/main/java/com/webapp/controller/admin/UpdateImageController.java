@@ -14,12 +14,13 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.Part;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
-
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.utils.ImageLoadHelper;
 
 @WebServlet("/admin/updateImage")
@@ -27,13 +28,16 @@ import com.webapp.utils.ImageLoadHelper;
 public class UpdateImageController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
+
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
-		Customer customer = getCommonService().findById(IdCustomer);
+		Customer customer = customerService.findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
 		request.setAttribute("path", uploadPhotoPath(request) + File.separator + customer.getIdCustomer() + ".JPG");
@@ -74,7 +78,7 @@ public class UpdateImageController extends AbstractServletHandler {
 					if (ImageLoadHelper.checkImgType(photoName) == true) {
 
 						ImageLoadHelper.saveImgOnDisk(customer, IdCustomer, photoName, filePart,
-								uploadPhotoPath(request), getCommonService());
+								uploadPhotoPath(request), customerService);
 						redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
 
 					} else {
@@ -86,7 +90,7 @@ public class UpdateImageController extends AbstractServletHandler {
 
 				} else {
 
-					ImageLoadHelper.saveImgInDatabase(getCommonService(), IdCustomer, customer, bytes);
+					ImageLoadHelper.saveImgInDatabase(customerService, IdCustomer, customer, bytes);
 
 					redirectRequest("/admin/updateCustomer.php?IdCustomer=" + IdCustomer, request, response);
 				}

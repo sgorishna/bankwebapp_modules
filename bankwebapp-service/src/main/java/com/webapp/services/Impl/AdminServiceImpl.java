@@ -4,28 +4,34 @@ import java.util.List;
 
 import com.webapp.dao.AccountDao;
 import com.webapp.dao.CustomerDao;
-import com.webapp.dao.TransactionDao;
-import com.webapp.dao.impl.AccountDaoImpl;
-import com.webapp.dao.impl.CustomerDaoImpl;
-import com.webapp.dao.impl.TransactionDaoImpl;
+
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
-import com.webapp.model.Transaction;
+
 import com.webapp.services.AdminService;
 
 public class AdminServiceImpl implements AdminService {
 
-	private static AccountDao accountDao;
+	private  AccountDao accountDao;
 
-	private static CustomerDao customerDao;
+	private  CustomerDao customerDao;
 	
 	
 
-	public AdminServiceImpl() {
+	
+	public AdminServiceImpl( AccountDao accountDao) {
 
-		this.accountDao = new AccountDaoImpl();
-		this.customerDao = new CustomerDaoImpl();
+		this.accountDao = accountDao;
+		
+		
+
+	}
+	
+	
+	public AdminServiceImpl( CustomerDao customerDao) {
+
+		this.customerDao = customerDao;
 		
 		
 
@@ -105,5 +111,6 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	
 
 }

@@ -1,7 +1,6 @@
 package com.webapp.controller.customer;
 
 import static com.webapp.utils.WebappConstants.applicationPath;
-
 import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
@@ -15,13 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
 
 @MultipartConfig
 @WebServlet("/customer/editProfile.php")
 public class EditProfileController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -56,7 +60,7 @@ Customer customer = (Customer) request.getSession().getAttribute(CURRENT_SESSION
 
 		customer.setIdCustomer(current.getIdCustomer());
 
-		getCommonService().update(customer);
+		customerService.update(customer);
 		
 		request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
 		request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);

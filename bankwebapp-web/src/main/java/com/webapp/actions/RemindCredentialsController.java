@@ -17,8 +17,11 @@ import org.apache.log4j.Logger;
 
 import com.webapp.controller.admin.RegisterCustomerController;
 import com.webapp.controller.admin.SendRegistrationMail;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
 
 @WebServlet("/RemindCredentials")
 public class RemindCredentialsController extends AbstractServletHandler {
@@ -27,6 +30,7 @@ public class RemindCredentialsController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
 
+	CustomerService service = new CustomerServiceImpl(new CustomerDaoImpl());
 
 
 	@Override
@@ -40,7 +44,7 @@ public class RemindCredentialsController extends AbstractServletHandler {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		
-		Customer c = getCommonService().findByEmail(email);
+		Customer c = service.findByEmail(email);
 		
 		
 		if(c.getEmail() != null){

@@ -11,14 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.model.Account;
 import com.webapp.model.Transaction;
+import com.webapp.services.AccountService;
+import com.webapp.services.CustomerService;
+import com.webapp.services.TransactionService;
+import com.webapp.services.Impl.AccountServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
+import com.webapp.services.Impl.TransactionServiceImpl;
 import com.webapp.utils.SecurityUtills;
 
 @WebServlet("/customer/transferFunds.php")
 public class TransferFundsController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
+	TransactionService transactionService = new TransactionServiceImpl(new TransactionDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -28,11 +41,11 @@ public class TransferFundsController extends AbstractServletHandler {
 
 		boolean result = SecurityUtills
 				.iskRequestedIdAccEqualCurrentIdCustomer(request,
-						getCustomerService(), idAccount);
+						customerService, idAccount);
 
 		if (result == true) {
 
-			Account a = getAdminService().findById(Long.parseLong(idAccount));
+			Account a = accountService.findById(Long.parseLong(idAccount));
 
 			request.setAttribute("accountNumber", a.getAccountNumber());
 
@@ -55,8 +68,8 @@ public class TransferFundsController extends AbstractServletHandler {
 		String receiverAccountNumber = request.getParameter("receiver");
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
 
-		Account senderAcc = getAdminService().findById(idAccount);
-		Account receiverAcc = getAdminService().findByAccountNumber(
+		Account senderAcc = accountService.findById(idAccount);
+		Account receiverAcc = accountService.findByAccountNumber(
 				receiverAccountNumber);
 
 		if (receiverAcc.getAccountNumber() == null) {
@@ -96,8 +109,8 @@ public class TransferFundsController extends AbstractServletHandler {
 				transaction.setIdAccountSender(idAccount);
 				transaction.setComments(comments);
 
-				getTransactionService().transferFunds(transaction);
-				;
+				transactionService.transferFunds(transaction);
+				
 
 				request.setAttribute("success", "Transfer successfull");
 				doGet(request, response);

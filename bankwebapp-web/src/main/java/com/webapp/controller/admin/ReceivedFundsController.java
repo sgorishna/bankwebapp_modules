@@ -8,12 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.model.Account;
+import com.webapp.services.AccountService;
+import com.webapp.services.TransactionService;
+import com.webapp.services.Impl.AccountServiceImpl;
+import com.webapp.services.Impl.TransactionServiceImpl;
 
 @WebServlet("/admin/receivedFunds.php")
 public class ReceivedFundsController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
+	TransactionService transactionService = new TransactionServiceImpl(new TransactionDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -22,12 +31,12 @@ public class ReceivedFundsController extends AbstractServletHandler {
 		
 		String idAccount = request.getParameter("IdAccount");
 
-		request.setAttribute("transactions", getTransactionService()
+		request.setAttribute("transactions", transactionService
 				.receivedFundsByIdAccount(Long.parseLong(idAccount)));
 		request.setAttribute("Received", "Received");
 		
 			
-		Account a = getAdminService().findById(Long.parseLong(idAccount));
+		Account a = accountService.findById(Long.parseLong(idAccount));
 
 			request.setAttribute("idCustomer", a.getIdCustomer());
 

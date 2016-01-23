@@ -9,8 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.model.Account;
 import com.webapp.model.Transaction;
+import com.webapp.services.AccountService;
+import com.webapp.services.TransactionService;
+import com.webapp.services.Impl.AccountServiceImpl;
+import com.webapp.services.Impl.TransactionServiceImpl;
 
 import static com.webapp.utils.WebappConstants.DEBIT;
 
@@ -19,13 +25,16 @@ public class WithdrawController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
 
+	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
+	TransactionService transactionService = new TransactionServiceImpl(new TransactionDaoImpl());
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
 		Long idAccount = Long.parseLong(request.getParameter("IdAccount"));
 		
-		Account a = getAdminService().findById(idAccount);
+		Account a = accountService.findById(idAccount);
 			request.setAttribute("account", a);
 			
 			gotoToJSP("admin/withdraw.jsp", request, response);
@@ -42,7 +51,7 @@ public class WithdrawController extends AbstractServletHandler {
 		Long idAccount = Long.parseLong(request.getParameter("IdAccount"));
 		String comments = request.getParameter("comment");
 		
-		Account a = getAdminService().findById(idAccount);
+		Account a = accountService.findById(idAccount);
 		
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
 		
@@ -72,7 +81,7 @@ public class WithdrawController extends AbstractServletHandler {
 		transaction.setCurrency(a.getCurrency());
 		transaction.setComments(comments);
 		
-		getTransactionService().withdrawBalance(transaction);
+		transactionService.withdrawBalance(transaction);
 		
 		
 		request.setAttribute("success", "Withdraw successfull");

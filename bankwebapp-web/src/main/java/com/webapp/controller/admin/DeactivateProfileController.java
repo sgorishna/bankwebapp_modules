@@ -8,12 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.services.AccountService;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.AccountServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
 
 
 @WebServlet("/admin/deactivateProfile")
 public class DeactivateProfileController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -23,7 +31,7 @@ public class DeactivateProfileController extends AbstractServletHandler {
 
 		
 
-		getAdminService().deactivateProfile(idCustomer);
+		customerService.deactivateProfile(idCustomer);
 
 		redirectRequest("/admin/customerList.php", request, response);
 	}

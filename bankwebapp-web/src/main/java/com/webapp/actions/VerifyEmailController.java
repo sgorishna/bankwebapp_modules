@@ -14,8 +14,13 @@ import org.apache.log4j.Logger;
 
 import com.webapp.controller.admin.RegisterCustomerController;
 import com.webapp.controller.admin.SendRegistrationMail;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
+import com.webapp.services.AdminService;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.AdminServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.utils.SecurityUtills;
 
 @WebServlet("/verify")
@@ -25,6 +30,7 @@ public class VerifyEmailController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
 	
+	CustomerService service = new CustomerServiceImpl(new CustomerDaoImpl());
 	
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -34,7 +40,7 @@ public class VerifyEmailController extends AbstractServletHandler {
 
 		String hash = request.getParameter("hash");
 
-		Customer c = getAdminService().findByLogin(login);
+		Customer c = service.findByLogin(login);
 		long idCustomer = c.getIdCustomer();
 
 		if (c.getHash() != null) {
@@ -43,9 +49,9 @@ public class VerifyEmailController extends AbstractServletHandler {
 
 			if (result == true) {
 
-				getAdminService().activateProfile(c.getIdCustomer());
+				service.activateProfile(c.getIdCustomer());
 
-			getCommonService().clearHash(idCustomer);
+			service.clearHash(idCustomer);
 				request.setAttribute("success", "Your account has been verified ");
 				gotoToJSP("verify.jsp", request, response);
 			} else {

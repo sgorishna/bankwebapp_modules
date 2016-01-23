@@ -10,13 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
+import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.model.Account;
 import com.webapp.model.Customer;
+import com.webapp.services.AccountService;
+import com.webapp.services.CustomerService;
+import com.webapp.services.TransactionService;
+import com.webapp.services.Impl.AccountServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
+import com.webapp.services.Impl.TransactionServiceImpl;
 
 @WebServlet("/customer/transferredFunds.php")
 public class TransferredFundsController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
+	TransactionService transactionService = new TransactionServiceImpl(new TransactionDaoImpl());
+	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -27,16 +40,16 @@ public class TransferredFundsController extends AbstractServletHandler {
 
 		String idAccount = request.getParameter("IdAccount");
 
-		long idCustomer = getCustomerService().findIdCustomerByIdAccount(
+		long idCustomer = customerService.findIdCustomerByIdAccount(
 				Long.parseLong(idAccount));
 
 		if (idCustomer == current.getIdCustomer()) {
 
-			request.setAttribute("transactions", getTransactionService()
+			request.setAttribute("transactions", transactionService
 					.transferredFundsByIdAccount(Long.parseLong(idAccount)));
 			request.setAttribute("Transferred", "Transferred");
 
-			Account a = getAdminService().findById(Long.parseLong(idAccount));
+			Account a = accountService.findById(Long.parseLong(idAccount));
 
 			request.setAttribute("idCustomer", a.getIdCustomer());
 

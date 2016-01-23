@@ -1,7 +1,6 @@
 package com.webapp.controller.admin;
 
 import static com.webapp.utils.WebappConstants.applicationPath;
-
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
 import java.io.File;
@@ -13,21 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.utils.CacheImitation;
 import com.webapp.utils.ImageLoadHelper;
+
 import static com.webapp.utils.WebappConstants.applicationPath;
 
 @WebServlet("/admin/showImage.php")
 public class ShowImageController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(req.getParameter("IdCustomer"));
-		Customer customer = getCommonService().findById(IdCustomer);
+		Customer customer =customerService.findById(IdCustomer);
 		req.setAttribute("customer", customer);
 
 		File img = null;

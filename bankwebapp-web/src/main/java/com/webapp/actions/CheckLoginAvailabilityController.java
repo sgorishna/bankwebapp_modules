@@ -7,10 +7,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
+import com.webapp.services.AdminService;
+import com.webapp.services.Impl.AdminServiceImpl;
 
 @WebServlet("/checkLogin")
 public class CheckLoginAvailabilityController extends AbstractServletHandler {
+	
+	
+	AdminService service = new AdminServiceImpl(new CustomerDaoImpl());
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +25,7 @@ public class CheckLoginAvailabilityController extends AbstractServletHandler {
 
 		String login = request.getParameter("login");
 
-		Customer с = getAdminService().findByLogin(login);
+		Customer с = service.findByLogin(login);
 
 		if (с.getLogin() != null) {
 

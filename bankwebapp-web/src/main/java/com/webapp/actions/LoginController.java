@@ -17,6 +17,8 @@ import org.apache.log4j.Logger;
 
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
+import com.webapp.services.DataService;
+import com.webapp.services.Impl.DataServiceImpl;
 
 @WebServlet("/login.php")
 public class LoginController extends AbstractServletHandler {
@@ -32,6 +34,8 @@ public class LoginController extends AbstractServletHandler {
 		homePages.put(ROLE_ADMIN, "/admin/home.php");
 		homePages.put(ROLE_CUSTOMER, "/customer/home.php");
 	}
+	
+	DataService service =  new DataServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,7 +56,7 @@ public class LoginController extends AbstractServletHandler {
 
 		try {
 
-			Customer customer = getDataService().login(login, password);
+			Customer customer = service.login(login, password);
 
 			String homePage = homePages.get(customer.getIdRole());
 

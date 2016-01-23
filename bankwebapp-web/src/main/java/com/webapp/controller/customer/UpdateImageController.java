@@ -18,12 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.utils.ImageLoadHelper;
 
 @WebServlet("/customer/updateImage")
 @MultipartConfig
 public class UpdateImageController extends AbstractServletHandler {
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,10 +48,7 @@ public class UpdateImageController extends AbstractServletHandler {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
-		
-		//Customer current = (Customer) request.getSession().getAttribute(CURRENT_SESSION_ACCOUNT);
-
+	
 		InputStream inputStream = null;
 
 		Part filePart = request.getPart("photo");
@@ -74,7 +76,7 @@ public class UpdateImageController extends AbstractServletHandler {
 					if (ImageLoadHelper.checkImgType(photoName) == true) {
 
 						ImageLoadHelper.saveImgOnDisk(customer, customer.getIdCustomer(), photoName, filePart,
-								uploadPhotoPath(request), getCommonService());
+								uploadPhotoPath(request), customerService);
 						
 						request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
 						request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);
@@ -89,7 +91,7 @@ public class UpdateImageController extends AbstractServletHandler {
 
 				} else {
 
-					ImageLoadHelper.saveImgInDatabase(getCommonService(), customer.getIdCustomer(), customer, bytes);
+					ImageLoadHelper.saveImgInDatabase(customerService, customer.getIdCustomer(), customer, bytes);
 
 					request.getSession().removeAttribute(CURRENT_SESSION_ACCOUNT);
 					request.getSession().setAttribute(CURRENT_SESSION_ACCOUNT, customer);

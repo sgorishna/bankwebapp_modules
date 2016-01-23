@@ -8,12 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.AccountDaoImpl;
 import com.webapp.model.Account;
+import com.webapp.services.AccountService;
+import com.webapp.services.Impl.AccountServiceImpl;
 
 @WebServlet("/admin/deactivateAccount")
 public class DeactivateAccountController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,11 +26,11 @@ public class DeactivateAccountController extends AbstractServletHandler {
 		
 		Long idAccount = Long.parseLong(request.getParameter("idAccount"));
 		
-		Account a = getAdminService().findById(idAccount);
+		Account a = accountService.findById(idAccount);
 		
 		Long idCustomer= a.getIdCustomer();
 		
-		getAdminService().deactivateAccount(idAccount);
+		accountService.deactivateAccount(idAccount);
 		
 		
 		redirectRequest(

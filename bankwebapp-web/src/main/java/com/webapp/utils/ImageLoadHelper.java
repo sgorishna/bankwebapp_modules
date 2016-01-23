@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.Part;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.webapp.model.Customer;
-import com.webapp.services.CommonService;
+
+import com.webapp.services.CustomerService;
 
 public class ImageLoadHelper {
 
@@ -109,7 +109,7 @@ public class ImageLoadHelper {
 		return photoSaveDir;
 	}
 	
-	public static void saveImgOnDisk( Customer customer, Long IdCustomer, String photoName , Part filePart, String uploadPhotoPath, CommonService service) throws IOException{
+	public static void saveImgOnDisk( Customer customer, Long IdCustomer, String photoName , Part filePart, String uploadPhotoPath, CustomerService service) throws IOException{
 		
 		customer.setIdCustomer(IdCustomer);
 
@@ -126,7 +126,7 @@ public class ImageLoadHelper {
 		
 	}
 	
-	public static void saveImgInDatabase(CommonService service, Long IdCustomer , Customer customer, byte[] imgbytes){
+	public static void saveImgInDatabase(CustomerService service, Long IdCustomer , Customer customer, byte[] imgbytes){
 		
 		Customer c = service.findById(IdCustomer);
 

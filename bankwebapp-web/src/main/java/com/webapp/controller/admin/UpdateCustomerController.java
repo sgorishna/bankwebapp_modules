@@ -1,7 +1,6 @@
 package com.webapp.controller.admin;
 
 import static com.webapp.utils.WebappConstants.applicationPath;
-
 import static com.webapp.utils.WebappConstants.UPLOAD_DIR;
 
 import java.io.File;
@@ -13,20 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.actions.AbstractServletHandler;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.CustomerServiceImpl;
+
 import static com.webapp.utils.WebappConstants.applicationPath;
 
 @MultipartConfig
 public class UpdateCustomerController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		long IdCustomer = Long.parseLong(request.getParameter("IdCustomer"));
-		Customer customer = getCommonService().findById(IdCustomer);
+		Customer customer = customerService.findById(IdCustomer);
 		request.setAttribute("customer", customer);
 
 		
@@ -54,7 +59,7 @@ public class UpdateCustomerController extends AbstractServletHandler {
 		customer.setIdCustomer(Long.parseLong(request
 				.getParameter("IdCustomer")));
 
-		getCommonService().update(customer);
+		customerService.update(customer);
 
 		redirectRequest(
 				"/admin/updateCustomer.php?IdCustomer="

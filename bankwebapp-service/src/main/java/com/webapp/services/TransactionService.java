@@ -7,20 +7,16 @@ import com.webapp.model.Transaction;
 
 public interface TransactionService {
 
-	List<Transaction> findByIdCustomer(long idCustomer);
-	List<Transaction> findByIdAccount(long idAccount);
-
-	Account findByAccountNumber(String accountNumber);
-
-	void create(Transaction transaction);
-
-	 void topUpBalance(Transaction transaction);
-	 
-	 void withdrawBalance(Transaction transaction);
-	 
-	 List<Transaction> transferredFundsByIdAccount(long idAccount);
+List<Transaction> findByIdCustomer(long idCustomer);
 	
-	 List<Transaction> receivedFundsByIdAccount(long idAccount);
-	 
-	 void transferFunds(Transaction transaction);
+	List<Transaction> findByIdAccount(long idAccount);
+	
+	void topUpBalance(Transaction transaction);
+	
+	void withdrawBalance(Transaction transaction);
+	
+	List<Transaction> transferredFundsByIdAccount(long idAccount);
+	List<Transaction> receivedFundsByIdAccount(long idAccount);
+	
+	void transferFunds(Transaction transaction);
 }

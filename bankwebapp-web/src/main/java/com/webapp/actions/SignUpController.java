@@ -13,19 +13,28 @@ import static com.webapp.utils.WebappConstants.ROLE_CUSTOMER;
 import static com.webapp.utils.WebappConstants.INACTIVE;
 
 
+
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.webapp.controller.admin.RegisterCustomerController;
 import com.webapp.controller.admin.SendRegistrationMail;
+import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.exceptions.InvalidDataException;
 import com.webapp.model.Customer;
+import com.webapp.services.AdminService;
+import com.webapp.services.CustomerService;
+import com.webapp.services.Impl.AdminServiceImpl;
+import com.webapp.services.Impl.CustomerServiceImpl;
 import com.webapp.utils.SecurityUtills;
 
 @WebServlet("/signUp.php")
 public class SignUpController extends AbstractServletHandler {
 
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService service = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -52,10 +61,10 @@ public class SignUpController extends AbstractServletHandler {
 		customer.setIdRole(ROLE_CUSTOMER);
 		customer.setActive(INACTIVE);
 
-		Customer d = getCommonService().findByEmail(
+		Customer d = service.findByEmail(
 				request.getParameter("email"));
 
-		if (getAdminService().findByLogin(request.getParameter("login"))
+		if (service.findByLogin(request.getParameter("login"))
 				.getLogin() != null) {
 
 			request.setAttribute("error",
@@ -80,23 +89,19 @@ public class SignUpController extends AbstractServletHandler {
 
 				customer.setHash(hash);
 
-				getAdminService().create(customer);
+				service.create(customer);
 				SendRegistrationMail.generateAndSendVerificationEmail(email,
 						link);
 				gotoToJSP("regSuccess.jsp", request, response);
-			} catch (InvalidDataException e) {
-
-				Logger.getLogger(RegisterCustomerController.class.getName())
-						.log(Level.DEBUG, null, e);
-
+			
 			} catch (AddressException e) {
 				Logger.getLogger(RegisterCustomerController.class.getName())
 						.log(Level.DEBUG, null, e);
 
 			} catch (MessagingException e) {
 
-				getAdminService().delete(
-						getAdminService().findByLogin(
+				service.delete(
+						service.findByLogin(
 								request.getParameter("login")));
 				e.printStackTrace();
 				Logger.getLogger(RegisterCustomerController.class.getName())
