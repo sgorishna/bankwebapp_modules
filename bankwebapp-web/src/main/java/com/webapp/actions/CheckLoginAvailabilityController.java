@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.webapp.dao.impl.CustomerDaoImpl;
 import com.webapp.model.Customer;
-import com.webapp.services.AdminService;
-import com.webapp.services.Impl.AdminServiceImpl;
+
+import com.webapp.services.CustomerService;
+
+import com.webapp.services.Impl.CustomerServiceImpl;
 
 @WebServlet("/checkLogin")
 public class CheckLoginAvailabilityController extends AbstractServletHandler {
 	
 	
-	AdminService service = new AdminServiceImpl(new CustomerDaoImpl());
+	CustomerService service = new CustomerServiceImpl(new CustomerDaoImpl());
 
 	private static final long serialVersionUID = 1L;
 
