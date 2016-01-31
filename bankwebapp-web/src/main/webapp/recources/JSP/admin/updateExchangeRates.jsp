@@ -7,7 +7,7 @@
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
        
-        <title>Home</title>
+        <title>Accounts</title>
         <style>
         <!-- Bootstrap core CSS -->
          
@@ -18,6 +18,12 @@
          <%@include file="/recources/css/dashboard.css" %>
          
       </style>  
+      
+       <script type="text/javascript" >
+    
+     <%@include file="/recources/js/actions.js" %>  
+      
+     </script> 
        
     </head>
     <body>
@@ -25,12 +31,10 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                   
-                   <img class="profile-img" src="../image"
+                    <a class="navbar-brand" >MyBank</a>
+                    
+                      <img class="profile-img" src="../image"
                    >
-                  
-                 <a class = "navbar-brand"> MyBank</a> 
-                    
-                    
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -48,16 +52,16 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                       
                         <li >
                             <a href="home.php"><fmt:message key="HOME" /> <span class="sr-only">(current)</span></a>
                         </li>
-                       
+                        <li></li>
+                        <li></li>
                         <li >
-                            <a href="customerList.php"><fmt:message key="CUSTOMERS" /> <span class="sr-only">(current)</span></a>
+                            <a href="customerList.php"><fmt:message key="CUSTOMERS" /></a>
                         </li>
-                        <li></li>
-                        <li></li>
+                        
+                        
                         <li >
                             <a href="accountList.php"><fmt:message key="ACCOUNTS" /></a>
                         </li>
@@ -69,7 +73,7 @@
                         
                     </ul>
                     
-                     <ul class="nav nav-sidebar">
+                    <ul class="nav nav-sidebar">
                         <li >
                             <a href="exchangeRates"><fmt:message key="EXCHANGE_RATES" /></a>
                       </li>   
@@ -78,9 +82,11 @@
                   
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h2 class="sub-header" ><fmt:message key="ADMIN_PANEL" /></h2>
-                
+                    <h2 class="sub-header" ><fmt:message key="UPDATE_EXCHANGE_RATES" /></h2>
+                  <jsp:include page="../modules/admin/moduleUpdateExchangeRates.jsp"></jsp:include> 
                 </div>
+                
+               
             </div>
         </div>
        

@@ -18,7 +18,7 @@ import static com.webapp.utils.WebappConstants.CURRENT_SESSION_ACCOUNT;
 public class SecurityFilter extends AbstractWebappFilter {
 
 	
-	String [] pages = {"/login.php", "/signUp.php", "/checkLogin", "/checkEmail", "/RemindCredentials", "/image", "/verify" };
+	String [] pages = {"/login.php", "/signUp.php", "/checkLogin", "/checkEmail",  "/RemindCredentials", "/image", "/verify" };
 	
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

@@ -25,6 +25,8 @@ public class Transaction implements Serializable {
 	private String currency;
 
 	private BigDecimal amount;
+	
+	private BigDecimal amountAfterConversion;
 
 	private String comments;
 
@@ -116,6 +118,15 @@ public class Transaction implements Serializable {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+
+	public BigDecimal getAmountAfterConversion() {
+		return amountAfterConversion;
+	}
+
+	public void setAmountAfterConversion(BigDecimal amountAfterConversion) {
+		this.amountAfterConversion = amountAfterConversion;
 	}
 
 }

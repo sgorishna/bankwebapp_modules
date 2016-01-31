@@ -13,16 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.webapp.actions.AbstractServletHandler;
 import com.webapp.dao.impl.AccountDaoImpl;
 import com.webapp.dao.impl.CustomerDaoImpl;
+import com.webapp.dao.impl.ExchangeRateDaoImpl;
 import com.webapp.dao.impl.TransactionDaoImpl;
 import com.webapp.model.Account;
 import com.webapp.model.Transaction;
 import com.webapp.services.AccountService;
 import com.webapp.services.CustomerService;
+import com.webapp.services.ExchangeRatesService;
 import com.webapp.services.TransactionService;
 import com.webapp.services.Impl.AccountServiceImpl;
 import com.webapp.services.Impl.CustomerServiceImpl;
+import com.webapp.services.Impl.ExchangeRatesServiceImpl;
 import com.webapp.services.Impl.TransactionServiceImpl;
 import com.webapp.utils.SecurityUtills;
+import com.webapp.utils.TransactionHelper;
 
 @WebServlet("/customer/transferFunds.php")
 public class TransferFundsController extends AbstractServletHandler {
@@ -32,6 +36,8 @@ public class TransferFundsController extends AbstractServletHandler {
 	AccountService accountService = new AccountServiceImpl(new AccountDaoImpl());
 	CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
 	TransactionService transactionService = new TransactionServiceImpl(new TransactionDaoImpl());
+	
+	ExchangeRatesService ratesService =  new ExchangeRatesServiceImpl(new ExchangeRateDaoImpl());
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -96,9 +102,17 @@ public class TransferFundsController extends AbstractServletHandler {
 			}
 
 			else {
+				
+				long senderCur = senderAcc.getIdCurrency();
+				
+				long receiverCur = receiverAcc.getIdCurrency();
+				
+				BigDecimal exchangeRate  = TransactionHelper.getExchangeRate(senderCur, receiverCur, ratesService);
+				
 				Transaction transaction = new Transaction();
 
 				transaction.setAmount(amount);
+				transaction.setAmountAfterConversion(amount.multiply(exchangeRate));
 				transaction.setIdAccountReceiver(receiverAcc.getIdAccount());
 				transaction.setReceiverAccountNumber(receiverAcc
 						.getAccountNumber());

@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService{
 
 	public Account findByAccountNumber(String accountNumber) {
 		
-		return findByAccountNumber(accountNumber);
+		return accountDao.findByAccountNumber(accountNumber);
 	}
 
 	public void activateAccount(long idAccount) {
