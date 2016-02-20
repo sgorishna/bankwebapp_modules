@@ -14,13 +14,13 @@
 					<div class="form-group">
 
 						<label class="control-label" for="sender"><fmt:message
-								key="FROM_ACCOUNT" /></label> <c:out value="${accountNumber}" />
+								key="FROM_ACCOUNT" /></label> <c:out value="${requestScope.sender}" />
 
 					</div>
 
 
 					<label class="control-label" for="receiver"><fmt:message
-							key="TO_ACCOUNT" /></label>  
+							key="TO_ACCOUNT" /></label>  <c:out value="${requestScope.receiver}" /> 
 						
 						
 				</div>
@@ -29,7 +29,7 @@
 				<div class="form-group">
 
 					<label class="control-label" for="amount"><fmt:message
-							key="AMOUNT" />  , <c:out value="${account.currency}" />
+							key="AMOUNT" />   <c:out value="${requestScope.amount}" />
 							
 							</label> 
 				</div>
@@ -37,7 +37,7 @@
 				<div class="form-group">
 
 					<label class="control-label" for="comment"><fmt:message
-							key="COMMENTS" /></label>  
+							key="COMMENTS" /></label> <c:out value="${requestScope.comments}" />  
 							
 				</div>
 
@@ -45,11 +45,8 @@
 			
 
 	
-				<button type="submit" class="btn  btn-primary" value="Submit">Submit</button>
+				<button type="submit" class="btn  btn-primary" value="Submit">Confirm</button>
 			</form>
 
 
-		</td>
-
-	</tr>
-</table>
+		

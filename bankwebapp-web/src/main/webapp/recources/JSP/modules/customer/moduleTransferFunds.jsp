@@ -101,7 +101,7 @@
 		<td>&nbsp &nbsp &nbsp &nbsp &nbsp</td>
 		<td>
 
-			<form role="form" name = "form" method="POST" action='transferFunds.php?IdAccount=${account.idAccount}'>
+			<form role="form" name = "form" method="POST" action='transferFundsConfirmation.php?IdAccount=${account.idAccount}'>
 				<div class="form-group">
 
 					<div class="form-group">

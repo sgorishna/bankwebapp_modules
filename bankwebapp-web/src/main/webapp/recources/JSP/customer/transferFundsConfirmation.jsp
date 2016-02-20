@@ -65,8 +65,8 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h2 class="sub-header" ><fmt:message key="CONFIRM_TRANSFER_FUNDS" /></h2>
                 
-                </div>
                 
+                <ol class="breadcrumb">
                 <li><a href="MyProfile.php"><fmt:message key="MY_PROFILE" /></a>
     </li>
     
@@ -80,7 +80,7 @@
     
 </ol>
            
-           <jsp:include page="../modules/customer/module¬³onfirmTransferFunds.jsp"></jsp:include>   
+            <jsp:include page="../modules/customer/moduleConfirmTransferFunds.jsp"></jsp:include>    
                 </div>
                 
             </div>
