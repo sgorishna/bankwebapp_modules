@@ -78,7 +78,7 @@ public class TransferFundsConfirmationController extends AbstractServletHandler 
 			}
 
 			else {
-				
+				request.setAttribute("idAccount", idAccount);
 				request.setAttribute("sender", senderAccountNumber);
 				request.setAttribute("receiver", receiverAccountNumber);
 				request.setAttribute("amount", amount);

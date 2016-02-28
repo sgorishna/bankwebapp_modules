@@ -70,22 +70,18 @@ public class TransferFundsController extends AbstractServletHandler {
 
 		Long idAccount = Long.parseLong(request.getParameter("IdAccount"));
 		String comments = request.getParameter("comment");
-		// String senderAccountNumber = request.getParameter("sender");
+	    String senderAccountNumber = request.getParameter("sender");
 		String receiverAccountNumber = request.getParameter("receiver");
 		BigDecimal amount = new BigDecimal(request.getParameter("amount"));
 
-		Account senderAcc = accountService.findById(idAccount);
+		//Account senderAcc = accountService.findById(idAccount);
+		Account senderAcc = accountService.findByAccountNumber(
+				senderAccountNumber);
 		Account receiverAcc = accountService.findByAccountNumber(
 				receiverAccountNumber);
 
-		if (receiverAcc.getAccountNumber() == null) {
-
-			request.setAttribute("error", "Account does not exist in system");
-			doGet(request, response);
-
-		} else {
-
-			String senderAccountNumber = senderAcc.getAccountNumber();
+		
+			
 
 			String actype = senderAcc.getAccountType();
 
@@ -97,7 +93,9 @@ public class TransferFundsController extends AbstractServletHandler {
 
 					request.setAttribute("error", "Insufficient credit");
 				}
-				doGet(request, response);
+				
+				//сделать перевод на страницу unsuccessfull transfer
+				//doGet(request, response);
 
 			}
 
@@ -127,9 +125,10 @@ public class TransferFundsController extends AbstractServletHandler {
 				
 
 				request.setAttribute("success", "Transfer successfull");
+				//redirect to the success page
 				doGet(request, response);
 			}
 		}
 
-	}
+	
 }
